@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="ko-KR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SignIn / SingUp Flow</title>
+    <link rel="stylesheet" href="/src/pages/log-in/log-in.css" />
+    <script type="module" src="/src/pages/log-in.js"></script>
+  </head>
+  <body>
+    <div class="wrap">
+      <!-- STEP 1 : 이메일 입력 -->
+      <section class="card" data-step="email" id="setp-email" class="active">
+        <header class="logo">
+          <span class="nike-logo" aria-hidden="true"></span>
+        </header>
+        <h1>가입 또는 로그인을 위해 이메일을 입력하세요.</h1>
+
+        <form id="form-email">
+          <div class="field">
+            <label for="email">이메일</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="이메일"
+              required
+              autocomplete="username"
+            />
+          </div>
+
+          <p class="helper">
+            계속 진행하면 나이키의
+            <a href="#" class="link">개인정보 처리방침</a> 및
+            <a href="#" class="link">이용약관</a>에 동의하게 됩니다.
+          </p>
+
+          <div class="btns">
+            <button class="btn primary" type="submit">계속</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- STEP 2 : 비밀번호 입력 -->
+      <section class="card" data-step="password" id="step-password">
+        <header class="logo">
+          <span class="nike-logo" aria-hidden="true"></span>
+        </header>
+        <h1>비밀번호를 입력하세요</h1>
+        <div id="emailEcho" class="sub"></div>
+
+        <form id="form-password">
+          <div class="field pwd-wrap">
+            <label for="password">비밀번호</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="비밀번호"
+              required
+              autocomplete="current-password"
+              minlength="8"
+            />
+            <button
+              class="pwd-toggle"
+              type="button"
+              aria-label="비밀번호 표시 전환"
+              id="pwdToggle"
+            >
+              <!-- eye icon -->
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10.9402 6.07996C11.291 6.0262 11.6453 5.99945 12.0002 5.99996C15.1802 5.99996 18.1702 8.28996 19.9102 12C19.6441 12.5646 19.3435 13.1123 19.0102 13.64C18.9044 13.8038 18.8488 13.995 18.8502 14.19C18.8548 14.6385 19.1574 15.029 19.5906 15.1455C20.0237 15.2619 20.4814 15.0757 20.7102 14.69C21.1761 13.9579 21.5808 13.1886 21.9202 12.39C22.0286 12.1378 22.0286 11.8521 21.9202 11.6C19.9002 6.90996 16.1002 3.99987 12.0002 3.99987C11.5309 3.9976 11.0623 4.03776 10.6002 4.11996C10.2429 4.1807 9.94522 4.42742 9.81918 4.76719C9.69315 5.10696 9.75795 5.48816 9.98918 5.76719C10.2204 6.04622 10.5829 6.1807 10.9402 6.11996V6.07996ZM3.71021 2.28996C3.45655 2.03631 3.08683 1.93724 2.74033 2.03009C2.39383 2.12293 2.12318 2.39358 2.03033 2.74009C1.93748 3.08659 2.03655 3.45631 2.29021 3.70996L5.39021 6.79996C3.97578 8.16149 2.85007 9.79395 2.08021 11.6C1.9689 11.855 1.9689 12.1449 2.08021 12.4C4.10021 17.09 7.90021 20 12.0002 20C13.7973 19.9876 15.552 19.4525 17.0502 18.46L20.2902 21.71C20.478 21.8993 20.7336 22.0058 21.0002 22.0058C21.2668 22.0058 21.5224 21.8993 21.7102 21.71C21.8995 21.5222 22.006 21.2666 22.006 21C22.006 20.7333 21.8995 20.4777 21.7102 20.29L3.71021 2.28996ZM10.0702 11.48L12.5202 13.93C12.3512 13.9784 12.176 14.002 12.0002 14C10.8956 14 10.0002 13.1045 10.0002 12C9.99816 11.8242 10.0217 11.649 10.0702 11.48ZM12.0002 18C8.82021 18 5.83021 15.71 4.10021 12C4.7463 10.5737 5.66328 9.28654 6.80021 8.20996L8.57021 9.99996C7.71623 11.5586 7.99304 13.4937 9.24973 14.7504C10.5064 16.0071 12.4416 16.2839 14.0002 15.43L15.5902 17C14.5013 17.6408 13.2636 17.9856 12.0002 18Z"
+                  fill="#111111"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <a href="#" class="link">비밀번호 찾기</a>
+
+          <div class="btns" style="justify-content: space-between">
+            <button class="btn ghost" type="button">이전</button>
+            <button class="btn primary" type="submit">로그인</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- STEP 3 : 회원가입 기본정보 -->
+      <section class="card" data-step="sigup" id="step-signup">
+        <header class="logo">
+          <span class="nike-logo" aria-hidden="true"></span>
+        </header>
+        <h1>이제 나이키 멤버가 되어 볼까요?</h1>
+        <form id="form-signup">
+          <!-- 이름 / 성 입력란 -->
+          <div class="row">
+            <div class="field">
+              <label for="firstName">이름</label>
+              <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                required
+                placeholder="이름"
+              />
+            </div>
+            <div class="field">
+              <label for="lastName">성</label>
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                required
+                placeholder="성"
+              />
+            </div>
+            <!-- 비밀번호 입력란 -->
+            <div class="field">
+              <label for="newPassword">비밀번호</label>
+              <input
+                type="password"
+                id="newPassword"
+                name="newPassword"
+                required
+                minlength="8"
+                placeholder="비밀번호"
+                autocomplete="new-password"
+              />
+            </div>
+            <!-- 비밀번호 조건 -->
+            <div class="hint" id="pwdHint">
+              <div id="ruleLen" class="invalid">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M3 3L13 13" stroke="#707072" />
+                  <path d="M13 3L3 13" stroke="#707072" />
+                </svg>
+                최소 8자
+              </div>
+              <div id="ruleMix" class="invalid">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M3 3L13 13" stroke="#707072" />
+                  <path d="M13 3L3 13" stroke="#707072" />
+                </svg>
+                알파벳 대문자 및 소문자 조합, 최소 1개 이상의 숫자
+              </div>
+            </div>
+
+            <!-- 생년월일 -->
+            <div class="field">
+              <label for="birth">생년월일</label>
+              <input
+                id="birth"
+                name="birth"
+                type="date"
+                required
+                placeholder="생년월일"
+              />
+            </div>
+
+            <!-- 개인정보 동의 -->
+            <div class="agree">
+              <input id="policy" type="checkbox" required />
+              <label for="policy"
+                >나이키의 <a href="#" class="link">개인정보 처리방침</a> 및
+                <a href="#" class="link">이용약관</a>에 동의합니다.</label
+              >
+            </div>
+
+            <!-- 버튼 -->
+            <div class="btns">
+              <button class="btn primary" type="submit">계정 만들기</button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <!-- STEP 4 : 동의 항목 -->
+      <section class="card" data-step="consent" id="step-consent">
+        <header class="logo">
+          <span class="nike-logo" aria-hidden="true"></span>
+        </header>
+        <h1>계속 진행하시려면 아래 권한에 동의해주세요.</h1>
+        <p class="helper">* 필수 항목</p>
+        <p class="helper">
+          나이키에 오신 것을 환영합니다! 법률 약관이 업데이트되었습니다.
+          진행하시기 전에 내용을 검토하고 동의해 주세요.
+        </p>
+
+        <form id="form-consent">
+          <div class="checklist">
+            <label class="agree"
+              ><input type="checkbox" id="allAgree" /><span
+                >모든 약관에 동의합니다</span
+              ></label
+            >
+            <label class="agree"
+              ><input type="checkbox" id="reqAgree" /><span
+                ><a href="#" class="link">이용약관</a>에 동의합니다 *</span
+              ></label
+            >
+            <label class="agree"
+              ><input type="checkbox" id="reqAgree" /><span
+                ><a href="#" class="link">개인 정보 수집 및 이용</a>에
+                동의합니다 *</span
+              ></label
+            >
+            <label class="agree"
+              ><input type="checkbox" id="reqAgree" /><span
+                ><a href="#" class="link">개인 정보의 제3자 제공 및 국외이전</a
+                >에 동의합니다.</span
+              ></label
+            >
+          </div>
+
+          <p class="helper">
+            이 약관에 동의하지 않을 수 있지만, 그럴 경우 나이키 계정에 로그인할
+            수 없으며 새로운 계정을 생성할 수도 없습니다.
+          </p>
+
+          <div class="btns" style="justify-content: space-between">
+            <button class="btn primary" type="submit">계속</button>
+            <button class="btn ghost" type="button" id="consentCancel">
+              취소
+            </button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </body>
+</html>
