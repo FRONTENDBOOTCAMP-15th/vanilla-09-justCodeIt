@@ -1,2 +1,2 @@
 import "./style.css";
-import "./commonness/header-footer.ts";
+import "./commonness/header-footer";
