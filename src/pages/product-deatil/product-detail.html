@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ko-KR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/src/style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b">
+      <div
+        class="max-w-[420px] mx-auto px-4 h-12 flex items-center justify-between"
+      >
+        <img
+          alt="Nike"
+          src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg"
+          class="h-4"
+        />
+        <div class="flex items-center gap-1">
+          <button aria-label="검색" class="p-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-6 h-6"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <path d="M21 21l-3.4-3.4" />
+            </svg>
+          </button>
+          <button id="btn-wish" aria-label="위시리스트" class="p-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-6 h-6"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.6l-1-1a5.5 5.5 0 10-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 000-7.8z"
+              />
+            </svg>
+          </button>
+          <button aria-label="장바구니" class="p-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-6 h-6"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <circle cx="9" cy="20" r="1.5" />
+              <circle cx="18" cy="20" r="1.5" />
+              <path
+                d="M3 4h2l2.6 12.4A2 2 0 0010.5 18H18a2 2 0 001.9-1.5L22 8H6"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-[420px] mx-auto">
+      <section class="px-4 pt-20">
+        <h1 class="text-base font-semibold">테이텀 2 PF</h1>
+        <p class="text-sm text-neutral-500">농구화</p>
+        <div class="mt-1 flex items-baseline gap-2">
+          <strong class="text-lg font-bold">149,000원</strong>
+          <span class="text-neutral-400 line-through text-sm">249,000원</span>
+          <span class="text-emerald-600 text-sm font-medium">10% 할인</span>
+        </div>
+      </section>
+
+      <!-- 상품 이미지 -->
+      <section class="mt-3">
+        <div class="aspect-[3/2] w-full bg-neutral-100 overflow-hidden">
+          <img
+            src="/src/assets/img/nike.png"
+            alt="상품 대표이미지"
+            class="w-full h-full object-cover"
+          />
+        </div>
+        <div class="mt-2 grid grid-cols-3 gap-2">
+          <button class="thumb ring-1 ring-neutral-200 rounded overflow-hidden">
+            <img
+              src="/src/assets/img/nike.png"
+              alt="썸네일1"
+              class="w-full h-20 object-cover"
+            />
+          </button>
+          <button class="thumb ring-1 ring-neutral-200 rounded overflow-hidden">
+            <img
+              src="/src/assets/img/nike.png"
+              alt="썸네일2"
+              class="w-full h-20 object-cover"
+            />
+          </button>
+          <button class="thumb ring-1 ring-neutral-200 rounded overflow-hidden">
+            <img
+              src="/src/assets/img/nike.png"
+              alt="썸네일3"
+              class="w-full h-20 object-cover"
+            />
+          </button>
+        </div>
+      </section>
+
+      <div id="size-grid" class="mt-2 grid grid-cols-5 gap-2 bg-amber-300">
+        <button class="size-btn">250</button>
+        <button class="size-btn">255</button>
+        <button class="size-btn">260</button>
+        <button class="size-btn">265</button>
+        <button class="size-btn">270</button>
+        <button class="size-btn">275</button>
+        <button class="size-btn">280</button>
+        <button class="size-btn">285</button>
+        <button class="size-btn">290</button>
+        <button class="size-btn" disabled>295</button>
+        <button class="size-btn">300</button>
+        <button class="size-btn">305</button>
+        <button class="size-btn">310</button>
+      </div>
+    </main>
+  </body>
+</html>
