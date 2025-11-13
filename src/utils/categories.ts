@@ -624,4 +624,11 @@ export const codes: CategoryItem[] = [
     parent: "PC0303",
     depth: 3,
   },
+  {
+    sort: 7,
+    code: "PC030311",
+    value: "보호대1",
+    parent: "PC0311",
+    depth: 3,
+  },
 ];
