@@ -1,4 +1,4 @@
-/* 기본 브라우저 표시 요소 모두 제거 */
+/* 기본 브라우저 표시 요소 모두  제거 */
 input[type="date"]::-webkit-calendar-picker-indicator,
 input[type="date"]::-webkit-clear-button,
 input[type="date"]::-webkit-inner-spin-button {
