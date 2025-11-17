@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script type="module" src="../../commonness/header-footer.ts"></script>
-    <link rel="stylesheet" href="../../style.css" />
+    <script type="module" src="/src/components/header-footer.ts"></script>
+    <link rel="stylesheet" href="/src/style.css" />
     <title>product-list</title>
   </head>
   <body>
     <nike-header></nike-header>
-    <main class="flex flex-col h-screen">
+    <main class="flex flex-col">
       <div
         class="flex flex-col md:flex-row justify-between leading-7 bg-white z-50 sticky top-0 left-0 right-0"
       >
@@ -341,7 +341,7 @@
           </div> -->
       </div>
     </main>
-    <nike-footer></nike-footer>
+    <footer-bar></footer-bar>
   </body>
-  <script type="module" src="./product-list.ts"></script>
+  <script type="module" src="/src/pages/product-list/product-list.ts"></script>
 </html>
