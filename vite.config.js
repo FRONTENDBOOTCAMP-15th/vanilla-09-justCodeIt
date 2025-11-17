@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import tailwindcss from "@tailwindcss/vite";
+import path from "path";
 
 export default defineConfig({
   build: {
@@ -7,19 +8,21 @@ export default defineConfig({
       input: {
         // 메인 페이지
         index: "index.html",
-
-        // 사용자 관련
-        // 'user/login': 'src/pages/user/login.html',
-        // 'user/signup': 'src/pages/user/signup.html',
-
-        // 게시판 관련
-        // 'board/list': 'src/pages/board/list.html',
-        // 'board/new': 'src/pages/board/new.html',
-        // 'board/detail': 'src/pages/board/detail.html',
-        // 'board/edit': 'src/pages/board/edit.html',
-
-        // 에러 페이지
-        // error: 'src/pages/error.html',
+        home: path.resolve(__dirname, `src/pages/home/home.html`),
+        "product-list": path.resolve(
+          __dirname,
+          `src/pages/product-list/product-list.html`
+        ),
+        recommend: path.resolve(
+          __dirname,
+          `src/components/recommend.html`
+        ),
+        "product-detail": path.resolve(
+          __dirname,
+          `src/pages/product-detail/product-detail.html`
+        ),
+        "log-in": path.resolve(__dirname, `src/pages/log-in/log-in.html`),
+        cart: path.resolve(__dirname, `src/pages/cart/cart.html`),
       },
     },
   },
