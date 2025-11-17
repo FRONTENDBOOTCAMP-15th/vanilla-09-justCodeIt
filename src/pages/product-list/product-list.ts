@@ -3,40 +3,36 @@ import { getAxios } from "../../utils/axios";
 import type { ProductList, ProductListRes } from "../../utils/types";
 import { codes } from "../../utils/categories";
 
-const axiosInstance = getAxios();
-
 async function showList() {
+  const axios = getAxios();
+
   try {
-    const { data } = await axiosInstance.get("/products?page=1&limit=50");
+    const { data } = await axios.get<ProductListRes>(
+      "/products?page=1&limit=50"
+    );
+    console.log(data);
 
-    if ((data.ok === true || data.ok === 1) && Array.isArray(data.item)) {
-      const container = document.querySelector("#productList");
-      if (!container) return;
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+}
 
-      container.innerHTML = "";
+function render(products: ProductList[]) {
+  const result = products.map((product) => {
+    const color = product.extra?.color
+      ? product.extra.color.split(" ").length
+      : 1;
 
-      data.item.forEach((product: ProductList) => {
-        const colorCount = product.extra?.color
-          ? product.extra.color.trim().split(/\s+/).length
-          : 1;
+    // category[0] desc 반환, [1]은 value 반환
+    const category0 = codes.find(
+      (c) => c.code === product.extra.category[0]
+    )?.desc;
+    const category1 = codes.find(
+      (c) => c.code === product.extra.category[1]
+    )?.value;
 
-        const genderMap: Record<string, string> = {
-          Men: "남성",
-          Women: "여성",
-          Kids: "키즈",
-        };
-
-        // 카테고리 뽑아내기
-        const categoryNames = product.extra?.category
-          ?.map(
-            (code) =>
-              genderMap[codes.find((c) => c.code === code)?.value || ""] ||
-              codes.find((c) => c.code === code)?.value
-          )
-          .filter(Boolean)
-          .join(" ");
-
-        const html = `
+    return `
           <div class="flex flex-col items-start ">
             <img
               class="w-full aspect-square overflow-hidden"
@@ -45,57 +41,61 @@ async function showList() {
             />
             ${
               product.extra?.isNew
-                ? `<span class="text-sm lg:text-base text-orange-800 mt-2">신제품</span>`
+                ? `<span class="text-sm md:text-base text-orange-800 mt-2">신제품</span>`
                 : ""
             }
-            <span class="text-sm lg:text-base font-semibold">${product.name}</span>
-             <span class="text-sm lg:text-base text-gray-400">${categoryNames}</span>
-             <span class="text-sm lg:text-base text-gray-400">${colorCount}개 색상</span>
+            <span class="text-sm md:text-base font-semibold">${product.name}</span>
+            <span class="text-sm md:text-base text-gray-400">${category0} ${category1}</span>
+            <span class="text-sm md:text-base text-gray-400">${color}개 색상</span>
             <span class="text-base mt-2">${product.price.toLocaleString()} 원</span>
           </div>
         `;
-        container.insertAdjacentHTML("beforeend", html);
-      });
-    } else {
-      console.error("상품 데이터가 없습니다:", data);
-    }
-  } catch (err) {
-    console.error("에러:", err);
+  });
+  const productBody = document.querySelector("#productBody");
+  if (productBody) {
+    productBody.innerHTML = result.join("");
   }
 }
 
-showList();
+const data = await showList();
+if (data?.ok) {
+  render(data?.item);
+}
 
-// 필터 숨기기 -> 사이드바 숨겨짐
-const sortBtn = document.getElementById("sort-btn") as HTMLButtonElement | null;
-const sortMenu = document.getElementById("sort-menu") as HTMLDivElement | null;
+// 정렬 버튼
+const sortBtn = document.getElementById("sort-btn");
+const sortMenu = document.getElementById("sort-menu");
 
 if (sortBtn && sortMenu) {
   sortBtn.addEventListener("click", () => {
-    sortMenu.classList.toggle("hidden");
-  });
-
-  document.addEventListener("click", (e: MouseEvent) => {
-    const target = e.target as HTMLElement;
-
-    if (!sortBtn.contains(target) && !sortMenu.contains(target)) {
-      sortMenu.classList.add("hidden");
+    // class에 hidden 추가/삭제로 토글
+    if (sortMenu.className.includes("hidden")) {
+      sortMenu.className = sortMenu.className.replace("hidden", "");
+    } else {
+      sortMenu.className += "hidden";
     }
   });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const hiddenFilterBtn = document.getElementById("hidden-filter");
-  const desktopSidebar = document.getElementById("desktop-sidebar");
+// 필터 숨기기로 사이드바 숨기기!!! 하기싫다
+const hiddenFilterBtn = document.getElementById("hidden-filter");
+const desktopSidebar = document.getElementById("desktop-sidebar");
 
-  hiddenFilterBtn?.addEventListener("click", () => {
-    if (desktopSidebar?.classList.contains("lg:flex")) {
-      desktopSidebar.classList.remove("lg:flex");
+if (hiddenFilterBtn && desktopSidebar) {
+  hiddenFilterBtn.addEventListener("click", () => {
+    // class에 hidden 추가/삭제로 토글
+    // 수정: md:를 안붙이고 hidden만 없애려고 함..
+    // 수정2: 앞에 공백을 안줘서 사이드바가 안들어간거였음
+    if (desktopSidebar.className.includes(" md:hidden")) {
+      desktopSidebar.className = desktopSidebar.className.replace(
+        " md:hidden",
+        ""
+      );
     } else {
-      desktopSidebar?.classList.add("lg:flex");
+      desktopSidebar.className += " md:hidden";
     }
   });
-});
+}
 
 // checkbox img로 on/off
 const imgOn = "/src/assets/img/Property 1=On.svg";
@@ -104,22 +104,17 @@ const imgOff = "/src/assets/img/Property 1=Off.png";
 const checkboxImgs = document.querySelectorAll(".checkbox-img");
 
 checkboxImgs.forEach((img) => {
-  const targetId = img.getAttribute("data-target");
-  const checkbox = document.getElementById(targetId!) as HTMLInputElement;
+  // data-target으로 특정 체크박스 가져오기
+  const checkbox = document.getElementById(
+    img.getAttribute("data-target")!
+  ) as HTMLInputElement;
 
   img.addEventListener("click", () => {
-    checkbox.checked = !checkbox.checked;
-    updateCheckboxImage(checkbox, img as HTMLImageElement);
+    // FIXME 왜 체크가 안되는지..
+    if (checkbox.checked) {
+      img.setAttribute("src", imgOn);
+    } else {
+      img.setAttribute("src", imgOff);
+    }
   });
-
-  checkbox.addEventListener("change", () =>
-    updateCheckboxImage(checkbox, img as HTMLImageElement)
-  );
 });
-
-function updateCheckboxImage(
-  checkbox: HTMLInputElement,
-  img: HTMLImageElement
-) {
-  img.src = checkbox.checked ? imgOn : imgOff;
-}

@@ -11,10 +11,6 @@
     "target": "es2022",
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
-    "verbatimModuleSyntax": true,
-    "isolatedModules": true,
-    "noUncheckedSideEffectImports": true,
-    "moduleDetection": "force",
     "noEmit": true,
     "types": [],
     // For nodejs:
