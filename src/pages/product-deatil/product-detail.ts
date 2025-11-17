@@ -20,10 +20,9 @@ function enableDragScroll(container: HTMLElement): void {
   const end = (): void => {
     isDown = false;
   };
-
-  container.addEventListener("pointerup", end);
   container.addEventListener("pointerleave", end);
   container.addEventListener("pointercancel", end);
+  container.addEventListener("pointerup", end);
 
   // 트랙패드 수평 휠 스크롤 지원
   container.addEventListener(
