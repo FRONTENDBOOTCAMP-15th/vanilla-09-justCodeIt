@@ -46,11 +46,12 @@ body {
   font-family: "Noto Sans Regular", sans-serif;
 }
 
-@media (min-width: 768px) {
-  #sport-track .sport-card {
-    width: calc((100% - 2rem) / 3); /* gap-4(=16px) 기준으로 3개 나열 */
+@layer productDetail {
+  .size-btn {
+    @apply h-12 border border-[#E5E5E5] rounded-sm text-base;
+  }
+
+  .thumb {
+    @apply w-[125px] h-[125px] rounded overflow-hidden;
   }
 }
-
-
-style.css

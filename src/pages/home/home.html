@@ -2,7 +2,7 @@
 <html lang="ko-KR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       rel="shortcut icon"
       href="/public/favicon/likelion.ico"
@@ -11,7 +11,7 @@
     <link rel="icon" href="/public/favicon/likelion.svg" type="image/svg" />
     <link rel="stylesheet" href="../../style.css" />
     <title>nike</title>
-    <script type="module" src="./../../commonness/header-footer.ts"></script>
+    <script type="module" src="/src/commonness/header-footer.ts"></script>
   </head>
 
   <body>
@@ -789,37 +789,6 @@
         </div>
       </section>
     </main>
-    <script>
-      const track = document.getElementById("sport-track");
-      const prevBtn = document.getElementById("sport-prev");
-      const nextBtn = document.getElementById("sport-next");
-
-      if (track && prevBtn && nextBtn) {
-        let index = 0; // 현재 위치
-        const total = track.children.length; // 5개 카드
-        const visible = 3; // 한 화면에 3개
-        const maxIndex = total - visible; // 2칸까지 이동 가능
-
-        const update = () => {
-          const percent = (index / total) * 100 * (total / visible);
-          track.style.transform = `translateX(-${percent}%)`;
-        };
-
-        nextBtn.addEventListener("click", () => {
-          if (index < maxIndex) {
-            index++;
-            update();
-          }
-        });
-
-        prevBtn.addEventListener("click", () => {
-          if (index > 0) {
-            index--;
-            update();
-          }
-        });
-      }
-    </script>
     <footer-bar></footer-bar>
   </body>
 </html>
