@@ -16,7 +16,7 @@ const iconCheck = `
     <path d="M2 6.88462L6.61538 11.5L14.1154 4" stroke="#007D48" stroke-width="1.15385"/>
   </svg>`;
 
-// 규칙 상태 업데이트 함수
+// 규칙 상태 업데이트  함수
 function updateRule(ruleElem: HTMLElement, ok: boolean): void {
   const icon =
     (ruleElem.querySelector(".icon") as HTMLElement | null) ||
