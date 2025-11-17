@@ -9,135 +9,131 @@
       href="/src/pages/product-deatil/product-detail.css"
     />
     <title>Document</title>
-    <script
-      type="module"
-      src="/src/pages/product-deatil/product-detail.ts"
-    ></script>
+    <script type="module" src="/src/commonness/header-footer.ts"></script>
   </head>
   <body>
-    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur border-b">
-      <div
-        class="max-w-[420px] mx-auto px-4 h-12 flex items-center justify-between"
-      >
-        <img alt="Nike" src="/src/assets/icons/logo.svg" class="h-4" />
-        <div class="flex items-center gap-1">
-          <button aria-label="검색" class="p-2">
-            <img src="/src/assets/icons/Property 1=IconSearch.svg" alt="" />
-          </button>
-          <button id="btn-wish" aria-label="위시리스트" class="p-2">
-            <img src="/src/assets/icons/cart.svg" alt="" />
-          </button>
-          <button aria-label="장바구니" class="p-2">
-            <img src="/src/assets/icons/Icon36px.svg" alt="" />
-          </button>
-        </div>
-      </div>
-    </header>
+    <nike-header></nike-header>
 
-    <main class="max-w-[420px] mx-auto">
+    <main class="lg:hidden max-w-sm mx-auto pb-24">
       <section class="px-4 pt-20">
-        <h1 class="text-base font-semibold">테이텀 2 PF</h1>
-        <p class="text-sm text-neutral-500">농구화</p>
+        <h1 class="text-xl font-normal text-[#111]">테이텀 2 PF</h1>
+        <p class="text-sm text-[#111]">농구화</p>
         <div class="mt-1 flex items-baseline gap-2">
-          <strong class="text-lg font-bold">149,000원</strong>
-          <span class="text-neutral-400 line-through text-sm">249,000원</span>
-          <span class="text-emerald-600 text-sm font-medium">10% 할인</span>
+          <strong class="text-base font-normal text-[#111]">149,000원</strong>
+          <span class="text-[#707072] line-through text-base">249,000원</span>
+          <span class="text-[#007D48] text-base font-normal">10% 할인</span>
         </div>
       </section>
 
       <!-- 상품 이미지 -->
-      <section class="mt-3">
-        <!-- 드래그로 좌우 스크롤할 영역 -->
-        <div
-          id="detailCarousel"
-          class="drag-scroll no-scrollbar overflow-x-auto flex gap-2"
-        >
+      <section class="mt-3 mb-5">
+        <div class="overflow-x-auto flex gap-2 w-full">
           <img
             src="/src/assets/img/nike.png"
-            class="min-w-full select-none"
-            draggable="false"
-            alt=""
-          />
-          <img
-            src="/src/assets/img/nike.png"
-            class="min-w-full select-none"
-            draggable="false"
-            alt=""
-          />
-          <img
-            src="/src/assets/img/nike.png"
-            class="min-w-full select-none"
-            draggable="false"
+            class="w-full select-none object-cover"
             alt=""
           />
         </div>
 
-        <div class="mt-2 grid grid-cols-3 gap-2">
-          <button class="thumb ring-1 ring-neutral-200 rounded overflow-hidden">
-            <img
-              src="/src/assets/img/nike.png"
-              alt="썸네일1"
-              class="w-full h-20 object-cover"
-            />
-          </button>
-          <button class="thumb ring-1 ring-neutral-200 rounded overflow-hidden">
-            <img
-              src="/src/assets/img/nike.png"
-              alt="썸네일2"
-              class="w-full h-20 object-cover"
-            />
-          </button>
-          <button class="thumb ring-1 ring-neutral-200 rounded overflow-hidden">
-            <img
-              src="/src/assets/img/nike.png"
-              alt="썸네일3"
-              class="w-full h-20 object-cover"
-            />
-          </button>
+        <!-- 색상 이미지 -->
+        <div class="mt-2 overflow-x-auto scroll-none">
+          <div class="flex gap-3 w-max">
+            <button>
+              <img
+                class="thumb"
+                src="/src/assets/img/nike.png"
+                alt="썸네일1"
+                class="w-20 h-20 object-cover rounded"
+              />
+            </button>
+            <button>
+              <img
+                class="thumb"
+                src="/src/assets/img/nike.png"
+                alt="썸네일2"
+                class="w-20 h-20 object-cover rounded"
+              />
+            </button>
+            <button>
+              <img
+                class="thumb"
+                src="/src/assets/img/nike.png"
+                alt="썸네일3"
+                class="w-20 h-20 object-cover rounded"
+              />
+            </button>
+            <button>
+              <img
+                class="thumb"
+                src="/src/assets/img/nike.png"
+                alt="썸네일4"
+                class="w-20 h-20 object-cover rounded"
+              />
+            </button>
+            <button>
+              <img
+                src="/src/assets/img/nike.png"
+                alt="썸네일4"
+                class="w-20 h-20 object-cover rounded"
+              />
+            </button>
+          </div>
         </div>
       </section>
 
-      <div id="size-grid" class="mt-2 grid grid-cols-5 gap-2">
-        <button class="size-btn">250</button>
-        <button class="size-btn">255</button>
-        <button class="size-btn">260</button>
-        <button class="size-btn">265</button>
-        <button class="size-btn">270</button>
-        <button class="size-btn">275</button>
-        <button class="size-btn">280</button>
-        <button class="size-btn">285</button>
-        <button class="size-btn">290</button>
-        <button class="size-btn" disabled>295</button>
-        <button class="size-btn">300</button>
-        <button class="size-btn">305</button>
-        <button class="size-btn">310</button>
+      <div class="flex items-end justify-between px-6">
+        <h2 class="text-[#111]">사이즈 선택</h2>
+        <button type="button" class="text-[#707072]">사이즈 가이드</button>
       </div>
-      <p id="size-help" class="mt-1 text-xs text-neutral-500">
-        일부 사이즈는 품절일 수 있어요.
-      </p>
 
-      <!-- 큰 액션 버튼들: 장바구니 & 위시리스트 (요청대로 동일한 구조/사이즈) -->
-      <div class="mt-5 space-y-3">
+      <div
+        class="w-full mt-3 mb-6 px-6 grid grid-cols-5 gap-2 bg-[#FFFFFF] text-[#111] text-base"
+      >
+        <button type="button" class="size-btn">250</button>
+        <button type="button" class="size-btn">255</button>
+        <button type="button" class="size-btn">260</button>
+        <button type="button" class="size-btn">265</button>
+        <button type="button" class="size-btn">270</button>
+        <button type="button" class="size-btn">275</button>
+        <button type="button" class="size-btn">280</button>
+        <button type="button" class="size-btn">285</button>
+        <button type="button" class="size-btn">290</button>
+        <button type="button" class="size-btn">295</button>
+        <button type="button" class="size-btn">300</button>
+        <button type="button" class="size-btn">305</button>
+        <button type="button" class="size-btn">310</button>
+      </div>
+
+      <!-- 장바구니 & 위시리스트 -->
+      <div class="px-6 space-y-3">
         <button
           id="btn-cart"
-          class="w-full h-14 rounded-full bg-neutral-900 text-white text-[15px] font-semibold disabled:opacity-40 disabled:cursor-not-allowed"
+          class="w-full h-16 rounded-4xl bg-[#111] text-[#ffffff] text-base font-normal"
         >
           장바구니
         </button>
         <button
           id="btn-wish-big"
-          class="w-full h-14 rounded-full bg-white text-neutral-900 text-[15px] font-semibold ring-1 ring-neutral-300 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          class="w-full h-16 rounded-4xl bg-[#ffffff] text-[#111] text-base font-normal ring-1 ring-neutral-300 flex items-center justify-center gap-2"
         >
           <span>위시리스트</span>
-          <img
-            src="/src/assets/icons/wishlist.svg"
-            alt="위시리스트"
-            class="w-5 h-5 object-contain"
-          />
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M16.794 3.75002C18.118 3.75002 19.362 4.26602 20.298 5.20102C21.2262 6.13093 21.7475 7.39113 21.7475 8.70502C21.7475 10.0189 21.2262 11.2791 20.298 12.209L12 20.508L3.70096 12.209C2.77307 11.2791 2.25195 10.0192 2.25195 8.70552C2.25195 7.39188 2.77307 6.13189 3.70096 5.20202C4.15999 4.74032 4.70604 4.37425 5.30751 4.12501C5.90897 3.87578 6.5539 3.74832 7.20496 3.75002C8.52896 3.75002 9.77296 4.26602 10.709 5.20102L11.469 5.96102L12 6.49202L12.53 5.96102L13.29 5.20102C13.7492 4.73963 14.2953 4.37384 14.8967 4.12478C15.4982 3.87573 16.143 3.74835 16.794 3.75002Z"
+              stroke="#111111"
+              stroke-width="1.5"
+            />
+          </svg>
         </button>
       </div>
-      <!-- ▼ 상세 설명 블록 (버튼 블록 바로 아래에 추가) -->
-      <section class="px-4 mt-8 text-[15px] leading-7 text-neutral-900">
+      <!-- 상세 설명 -->
+      <section class="px-6 mt-8 text-base leading-7 text-[#111]">
         <p>
           경기 종료 휘슬이 울릴 때까지는 끝난 것이 아닙니다. 테이텀 2와 함께
           여유로운 에너지로 경기를 즐겨보세요. 무거운 고무 소재의 사용을
@@ -151,10 +147,152 @@
           <li>현재 컬러: 라이트 시트론/오로라 그린/아토믹 핑크/세일</li>
           <li>
             스타일 번호:
-            <a href="#" class="underline font-semibold">FJ6458-700</a>
+            <a href="#" class="font-normal">FJ6458-700</a>
           </li>
         </ul>
       </section>
+
+      <!-- 상품 상세 정보 / 무료 배송 / 리뷰 / 추가 정보 -->
+      <section class="px-6 mt-10 mb-8 text-[#111]">
+        <!-- 상단 제목 + 밑줄 -->
+        <button class="text-base font-normal border-b border-[#111] pb-1">
+          <h3>상품 상세 정보 보기</h3>
+        </button>
+
+        <!-- 아코디언 목록 -->
+        <div class="mt-6 space-y-0 text-base">
+          <!-- 무료 배송 및 반품 (닫힘) -->
+          <details class="group border-b border-[#E5E5E5]">
+            <summary
+              class="w-full flex items-center justify-between py-4 cursor-pointer list-none"
+            >
+              <span class="font-normal text-xl text-[#111]"
+                >무료 배송 및 반품</span
+              >
+
+              <svg
+                class="w-4 h-4 transition-transform group-open:rotate-180"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M18.9662 8.47595L12.0002 15.443L5.0332 8.47595"
+                  stroke="#111111"
+                  stroke-width="1.5"
+                />
+              </svg>
+            </summary>
+
+            <!-- 내용은 나중에 필요하면 채우기 -->
+            <div class="pb-4 text-sm text-[#111]"></div>
+          </details>
+
+          <!-- 리뷰 (닫힘) -->
+          <details class="group border-b border-[#E5E5E5]">
+            <summary
+              class="w-full flex items-center justify-between py-4 cursor-pointer list-none"
+            >
+              <span class="font-normal text-xl">리뷰 (2)</span>
+
+              <span class="flex items-center gap-2">
+                <span class="text-sm">★★★★★</span>
+
+                <svg
+                  class="w-4 h-4 transition-transform group-open:rotate-180"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M18.9662 8.47595L12.0002 15.443L5.0332 8.47595"
+                    stroke="#111111"
+                    stroke-width="1.5"
+                  />
+                </svg>
+              </span>
+            </summary>
+
+            <!-- 리뷰 내용 영역 -->
+            <div class="pb-4 text-sm text-[#111]"></div>
+          </details>
+
+          <!-- 추가 정보 -->
+          <details class="group border-b border-[#E5E5E5]">
+            <summary
+              class="w-full flex items-center justify-between py-4 cursor-pointer list-none"
+            >
+              <span class="font-normal text-xl text-[#111]">추가 정보</span>
+
+              <svg
+                class="w-4 h-4 transition-transform group-open:rotate-180"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M18.9662 8.47595L12.0002 15.443L5.0332 8.47595"
+                  stroke="#111111"
+                  stroke-width="1.5"
+                />
+              </svg>
+            </summary>
+
+            <!-- 상품정보제공고시 -->
+            <div class="pt-4 pb-2 text-[#111]">
+              <h4 class="text-base font-normal mb-4">상품정보제공고시</h4>
+              <ul class="space-y-3 list-disc pl-5 text-sm leading-6">
+                <li>
+                  제조연월: 수입제품으로 각 제품별 입고 시기에 따라 상이하여
+                  정확한 제조연월 제공이 어렵습니다. 제조연월을 확인하시려면
+                  고객센터에 문의하시기 바라며, 정확한 제조연월은 배송받으신
+                  제품의 라벨을 참고하시기 바랍니다.
+                </li>
+                <li>
+                  A/S 책임자와 전화번호: (유)나이키코리아 온라인 스토어 고객센터
+                  / 080-022-0182
+                </li>
+                <li>
+                  세탁방법 및 취급시 주의사항: 자세한 내용은 '자세히 보기'를
+                  클릭하여 확인 부탁드립니다.
+                </li>
+                <li>
+                  품질보증기준: 품질보증기간-섬유 및 일반 소재(구입 후 6개월),
+                  가죽소재(구입 후 1년). 유통 중 손상되었거나 품질에 이상이 있는
+                  제품에 한하여 소비자 피해 보상 규정에 의거 보상하여 드립니다.
+                  단, 제품에 부착되어 있는 사용방법 및 취급시 주의사항에 따라
+                  제품을 관리해 주시고, 소비자 부주의로 인한 품질 이상 및 변형에
+                  대해서는 책임을 지지 않습니다.
+                </li>
+                <li>
+                  제조자/수입품의 경우 수입자를 함께 표기: Nike. Inc /
+                  (유)나이키코리아
+                </li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </section>
     </main>
+
+    <!-- 하단 고정 장바구니 -->
+    <div
+      class="lg:hidden fixed bottom-0 left-0 w-full bg-white border-t border-neutral-200 z-50"
+    >
+      <button
+        type="button"
+        class="w-full h-14 bg-[#111] text-[#ffffff] text-base font-normal"
+      >
+        장바구니
+      </button>
+    </div>
+
+    <footer-bar class="hidden lg:block"></footer-bar>
   </body>
 </html>
