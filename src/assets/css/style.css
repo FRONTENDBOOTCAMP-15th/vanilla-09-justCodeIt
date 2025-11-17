@@ -1,9 +1,12 @@
 @charset "utf-8";
+@import "tailwindcss";
 @font-face {
   font-family: "Noto Sans Regular";
   font-style: normal;
   font-weight: 400;
-  src: local("Noto Sans Regular"), local("NotoSans-Regular"),
+  src:
+    local("Noto Sans Regular"),
+    local("NotoSans-Regular"),
     url("font/eot/NotoSansKR-Regular-Hestia.eot"),
     url("font/eot/NotoSansKR-Regular-Hestia.eot?#iefix")
       format("embedded-opentype"),
@@ -14,7 +17,9 @@
   font-family: "Noto Sans Bold";
   font-style: normal;
   font-weight: 700;
-  src: local("Noto Sans Bold"), local("NotoSans-Bold"),
+  src:
+    local("Noto Sans Bold"),
+    local("NotoSans-Bold"),
     url("font/eot/NotoSansKR-Bold-Hestia.eot"),
     url("font/eot/NotoSansKR-Bold-Hestia.eot?#iefix")
       format("embedded-opentype"),

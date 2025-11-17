@@ -1,0 +1,20 @@
+meta {
+  name: 파일 먼저 업로드
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{url}}/db/init
+  body: multipartForm
+  auth: inherit
+}
+
+body:multipart-form {
+  attach: @file(/Users/jiyou/febc15/Just-Code-It-09/api/dbinit/team-nike/uploadFiles/AIR_JORDAN_4RM_B_09.png|/Users/jiyou/febc15/Just-Code-It-09/api/dbinit/team-nike/uploadFiles/AIR_JORDAN_4RM_B_08.png|/Users/jiyou/febc15/Just-Code-It-09/api/dbinit/team-nike/uploadFiles/AIR_JORDAN_4RM_B_07.png|/Users/jiyou/febc15/Just-Code-It-09/api/dbinit/team-nike/uploadFiles/AIR_JORDAN_4RM_B_06.png|/Users/jiyou/febc15/Just-Code-It-09/api/dbinit/team-nike/uploadFiles/AIR_JORDAN_4RM_B_05.png|/Users/jiyou/febc15/Just-Code-It-09/api/dbinit/team-nike/uploadFiles/AIR_JORDAN_4RM_B_04.png|/Users/jiyou/febc15/Just-Code-It-09/api/dbinit/team-nike/uploadFiles/AIR_JORDAN_4RM_B_03.png|/Users/jiyou/febc15/Just-Code-It-09/api/dbinit/team-nike/uploadFiles/AIR_JORDAN_4RM_B_02.png|/Users/jiyou/febc15/Just-Code-It-09/api/dbinit/team-nike/uploadFiles/AIR_JORDAN_4RM_B_010.png|/Users/jiyou/febc15/Just-Code-It-09/api/dbinit/team-nike/uploadFiles/AIR_JORDAN_4RM_B_01.png|/Users/jiyou/febc15/Just-Code-It-09/api/dbinit/team-nike/uploadFiles/AIR_JORDAN_4RM_A_09.png|/Users/jiyou/febc15/Just-Code-It-09/api/dbinit/team-nike/uploadFiles/AIR_JORDAN_4RM_A_08.png|/Users/jiyou/febc15/Just-Code-It-09/api/dbinit/team-nike/uploadFiles/AIR_JORDAN_4RM_A_07.png|/Users/jiyou/febc15/Just-Code-It-09/api/dbinit/team-nike/uploadFiles/AIR_JORDAN_4RM_A_06.png|/Users/jiyou/febc15/Just-Code-It-09/api/dbinit/team-nike/uploadFiles/AIR_JORDAN_4RM_A_05.png|/Users/jiyou/febc15/Just-Code-It-09/api/dbinit/team-nike/uploadFiles/AIR_JORDAN_4RM_A_04.png|/Users/jiyou/febc15/Just-Code-It-09/api/dbinit/team-nike/uploadFiles/AIR_JORDAN_4RM_A_03.png|/Users/jiyou/febc15/Just-Code-It-09/api/dbinit/team-nike/uploadFiles/AIR_JORDAN_4RM_A_02.png|/Users/jiyou/febc15/Just-Code-It-09/api/dbinit/team-nike/uploadFiles/AIR_JORDAN_4RM_A_010.png|/Users/jiyou/febc15/Just-Code-It-09/api/dbinit/team-nike/uploadFiles/AIR_JORDAN_4RM_A_01.png)
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
