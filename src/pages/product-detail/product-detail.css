@@ -1,0 +1,21 @@
+/* 스크롤 되는 요소에 붙일 클래스 */
+
+.drag-scroll {
+  cursor: grab;
+  touch-action: pan-y; /* 가로 제스처는 내가 처리, 세로 스크롤은 브라우저 */
+  user-select: none; /* 드래그 중 텍스트 선택 방지 */
+  -webkit-user-select: none; /* iOS */
+}
+.drag-scroll:active {
+  cursor: grabbing;
+}
+
+/* 선택: 스크롤바 숨김 */
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
