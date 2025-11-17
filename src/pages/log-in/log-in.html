@@ -172,6 +172,310 @@
           </div>
         </form>
       </section>
+
+      <!-- STEP 3 : 회원가입 기본정보 -->
+      <section class="card" data-step="sigup" id="step-signup">
+        <!-- 로고 -->
+        <header class="flex items-center justify-center h-[60px] w-20">
+          <span class="block" aria-hidden="true">
+            <svg
+              width="59"
+              height="21"
+              viewBox="0 0 59 21"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M58.854 0L15.8132 18.2574C12.2297 19.7777 9.21516 20.5363 6.78586 20.5363C4.05249 20.5363 2.06131 19.5717 0.83849 17.6459C-0.747258 15.1611 -0.0541062 11.1656 2.66619 6.94786C4.28136 4.4826 6.33466 2.22005 8.33564 0.0555836C7.86482 0.820666 3.70918 7.73584 8.25391 10.9923C9.15304 11.6463 10.4314 11.9667 12.0041 11.9667C13.2662 11.9667 14.7146 11.7607 16.3069 11.3455L58.854 0Z"
+                fill="#111111"
+              />
+            </svg>
+          </span>
+        </header>
+        <!-- 제목 -->
+        <h1 class="text-[28px] font-normal leading-8 pb-7 pt-5">
+          이제 나이키 멤버가 되어 볼까요?
+        </h1>
+        <form id="form-signup">
+          <!-- 이름 / 성 -->
+          <div class="grid grid-cols-2 gap-x-2.5 gap-y-5">
+            <div
+              class="field relative border border-gray-500 rounded-lg py-4 px-3"
+            >
+              <label for="firstName" class="sr-only">이름</label>
+              <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                required
+                placeholder="이름"
+                class="w-full text-[16px] font-normal text-gray-500 appearance-none bg-transparent border-none outline-none focus:outline-none focus:ring-0 focus:border-none"
+              />
+            </div>
+            <div
+              class="field relative border border-gray-500 rounded-lg py-4 px-3"
+            >
+              <label for="lastName" class="sr-only">성</label>
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                required
+                placeholder="성"
+                class="w-full text-[16px] font-normal text-gray-500 appearance-none bg-transparent border-none outline-none focus:outline-none focus:ring-0 focus:border-none"
+              />
+            </div>
+            <!-- 비밀번호 -->
+            <div class="field col-span-2">
+              <div class="relative border border-gray-500 rounded-lg py-4 px-3">
+                <label for="newPassword" class="sr-only">비밀번호</label>
+                <input
+                  type="password"
+                  id="newPassword"
+                  name="newPassword"
+                  required
+                  minlength="8"
+                  placeholder="비밀번호"
+                  autocomplete="new-password"
+                  class="w-full text-[16px] font-normal text-gray-500 appearance-none bg-transparent border-none outline-none focus:outline-none focus:ring-0 focus:border-none"
+                />
+              </div>
+
+              <!-- 비밀번호 조건 -->
+              <div
+                class="mt-4 space-y-2 text-[12px] text-gray-500"
+                id="pwdHint"
+              >
+                <div id="ruleLen" class="invalid flex items-center gap-1">
+                  <span class="icon">
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M3 3L13 13" stroke="#707072" />
+                      <path d="M13 3L3 13" stroke="#707072" />
+                    </svg>
+                  </span>
+                  <span class="text">최소 8자</span>
+                </div>
+
+                <div id="ruleMix" class="invalid flex items-center gap-1">
+                  <span class="icon">
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M3 3L13 13" stroke="#707072" />
+                      <path d="M13 3L3 13" stroke="#707072" />
+                    </svg>
+                  </span>
+                  <span class="text"
+                    >알파벳 대문자 및 소문자 조합, 최소 1개 이상의 숫자</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- 생년월일 -->
+            <div
+              class="field relative border border-gray-500 rounded-lg py-4 px-3 col-span-2"
+            >
+              <label for="birth" class="sr-only">생년월일</label>
+              <input
+                id="birth"
+                name="birth"
+                type="date"
+                required
+                placeholder="생년월일"
+                class="w-full text-[16px] text-gray-700 placeholder:text-gray-400 appearance-none bg-transparent border-none outline-none focus:outline-none focus:ring-0 pr-12"
+              />
+              <span
+                class="absolute left-3 top-1/2 -translate-y-1/2 text-[16px] font-normal text-gray-400 pointer-events-none"
+              >
+                생년월일
+              </span>
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2"
+              >
+                <path
+                  d="M18 20.25H6C5.40326 20.25 4.83097 20.0129 4.40901 19.591C3.98705 19.169 3.75 18.5967 3.75 18V7.5C3.75 6.90326 3.98705 6.33097 4.40901 5.90901C4.83097 5.48705 5.40326 5.25 6 5.25H18C18.5967 5.25 19.169 5.48705 19.591 5.90901C20.0129 6.33097 20.25 6.90326 20.25 7.5V18C20.25 18.5967 20.0129 19.169 19.591 19.591C19.169 20.0129 18.5967 20.25 18 20.25Z"
+                  stroke="#111111"
+                  stroke-width="1.5"
+                />
+                <path
+                  d="M20.25 9.75H3.75M8.25 3V7.5M15.75 3V7.5"
+                  stroke="#111111"
+                  stroke-width="1.5"
+                />
+              </svg>
+            </div>
+
+            <!-- 개인정보 동의 -->
+            <div class="agree col-span-2 mb-12 flex items-start">
+              <input id="policy" type="checkbox" required class="hidden" />
+
+              <!-- 체크박스 아이콘 표시용 -->
+              <span
+                class="icon w-[20px] h-[20px] flex items-center justify-center mt-[2px]"
+                aria-hidden="true"
+              ></span>
+
+              <label
+                for="policy"
+                class="text-[#111111] text-[16px] font-normal leading-6 pl-3 cursor-pointer translate-y-0.5"
+              >
+                나이키의
+                <a href="#" class="link underline underline-offset-4 font-bold"
+                  >개인정보 처리방침</a
+                >
+                및
+                <a href="#" class="link underline underline-offset-4 font-bold"
+                  >이용약관</a
+                >에 동의합니다.
+              </label>
+            </div>
+
+            <!-- 버튼 -->
+            <div class="btns col-span-2">
+              <button
+                class="btn primary w-full inline-flex justify-center items-center py-[15px] rounded-full bg-[#111111] text-white text-[16px] font-semibold"
+                type="submit"
+              >
+                계정 만들기
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <!-- STEP 4 : 동의 항목 -->
+      <section class="card" data-step="consent" id="step-consent">
+        <!-- 로고 -->
+        <header class="flex items-center justify-center h-[60px] w-20">
+          <span class="block" aria-hidden="true">
+            <svg
+              width="59"
+              height="21"
+              viewBox="0 0 59 21"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M58.854 0L15.8132 18.2574C12.2297 19.7777 9.21516 20.5363 6.78586 20.5363C4.05249 20.5363 2.06131 19.5717 0.83849 17.6459C-0.747258 15.1611 -0.0541062 11.1656 2.66619 6.94786C4.28136 4.4826 6.33466 2.22005 8.33564 0.0555836C7.86482 0.820666 3.70918 7.73584 8.25391 10.9923C9.15304 11.6463 10.4314 11.9667 12.0041 11.9667C13.2662 11.9667 14.7146 11.7607 16.3069 11.3455L58.854 0Z"
+                fill="#111111"
+              />
+            </svg>
+          </span>
+        </header>
+        <h1 class="text-[28px] font-normal leading-8 pt-5 pb-6">
+          계속 진행하시려면 아래 권한에 동의해주세요.
+        </h1>
+        <p class="helper pb-6 text-[14px] font-normal">* 필수 항목</p>
+        <p class="helper pb-9 text-[#757575] text-[14px] font-normal leading-6">
+          나이키에 오신 것을 환영합니다! 법률 약관이 업데이트되었습니다.
+          진행하시기 전에 내용을 검토하고 동의해 주세요.
+        </p>
+        <!-- 동의 버튼목록 -->
+        <form id="form-consent" class="flex flex-col">
+          <div
+            class="checklist flex flex-col mb-9 space-y-3 text-[16px] font-semibold"
+          >
+            <!-- 전체 동의 -->
+            <label
+              class="agree border-b border-gray-400 pb-6 flex items-center"
+            >
+              <input type="checkbox" id="allAgree" class="hidden peer" />
+              <span
+                class="icon w-[20px] h-[20px] flex items-center justify-center"
+                aria-hidden="true"
+              ></span>
+              <span class="pl-3 translate-y-0.5">모든 약관에 동의합니다</span>
+            </label>
+
+            <!-- 이용약관 -->
+            <label class="agree pt-3 flex items-start">
+              <input type="checkbox" id="reqAgree1" class="hidden peer" />
+              <span
+                class="icon w-[20px] h-[20px] flex items-start justify-center mt-[3px]"
+                aria-hidden="true"
+              ></span>
+              <span class="pl-3 translate-y-0.5">
+                <a href="#" class="link underline underline-offset-3"
+                  >이용약관</a
+                >에 동의합니다 *
+              </span>
+            </label>
+
+            <!-- 개인정보 수집 -->
+            <label class="agree flex items-start">
+              <input type="checkbox" id="reqAgree2" class="hidden peer" />
+              <span
+                class="icon w-[20px] h-[20px] flex items-start justify-center mt-[3px]"
+                aria-hidden="true"
+              ></span>
+              <span class="pl-3 translate-y-0.5">
+                <a href="#" class="link underline underline-offset-3">
+                  개인정보 수집 및 이용
+                </a>
+                에 동의합니다 *
+              </span>
+            </label>
+
+            <!-- 제3자 제공 -->
+            <label class="agree flex items-start">
+              <input type="checkbox" id="reqAgree3" class="hidden peer" />
+              <span
+                class="icon w-[20px] h-[20px] flex items-center mt-[3px] justify-center"
+                aria-hidden="true"
+              ></span>
+              <span class="pl-3 translate-y-0.5">
+                <a href="#" class="link underline underline-offset-3">
+                  개인정보의 제3자 제공 및 국외이전
+                </a>
+                에 동의합니다
+              </span>
+            </label>
+          </div>
+
+          <p
+            class="helper pb-9 text-[#757575] text-[14px] font-normal leading-6"
+          >
+            이 약관에 동의하지 않을 수 있지만, 그럴 경우 나이키 계정에 로그인할
+            수 없으며 새로운 계정을 생성할 수도 없습니다.
+          </p>
+
+          <div class="btns space-y-3">
+            <button
+              class="btn primary w-full inline-flex justify-center items-center py-[15px] rounded-full bg-[#111111] text-white text-[16px] font-semibold"
+              type="submit"
+            >
+              계속
+            </button>
+            <button
+              class="btn w-full inline-flex justify-center items-center py-[15px] rounded-full border border-gray-400 text-black text-[16px] font-semibold"
+              type="button"
+              id="consentCancel"
+            >
+              취소
+            </button>
+          </div>
+        </form>
+      </section>
     </div>
   </body>
   <script type="module" src="./log-in.ts"></script>
