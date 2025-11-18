@@ -38,7 +38,7 @@ function render(products: ProductList[]) {
     )?.value;
 
     return `
-          <div class="flex flex-col items-start ">
+          <div class="flex flex-col items-start cursor-pointer" data-id="${product._id}">
             <img
               class="w-full aspect-square overflow-hidden"
               src="${product.mainImages?.[0]?.path || "/src/assets/img/default.png"}"
@@ -59,6 +59,16 @@ function render(products: ProductList[]) {
   const productBody = document.querySelector("#productBody");
   if (productBody) {
     productBody.innerHTML = result.join("");
+
+    productBody.querySelectorAll("div[data-id]").forEach((div) => {
+      div.addEventListener("click", () => {
+        const id = div.getAttribute("data-id");
+        console.log(id);
+        if (id) {
+          window.location.href = `/src/pages/product-detail/product-detail.html?id=${id}`;
+        }
+      });
+    });
   }
 }
 
