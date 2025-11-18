@@ -14,7 +14,7 @@ class NikeHeader extends HTMLElement {
           <div class="mx-auto max-w-[1920px] px-4">
             <div class="h-[60px] flex items-center justify-between">
               <!-- 로고 (왼쪽) -->
-              <a href="#" class="flex items-center">
+              <a href="/src/pages/home/home.html" class="flex items-center">
                 <svg
                   width="76"
                   height="60"
@@ -94,7 +94,7 @@ class NikeHeader extends HTMLElement {
                       d="M16.1219 17.369C16.3379 17.369 16.5479 17.351 16.7519 17.315C16.9559 17.279 17.1389 17.219 17.3009 17.135C17.4689 17.051 17.6099 16.943 17.7239 16.811C17.8439 16.679 17.9219 16.517 17.9579 16.325H18.7949V22.625H17.6699V18.179H16.1219V17.369Z"
                       fill="#111111"
                     />
-                    <a href="#">
+                    <a href="/src/pages/cart/cart.html">
                       <rect
                         fill="black"
                         fill-opacity="0"
@@ -183,7 +183,7 @@ class NikeHeader extends HTMLElement {
                   </svg>
                 </li>
                 <li class="flex items-center">
-                  <a href="#" class="hover:underline underline-offset-4"
+                  <a href="/src/pages/log-in/log-in.html" class="hover:underline underline-offset-4"
                     >가입하기</a
                   >
                 </li>
@@ -206,7 +206,7 @@ class NikeHeader extends HTMLElement {
                   </svg>
                 </li>
                 <li class="flex items-center">
-                  <a href="#" class="hover:underline underline-offset-4"
+                  <a href="/src/pages/log-in/log-in.html" class="hover:underline underline-offset-4"
                     >로그인</a
                   >
                 </li>
@@ -221,7 +221,7 @@ class NikeHeader extends HTMLElement {
             <div class="h-[60px] flex items-center">
               <!-- 로고 (왼쪽) -->
               <div class="flex-1 flex items-center">
-                <a href="#" class="flex items-center">
+                <a href="/src/pages/home/home.html" class="flex items-center">
                   <svg
                     width="79"
                     height="79"
@@ -246,11 +246,11 @@ class NikeHeader extends HTMLElement {
                     class="flex justify-center gap-8 text-base text-[#111] font-normal whitespace-nowrap"
                   >
                     <li>
-                      <a href="#">New &amp; Featured</a>
+                      <a href="/src/pages/product-detail/product-detail.html">New &amp; Featured</a>
                     </li>
-                    <li><a href="#">Men</a></li>
-                    <li><a href="#">Women</a></li>
-                    <li><a href="#">Kids</a></li>
+                    <li><a href="/src/pages/product-list/product-list.html?custom=%7B%22extra.gender%22%3A%22men%22%7D&page=1&limit=30">Men</a></li>
+                    <li><a href="/src/pages/product-list/product-list.html?custom=%7B%22extra.gender%22%3A%22women%22%7D&page=1&limit=30">Women</a></li>
+                    <li><a href="/src/pages/product-list/product-list.html?custom=%7B%22extra.gender%22%3A%22kids%22%7D&page=1&limit=30">Kids</a></li>
                     <li><a href="#">Sale</a></li>
                   </ul>
                 </nav>

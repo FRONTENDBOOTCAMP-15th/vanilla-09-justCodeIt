@@ -110,7 +110,7 @@ checkboxImgs.forEach((img) => {
   ) as HTMLInputElement;
 
   img.addEventListener("click", () => {
-    // FIXME 왜 체크가 안되는지..
+    checkbox.checked = !checkbox.checked;
     if (checkbox.checked) {
       img.setAttribute("src", imgOn);
     } else {

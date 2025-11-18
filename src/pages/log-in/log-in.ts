@@ -1,4 +1,114 @@
-// 패스워드 토글
+import { AxiosError } from "axios";
+import { getAxios } from "../../utils/axios";
+import type {
+  SignupBody,
+  SignupRes,
+  ApiError,
+  LoginBody,
+  LoginRes,
+} from "../../utils/types";
+
+const api = getAxios();
+
+let currentEmail = "";
+
+// 로그인 API
+async function loginRequest(
+  email: string,
+  password: string
+): Promise<LoginRes> {
+  const body: LoginBody = { email, password };
+  const res = await api.post<LoginRes>("/users/login", body);
+  return res.data;
+}
+
+// =========
+// 이메일 체크
+// =========
+
+// ------------------  이메일 중복 체크 API 함수 ------------------
+
+async function checkEmailExists(email: string): Promise<boolean> {
+  const res = await api.get<{ ok: number; message?: string }>("/users/email", {
+    params: { email },
+    // ✅ 200, 409 둘 다 "성공"으로 취급 (인터셉터 에러 X)
+    validateStatus(status) {
+      return status === 200 || status === 409;
+    },
+  });
+
+  // 존재하는 이메일(기존 회원)
+  if (res.status === 409) {
+    return true;
+  }
+
+  // 중복되지 않은 이메일(신규 회원)
+  return false;
+}
+
+// 데이터 API로 보내는 함수
+async function submitSignup() {
+  // STEP 3의 입력 요소들
+  const firstNameInput = document.getElementById(
+    "firstName"
+  ) as HTMLInputElement | null;
+  const lastNameInput = document.getElementById(
+    "lastName"
+  ) as HTMLInputElement | null;
+  const newPasswordInput = document.getElementById(
+    "newPassword"
+  ) as HTMLInputElement | null;
+  const birthInput = document.getElementById(
+    "birth"
+  ) as HTMLInputElement | null;
+  const policyInput = document.getElementById(
+    "policy"
+  ) as HTMLInputElement | null;
+
+  if (
+    !firstNameInput ||
+    !lastNameInput ||
+    !newPasswordInput ||
+    !birthInput ||
+    !policyInput
+  ) {
+    alert("회원가입 정보를 다시 확인해 주세요.");
+    return;
+  }
+
+  if (!currentEmail) {
+    alert("이메일 정보가 없습니다. 처음부터 다시 진행해 주세요.");
+    return;
+  }
+
+  // 타입 정의( SignupBody )에 맞게 실제 필드 이름 맞춰줘야 함!
+  const body: SignupBody = {
+    email: currentEmail,
+    password: newPasswordInput.value,
+    name: `${lastNameInput.value}${firstNameInput.value}`,
+    type: "user",
+  };
+
+  try {
+    const res = await api.post<SignupRes>("/users", body); // ← 실제 엔드포인트로 수정!
+
+    // 성공 처리 (원하는 UX로 변경 가능)
+    alert("회원가입이 완료되었습니다");
+
+    // window.location.href = "/";
+  } catch (error) {
+    const err = error as AxiosError<ApiError>;
+    if (err.response?.data?.message) {
+      alert(err.response.data.message);
+    } else {
+      alert("회원가입 중 오류가 발생했어요. 잠시 후 다시 시도해 주세요.");
+    }
+    console.error(err);
+  }
+}
+
+// ------------------ 로그인 비밀번호 토글 ------------------
+
 // 요소 참조 (null 가능성 포함)
 const pwdInput = document.getElementById("password") as HTMLInputElement | null;
 const pwdToggle = document.getElementById(
@@ -8,7 +118,7 @@ const eyeIcon = document.getElementById("eyeIcon") as HTMLElement | null;
 
 const eyeOpen = `
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M21.9196 11.6C19.8996 6.91 16.0996 4 11.9996 4C7.89958 4 4.09958 6.91 2.07958 11.6C1.96827 11.8551 1.96827 12.1449 2.07958 12.4C4.09958 17.09 7.89958 20 11.9996 20C16.0996 20 19.8996 17.09 21.9196 12.4C22.0309 12.1449 22.0309 11.8551 21.9196 11.6ZM11.9996 18C8.82958 18 5.82958 15.71 4.09958 12C5.82958 8.29 8.82958 6 11.9996 6C15.1696 6 18.1696 8.29 19.8996 12C18.1696 15.71 15.1696 18 11.9996 18ZM11.9996 8C9.79044 8 7.99958 9.79086 7.99958 12C7.99958 14.2091 9.79044 16 11.9996 16C14.2087 16 15.9996 14.2091 15.9996 12C15.9996 10.9391 15.5782 9.92172 14.828 9.17157C14.0779 8.42143 13.0604 8 11.9996 8ZM11.9996 14C10.895 14 9.99958 13.1046 9.99958 12C9.99958 10.8954 10.895 10 11.9996 10C13.1041 10 13.9996 10.8954 13.9996 12C13.9996 13.1046 13.1041 14 11.9996 14Z" fill="black"/>
+<path d="M21.9196 11.6C19.8996 6.91 16.0996 4 11.9996 4C7.89958 4 4.09958 6.91 2.07958 11.6C1.96827 11.8551 1.96827 12.1449 2.07958 12.4C4.09958 17.09 7.89958 20 11.9996 20C16.0996 20 19.8996 17.09 21.9196 12.4C22.0309 11.8551 22.0309 11.6 21.9196 11.6ZM11.9996 18C8.82958 18 5.82958 15.71 4.09958 12C5.82958 8.29 8.82958 6 11.9996 6C15.1696 6 18.1696 8.29 19.8996 12C18.1696 15.71 15.1696 18 11.9996 18ZM11.9996 8C9.79044 8 7.99958 9.79086 7.99958 12C7.99958 14.2091 9.79044 16 11.9996 16C14.2087 16 15.9996 14.2091 15.9996 12C15.9996 10.9391 15.5782 9.92172 14.828 9.17157C14.0779 8.42143 13.0604 8 11.9996 8ZM11.9996 14C10.895 14 9.99958 13.1046 9.99958 12C9.99958 10.8954 10.895 10 11.9996 10C13.1041 10 13.9996 10.8954 13.9996 12C13.9996 13.1046 13.1041 14 11.9996 14Z" fill="black"/>
 </svg>
 `;
 
@@ -35,7 +145,7 @@ if (pwdInput && pwdToggle && eyeIcon) {
   });
 }
 
-// 이메일 입력 후 계속 클릭 시 비밀번호 입력하는 화면으로 전환
+// ------------------ 이메일/비밀번호/회원가입/동의 스텝 ------------------
 const formEmail = document.getElementById(
   "form-email"
 ) as HTMLFormElement | null;
@@ -61,11 +171,22 @@ function show(el?: HTMLElement | null) {
 function hide(el?: HTMLElement | null) {
   if (!el) return;
   el.classList.add("hidden");
-  el.setAttribute("inert", ""); // 접근성: 포커스 막기
+  el.setAttribute("inert", "");
 }
 
 // 이메일 → 비밀번호 스텝
-formEmail?.addEventListener("submit", (e) => {
+const stepSignup = document.getElementById("step-signup") as HTMLElement | null; // STEP 3
+const stepConsent = document.getElementById(
+  "step-consent"
+) as HTMLElement | null; // STEP 4
+const formSignup = document.getElementById(
+  "form-signup"
+) as HTMLFormElement | null;
+const formConsent = document.getElementById(
+  "form-consent"
+) as HTMLFormElement | null;
+
+formEmail?.addEventListener("submit", async (e) => {
   e.preventDefault();
   if (!emailInput) return;
 
@@ -75,18 +196,43 @@ formEmail?.addEventListener("submit", (e) => {
     return;
   }
 
-  // 이메일 표시(선택: 마스킹)
   const v = emailInput.value.trim();
+  if (!v) return;
+
+  // 전역에 현재 이메일 저장
+  currentEmail = v;
+
+  // 화면에 이메일 보여주는 부분 (비밀번호 화면 상단)
   if (emailEcho) {
     emailEcho.textContent = v;
   }
 
-  hide(stepEmail);
-  show(stepPassword);
+  try {
+    // 1) 이메일이 가입되어 있는지 서버에 물어보기
+    const exists = await checkEmailExists(v);
 
-  // 포커스 이동
-  const pwd = document.getElementById("password") as HTMLInputElement | null;
-  pwd?.focus();
+    if (exists) {
+      // 2-1) 기존 회원이면 → 비밀번호 화면으로
+      hide(stepEmail);
+      show(stepPassword);
+
+      const pwd = document.getElementById(
+        "password"
+      ) as HTMLInputElement | null;
+      pwd?.focus();
+    } else {
+      // 2-2) 신규 회원이면 → 회원가입 기본정보 화면으로
+      hide(stepEmail);
+      show(stepSignup);
+      const firstName = document.getElementById(
+        "firstName"
+      ) as HTMLInputElement | null;
+      firstName?.focus();
+    }
+  } catch (error) {
+    // checkEmailExists 안에서 alert 띄웠으니까 여기선 로그 정도만
+    console.error(error);
+  }
 });
 
 // '이전' 버튼 → 이메일 스텝으로
@@ -134,7 +280,7 @@ function updateRule(ruleElem: HTMLElement, ok: boolean): void {
   }
 }
 
-// 비밀번호 입력 이벤트
+// 비밀번호 입력 이벤트 ------------
 pwd?.addEventListener("input", () => {
   const v = pwd.value;
   const isLong = v.length >= 8;
@@ -144,7 +290,43 @@ pwd?.addEventListener("input", () => {
   if (ruleMix) updateRule(ruleMix, isMixed);
 });
 
-// 체크박스 아이콘
+//생년월일 ------------
+// 생년월일 입력 & 표시
+const birthInput = document.getElementById("birth") as HTMLInputElement | null;
+const birthField = birthInput?.closest(".field") as HTMLElement | null;
+const birthLabel = birthField?.querySelector("span") as HTMLElement | null;
+
+if (birthField && birthInput) {
+  birthField.addEventListener("click", (e) => {
+    if (e.target === birthInput) return;
+    birthInput.focus();
+    (birthInput as any).showPicker?.();
+  });
+}
+
+if (birthInput && birthLabel) {
+  const originalLabelText = birthLabel.textContent || "생년월일";
+
+  birthInput.addEventListener("change", () => {
+    const value = birthInput.value;
+    if (!value) {
+      birthLabel.textContent = originalLabelText;
+      birthLabel.classList.remove("text-gray-700");
+      birthLabel.classList.add("text-gray-400");
+      return;
+    }
+
+    const [year, month, day] = value.split("-");
+    const formatted = `${year}. ${month}. ${day}.`;
+
+    birthLabel.textContent = formatted;
+    birthLabel.classList.remove("text-gray-400");
+    birthLabel.classList.add("text-gray-700");
+  });
+}
+
+// 체크박스 아이콘 ------------------------------
+
 // SVG 정의
 const uncheckedIcon = `
   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -162,12 +344,12 @@ const checkedIcon = `
 // 아이콘 업데이트 함수
 function updateCheckboxIcon(input: HTMLInputElement) {
   const icon = input.nextElementSibling as HTMLElement | null;
-  if (icon) {
+  if (icon && icon.classList.contains("icon")) {
     icon.innerHTML = input.checked ? checkedIcon : uncheckedIcon;
   }
 }
 
-// 모든 체크박스 선택 (policy 포함)
+// 모든 체크박스 선택 (policy 포함, consent 포함)
 const checkboxes = document.querySelectorAll<HTMLInputElement>(
   'input[type="checkbox"]'
 );
@@ -176,4 +358,106 @@ const checkboxes = document.querySelectorAll<HTMLInputElement>(
 checkboxes.forEach((input) => {
   updateCheckboxIcon(input);
   input.addEventListener("change", () => updateCheckboxIcon(input));
+});
+
+// --- 전체 동의 & 필수 동의 연동 -----------------------------
+
+// "모든 약관에 동의합니다" 체크박스
+const allAgree = document.getElementById("allAgree") as HTMLInputElement | null;
+
+// consent 단계 필수 체크박스들
+const requiredChecks = document.querySelectorAll<HTMLInputElement>(
+  "#reqAgree1, #reqAgree2, #reqAgree3"
+);
+
+// 전체동의 → 아래 3개 함께 on/off
+allAgree?.addEventListener("change", () => {
+  requiredChecks.forEach((chk) => {
+    chk.checked = allAgree.checked;
+    updateCheckboxIcon(chk);
+  });
+});
+
+// 아래 3개 상태에 따라 전체동의 자동 업데이트
+requiredChecks.forEach((chk) => {
+  chk.addEventListener("change", () => {
+    if (!allAgree) return;
+    const allChecked = Array.from(requiredChecks).every((c) => c.checked);
+    allAgree.checked = allChecked;
+    updateCheckboxIcon(allAgree);
+  });
+});
+
+// 기본정보 입력 후 동의항목으로 이동
+formSignup?.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  if (!formSignup.checkValidity()) {
+    // 브라우저 기본 유효성 에러 표시
+    formSignup.reportValidity();
+    return;
+  }
+
+  hide(stepSignup);
+  show(stepConsent);
+});
+
+// 필수 동의 체크 확인
+formConsent?.addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  // 필수 항목이 모두 체크되어 있는지 확인
+  const allRequiredChecked = Array.from(requiredChecks).every((c) => c.checked);
+  if (!allRequiredChecked) {
+    alert("필수 약관에 모두 동의해야 회원가입을 완료할 수 있어요.");
+    return;
+  }
+
+  // 여기서 실제 회원가입 API 호출
+  await submitSignup();
+});
+
+// 로그인
+const passwordInput = document.getElementById(
+  "password"
+) as HTMLInputElement | null;
+
+formPassword?.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  if (!passwordInput) return;
+
+  // 브라우저 자체 유효성 검사
+  if (!passwordInput.checkValidity()) {
+    passwordInput.reportValidity();
+    return;
+  }
+
+  if (!currentEmail) {
+    alert("이메일 정보가 없습니다. 처음부터 다시 진행해 주세요.");
+    return;
+  }
+
+  try {
+    // 1) 로그인 API 호출
+    const data = await loginRequest(currentEmail, passwordInput.value);
+
+    // 2) 토큰 저장 (프로젝트 규칙에 맞게)
+    //   - 만약 axios 인터셉터가 localStorage의 accessToken을 참고한다면:
+    localStorage.setItem("accessToken", data.accessToken);
+
+    // 3) 로그인 성공 후 이동 (원하는 페이지로)
+    // 예: 메인 페이지로
+    // window.location.href = "/";
+
+    alert("로그인에 성공했어요!");
+  } catch (error: any) {
+    // 여기선 진짜 에러 (네트워크, 400/401 등)만 잡히게 두면 됨
+    console.error(error);
+
+    const err = error as AxiosError<any>;
+    const msg =
+      err.response?.data?.message ||
+      "이메일 또는 비밀번호를 다시 확인해 주세요.";
+    alert(msg);
+  }
 });

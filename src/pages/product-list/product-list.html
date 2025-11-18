@@ -7,21 +7,21 @@
     <link rel="stylesheet" href="/src/style.css" />
     <title>product-list</title>
   </head>
-  <body>
+  <body class="min-h-screen flex flex-col">
     <nike-header></nike-header>
-    <main class="flex flex-col">
+    <main class="flex-1">
       <div class="sticky top-0 left-0 right-0 z-50 bg-white">
         <div
-          class="flex flex-col md:flex-row justify-between items-center w-full max-w-[1920px] mx-auto px-6"
+          class="flex flex-col md:flex-row justify-between items-center md:w-full md:max-w-[1920px] md:mx-auto md:px-6"
         >
           <div class="p-2">
             <!-- md: 신제품 개수 출력해야함 api 연결 -->
-            <span class="text-xl md:text-lg">신제품</span>
+            <span class="hidden text-xl md:text-lg">신제품</span>
           </div>
           <!-- 모바일 카테고리 -->
           <div
             id="mobile-category"
-            class="flex overflow-x-auto gap-4 text-base scrollbar-hide border-b-gray-200 border-b md:hidden"
+            class="flex w-full overflow-x-auto gap-4 text-base scrollbar-hide border-b-gray-200 border-b md:hidden"
           >
             <button class="p-4 whitespace-nowrap">신발</button>
             <button class="whitespace-nowrap">탑 & 티셔츠</button>
@@ -38,21 +38,20 @@
           </div>
           <!-- 모바일 필터바 -->
           <div
-            class="flex justify-between items-center text-base px-5 py-3.5 md:hidden"
+            class="flex w-full justify-between items-center text-base px-5 py-3.5 md:hidden"
           >
             <span class="text-gray-400">741개의 결과</span>
-            <div class="flex flex-row items-center">
-              <button
-                class="flex flex-row justify-center items-center w-24 border border-gray-300 rounded-4xl p-1"
-              >
-                <span class="text-base">필터</span>
-                <img
-                  src="/src/assets/img/Icon24px.png"
-                  alt="필터"
-                  class="w-6 h-6"
-                />
-              </button>
-            </div>
+
+            <button
+              class="flex flex-row justify-center items-center w-24 border border-gray-300 rounded-4xl p-1"
+            >
+              <span class="text-base">필터</span>
+              <img
+                src="/src/assets/img/Icon24px.png"
+                alt="필터"
+                class="w-6 h-6"
+              />
+            </button>
           </div>
           <!-- 데스크탑 필터바 -->
           <div class="hidden md:flex flex-row items-center">
@@ -93,11 +92,11 @@
           </div>
         </div>
       </div>
-      <div class="flex h-[calc(100vh-4rem)] w-full max-w-[1920px] mx-auto px-6">
+      <div class="flex w-full max-w-[1920px] mx-auto md:px-6">
         <!-- 데스크탑 사이드바 -->
         <div
           id="desktop-sidebar"
-          class="w-auto p-4 hidden md:flex flex-col overflow-y-auto"
+          class="w-auto p-4 hidden md:flex flex-col sticky top-20 self-start max-h-[calc(100vh-5rem)] overflow-y-auto"
         >
           <div
             class="flex flex-col items-start border-b-gray-200 border-b gap-1.5 pb-8 text-base font-medium"
@@ -121,7 +120,13 @@
           >
             <span class="font-bold">성별</span>
             <div class="space-x-2 flex">
-              <input type="checkbox" name="male" id="male" class="hidden" />
+              <input
+                type="checkbox"
+                name="male"
+                id="male"
+                class="hidden"
+                checked
+              />
               <img
                 data-target="male"
                 src="/src/assets/img/Property 1=Off.png"
@@ -322,28 +327,8 @@
         <!-- 제품 사진 : api로 사진 & 정보 끌어오기 -->
         <div
           id="productBody"
-          class="grid grid-cols-2 md:grid-cols-3 md:mt-0 gap-3 p-4 w-full overflow-y-auto"
+          class="grid grid-cols-2 md:grid-cols-3 md:mt-0 gap-3 p-4 w-full"
         ></div>
-        <!-- <div
-            class="grid  grid-cols-2 lg:grid-cols-3 gap-6 p-4 w-full overflow-y-auto"
-          >
-            <div class="flex flex-col items-start">
-              <img
-                class="w-full object-contain aspect-square"
-                src="/src/assets/img/nike.png"
-                alt="제품 사진"
-              />
-              <span class="text-sm lg:text-base text-orange-800 mt-2"
-                >신제품</span
-              >
-              <span class="text-sm font-semibold">나이키 클럽</span>
-              <span class="text-sm lg:text-base text-gray-400"
-                >언스트럭처 데님 캡</span
-              >
-              <span class="text-sm lg:text-base text-gray-400">1개 색상</span>
-              <span class="text-base mt-3">39,000 원</span>
-            </div>
-          </div> -->
       </div>
     </main>
     <footer-bar></footer-bar>
