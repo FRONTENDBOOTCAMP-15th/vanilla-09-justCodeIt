@@ -272,15 +272,15 @@
       </section>
 
       <section
-        class="mb-21 md:mx-6 md:mb-24 md:max-w-[1824px] md:grid md:grid-cols-2 md:gap-3"
+        class="mx-6 mb-21 md:mx-auto md:mb-24 md:max-w-[1824px] md:grid md:grid-cols-2 gap-3 md:px-6"
       >
-        <h3 class="text-2xl font-medium md:col-span-2 mb-6">Featured</h3>
+        <h3 class="text-2xl font-medium md:col-span-2 mb-6 md:mx-0">
+          Featured
+        </h3>
 
         <!-- 카드 1 -->
-        <div class="flex flex-col mb-12 md:items-center md:relative">
-          <!-- relative를 여기! -->
-
-          <picture class="md:flex md:justify-center">
+        <div class="flex flex-col mb-12 md:items-center md:relative md:mx-0">
+          <picture class="md:flex md:justify-center w-full">
             <source
               media="(min-width:768px)"
               srcset="./../../assets/img/home/featured1-web.png"
@@ -288,10 +288,11 @@
             <img
               src="./../../assets/img/home/featured1-mobile.png"
               alt="워크아웃 에센셜"
-              class="object-cover w-full h-auto min-w-[312px] min-h-[312px] mb-4 md:w-auto md:h-auto"
+              class="object-cover w-full h-auto min-w-[312px] min-h-[312px] md:max-w-[906px] md:max-h-[476.13px]"
             />
           </picture>
 
+          <!-- 모바일 텍스트 & 버튼 -->
           <p class="text-2xl font-medium md:hidden">워크아웃 에센셜</p>
           <button
             class="mt-6 w-fit px-4 py-1.5 bg-black text-white text-base rounded-[30px] md:hidden"
@@ -299,15 +300,17 @@
             구매하기
           </button>
 
+          <!-- 데스크탑 버튼 -->
           <button
-            class="hidden md:block absolute bottom-6 left-6 bg-white text-black px-4 py-2 rounded-[30px] text-base font-medium shadow-lg"
+            class="hidden md:block absolute bottom-14.5 left-6 bg-white text-black px-4 py-2 rounded-[30px] text-base font-medium shadow-lg"
           >
             워크아웃 에센셜
           </button>
         </div>
 
-        <div class="flex flex-col mb-21 md:items-center md:relative">
-          <picture class="md:flex md:justify-center">
+        <!-- 카드 2 -->
+        <div class="flex flex-col mb-21 md:items-center md:relative md:mx-0">
+          <picture class="md:flex md:justify-center w-full">
             <source
               media="(min-width:768px)"
               srcset="./../../assets/img/home/featured2-web.png"
@@ -315,7 +318,7 @@
             <img
               src="./../../assets/img/home/featured2-mobile.png"
               alt="나이키 메트콘9"
-              class="object-cover w-full h-auto min-w-[312px] min-h-[312px] mb-4 md:w-auto md:h-auto"
+              class="object-cover w-full h-auto min-w-[312px] min-h-[312px] md:max-w-[906px] md:max-h-[476.13px]"
             />
           </picture>
 
@@ -334,57 +337,59 @@
         </div>
       </section>
 
-      <section class="mx-6 mb-21 md:mb-24 md:max-w-[1824px]">
-        <div class="flex flex-col mb-[84px]">
-          <h3 class="mb-6 text-2xl font-medium">Always Iconic</h3>
+      <section class="mb-21 md:mb-24 md:max-w-[1824px] mx-auto">
+        <!-- 제목 박스: 항상 px-6 유지 -->
+        <div class="px-6 mb-6">
+          <h3 class="text-2xl font-medium">Always Iconic</h3>
+        </div>
 
-          <div
-            class="flex gap-3 overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory"
-          >
-            <!-- 카드 1 -->
-            <div class="flex flex-col shrink-0 snap-start">
-              <img
-                src="./../../assets/img/home/always1-mobile.png"
-                alt="페가수스"
-                class="object-cover w-[300px] h-[300px] min-w-[300px] min-h-[300px] md:w-[500px] md:h-[500px] md:min-w-0 md:min-h-0 md:max-w-[500px] md:max-h-[500px] mb-[45px]"
-              />
-            </div>
+        <!-- 슬라이드 영역: 좌우로 확장됨 -->
+        <div
+          class="flex gap-3 overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory md:gap-6 w-full"
+        >
+          <!-- 카드 1 -->
+          <div class="flex flex-col shrink-0 snap-start px-6 md:px-0">
+            <img
+              src="./../../assets/img/home/always1-mobile.png"
+              alt="페가수스"
+              class="object-cover w-[300px] h-[300px] min-w-[300px] min-h-[300px] md:w-[500px] md:h-[500px] md:min-w-0 md:min-h-0 md:max-w-[500px] md:max-h-[500px] mb-[45px]"
+            />
+          </div>
 
-            <!-- 카드 2 -->
-            <div class="flex flex-col shrink-0 snap-start">
-              <img
-                src="./../../assets/img/home/always2-mobile.png"
-                alt="V2K 런"
-                class="object-cover w-[300px] h-[300px] min-w-[300px] min-h-[300px] md:w-[500px] md:h-[500px] md:min-w-0 md:min-h-0 md:max-w-[500px] md:max-h-[500px] mb-[45px]"
-              />
-            </div>
+          <!-- 카드 2 -->
+          <div class="flex flex-col shrink-0 snap-start px-6 md:px-0">
+            <img
+              src="./../../assets/img/home/always2-mobile.png"
+              alt="V2K 런"
+              class="object-cover w-[300px] h-[300px] min-w-[300px] min-h-[300px] md:w-[500px] md:h-[500px] md:min-w-0 md:min-h-0 md:max-w-[500px] md:max-h-[500px] mb-[45px]"
+            />
+          </div>
 
-            <!-- 카드 3 -->
-            <div class="flex flex-col shrink-0 snap-start">
-              <img
-                src="./../../assets/img/home/always3-mobile.png"
-                alt="에어 리프트"
-                class="object-cover w-[300px] h-[300px] min-w-[300px] min-h-[300px] md:w-[500px] md:h-[500px] md:min-w-0 md:min-h-0 md:max-w-[500px] md:max-h-[500px] mb-[45px]"
-              />
-            </div>
+          <!-- 카드 3 -->
+          <div class="flex flex-col shrink-0 snap-start px-6 md:px-0">
+            <img
+              src="./../../assets/img/home/always3-mobile.png"
+              alt="에어 리프트"
+              class="object-cover w-[300px] h-[300px] min-w-[300px] min-h-[300px] md:w-[500px] md:h-[500px] md:min-w-0 md:min-h-0 md:max-w-[500px] md:max-h-[500px] mb-[45px]"
+            />
+          </div>
 
-            <!-- 카드 4 -->
-            <div class="flex flex-col shrink-0 snap-start">
-              <img
-                src="./../../assets/img/home/always4-mobile.png"
-                alt="덩크"
-                class="object-cover w-[300px] h-[300px] min-w-[300px] min-h-[300px] md:w-[500px] md:h-[500px] md:min-w-0 md:min-h-0 md:max-w-[500px] md:max-h-[500px] mb-[45px]"
-              />
-            </div>
+          <!-- 카드 4 -->
+          <div class="flex flex-col shrink-0 snap-start px-6 md:px-0">
+            <img
+              src="./../../assets/img/home/always4-mobile.png"
+              alt="덩크"
+              class="object-cover w-[300px] h-[300px] min-w-[300px] min-h-[300px] md:w-[500px] md:h-[500px] md:min-w-0 md:min-h-0 md:max-w-[500px] md:max-h-[500px] mb-[45px]"
+            />
+          </div>
 
-            <!-- 카드 5 -->
-            <div class="flex flex-col shrink-0 snap-start">
-              <img
-                src="./../../assets/img/home/always5-mobile.png"
-                alt="코르테즈"
-                class="object-cover w-[300px] h-[300px] min-w-[300px] min-h-[300px] md:w-[500px] md:h-[500px] md:min-w-0 md:min-h-0 md:max-w-[500px] md:max-h-[500px] mb-[45px]"
-              />
-            </div>
+          <!-- 카드 5 -->
+          <div class="flex flex-col shrink-0 snap-start px-6 md:px-0">
+            <img
+              src="./../../assets/img/home/always5-mobile.png"
+              alt="코르테즈"
+              class="object-cover w-[300px] h-[300px] min-w-[300px] min-h-[300px] md:w-[500px] md:h-[500px] md:min-w-0 md:min-h-0 md:max-w-[500px] md:max-h-[500px] mb-[45px]"
+            />
           </div>
         </div>
       </section>
@@ -497,7 +502,6 @@
             </li>
           </ul>
 
-          <!-- 데스크톱 전용: 3개씩 보이는 카드 슬라이더 -->
           <div class="hidden md:block mt-8">
             <div class="overflow-hidden">
               <div
@@ -505,9 +509,8 @@
                 class="flex gap-4 transition-transform duration-300"
               >
                 <!-- 카드 1 -->
-                <article class="sport-card flex-shrink-0">
-                  <picture class="block">
-                    <!-- 데스크톱용 이미지 경로: 필요하면 파일명 맞게 수정 -->
+                <article class="sport-card flex-shrink-0 w-[600px]">
+                  <picture>
                     <source
                       media="(min-width:768px)"
                       srcset="./../../assets/img/home/shopbysport1-web.png"
@@ -515,16 +518,14 @@
                     <img
                       src="./../../assets/img/home/shopbysport1-mobile.png"
                       alt="나이키 트레이닝"
-                      class="object-cover w-full h-auto"
+                      class="object-cover w-full h-auto md:w-[600px] md:h-[400px]"
                     />
                   </picture>
                   <div class="mt-4">
                     <span class="block text-sm text-gray-400"
                       >나이키 트레이닝</span
                     >
-                    <h3
-                      class="mt-1 text-xl font-medium leading-[35px] text-gray-900"
-                    >
+                    <h3 class="mt-1 text-xl font-medium leading-[32px]">
                       한계에 도전하는 여정과<br />
                       함께할 아이템
                     </h3>
@@ -532,32 +533,31 @@
                 </article>
 
                 <!-- 카드 2 -->
-                <article class="sport-card flex-shrink-0">
-                  <picture class="block">
+                <article class="sport-card flex-shrink-0 w-[600px]">
+                  <picture>
                     <source
                       media="(min-width:768px)"
                       srcset="./../../assets/img/home/shopbysport2-web.png"
                     />
                     <img
                       src="./../../assets/img/home/shopbysport2-mobile.png"
-                      alt="나이키 축구"
-                      class="object-cover w-full h-auto"
+                      alt="나이키 트레일 러닝"
+                      class="object-cover w-full h-auto md:w-[600px] md:h-[400px]"
                     />
                   </picture>
                   <div class="mt-4">
-                    <span class="block text-sm text-gray-400">나이키 축구</span>
-                    <h3
-                      class="mt-1 text-xl font-medium leading-[35px] text-gray-900"
+                    <span class="block text-sm text-gray-400"
+                      >나이키 트레일 러닝</span
                     >
-                      경기 중 독보적인<br />
-                      존재감을 드러낼 아이템
+                    <h3 class="mt-1 text-xl font-medium leading-[32px]">
+                      새로운 모험으로 이끌어 주는 아이템
                     </h3>
                   </div>
                 </article>
 
                 <!-- 카드 3 -->
-                <article class="sport-card flex-shrink-0">
-                  <picture class="block">
+                <article class="sport-card flex-shrink-0 w-[600px]">
+                  <picture>
                     <source
                       media="(min-width:768px)"
                       srcset="./../../assets/img/home/shopbysport3-web.png"
@@ -565,22 +565,20 @@
                     <img
                       src="./../../assets/img/home/shopbysport3-mobile.png"
                       alt="나이키 농구"
-                      class="object-cover w-full h-auto"
+                      class="object-cover w-full h-auto md:w-[600px] md:h-[400px]"
                     />
                   </picture>
                   <div class="mt-4">
-                    <span class="block text-sm text-gray-400">나이키 농구</span>
-                    <h3
-                      class="mt-1 text-xl font-medium leading-[35px] text-gray-900"
-                    >
-                      경기를 빛내줄 스타일
+                    <span class="block text-sm text-gray-400">나이키 축구</span>
+                    <h3 class="mt-1 text-xl font-medium leading-[32px]">
+                      경기 중 독보적인 존재감을 드러낼 아이템
                     </h3>
                   </div>
                 </article>
 
                 <!-- 카드 4 -->
-                <article class="sport-card flex-shrink-0">
-                  <picture class="block">
+                <article class="sport-card flex-shrink-0 w-[600px]">
+                  <picture>
                     <source
                       media="(min-width:768px)"
                       srcset="./../../assets/img/home/shopbysport4-web.png"
@@ -588,23 +586,20 @@
                     <img
                       src="./../../assets/img/home/shopbysport4-mobile.png"
                       alt="나이키 골프"
-                      class="object-cover w-full h-auto"
+                      class="object-cover w-full h-auto md:w-[600px] md:h-[400px]"
                     />
                   </picture>
                   <div class="mt-4">
                     <span class="block text-sm text-gray-400">나이키 골프</span>
-                    <h3
-                      class="mt-1 text-xl font-medium leading-[35px] text-gray-900"
-                    >
-                      골프 필드 위 자신감을<br />
-                      더해주는 스타일
+                    <h3 class="mt-1 text-xl font-medium leading-[32px]">
+                      골프 필드 위 자신감을 더해주는 스타일
                     </h3>
                   </div>
                 </article>
 
                 <!-- 카드 5 -->
-                <article class="sport-card flex-shrink-0">
-                  <picture class="block">
+                <article class="sport-card flex-shrink-0 w-[600px]">
+                  <picture>
                     <source
                       media="(min-width:768px)"
                       srcset="./../../assets/img/home/shopbysport5-web.png"
@@ -612,16 +607,14 @@
                     <img
                       src="./../../assets/img/home/shopbysport5-mobile.png"
                       alt="나이키 테니스"
-                      class="object-cover w-full h-auto"
+                      class="object-cover w-full h-auto md:w-[600px] md:h-[400px]"
                     />
                   </picture>
                   <div class="mt-4">
                     <span class="block text-sm text-gray-400"
                       >나이키 테니스</span
                     >
-                    <h3
-                      class="mt-1 text-xl font-medium leading-[35px] text-gray-900"
-                    >
+                    <h3 class="mt-1 text-xl font-medium leading-[32px]">
                       강력한 서브를 돋보이게 하는 스타일
                     </h3>
                   </div>
@@ -790,4 +783,38 @@
     </main>
     <footer-bar></footer-bar>
   </body>
+  <script>
+    const track = document.getElementById("sport-track");
+    const prevBtn = document.getElementById("sport-prev");
+    const nextBtn = document.getElementById("sport-next");
+
+    if (track && prevBtn && nextBtn) {
+      let index = 0;
+
+      // 데스크톱 카드 1개(600px) + gap 24px = 624px 이동
+      const slideWidth = 600 + 24;
+
+      const total = track.children.length; // 5개 카드
+      const visible = 3; // 한 화면에 3개 보임
+      const maxIndex = total - visible; // = 2
+
+      const update = () => {
+        track.style.transform = `translateX(-${index * slideWidth}px)`;
+      };
+
+      nextBtn.addEventListener("click", () => {
+        if (index < maxIndex) {
+          index++;
+          update();
+        }
+      });
+
+      prevBtn.addEventListener("click", () => {
+        if (index > 0) {
+          index--;
+          update();
+        }
+      });
+    }
+  </script>
 </html>
