@@ -246,12 +246,12 @@ class NikeHeader extends HTMLElement {
                     class="flex justify-center gap-8 text-base text-[#111] font-normal whitespace-nowrap"
                   >
                     <li>
-                      <a href="/src/pages/product-detail/product-detail.html">New &amp; Featured</a>
+                      <a href="/src/pages/product-list/product-list.html?custom=%7B%22extra.isNew%22%3Atrue%7D&">New &amp; Featured</a>
                     </li>
-                    <li><a href="/src/pages/product-list/product-list.html?custom=%7B%22extra.gender%22%3A%22men%22%7D&page=1&limit=30">Men</a></li>
-                    <li><a href="/src/pages/product-list/product-list.html?custom=%7B%22extra.gender%22%3A%22women%22%7D&page=1&limit=30">Women</a></li>
-                    <li><a href="/src/pages/product-list/product-list.html?custom=%7B%22extra.gender%22%3A%22kids%22%7D&page=1&limit=30">Kids</a></li>
-                    <li><a href="#">Sale</a></li>
+                    <li><a href="/src/pages/product-list/product-list.html?custom=%7B%22extra.gender%22%3A%22men%22%7D&">Men</a></li>
+                    <li><a href="/src/pages/product-list/product-list.html?custom=%7B%22extra.gender%22%3A%22women%22%7D&">Women</a></li>
+                    <li><a href="/src/pages/product-list/product-list.html?custom=%7B%22extra.gender%22%3A%22kids%22%7D&">Kids</a></li>
+                    <li><a href="/src/pages/product-list/product-list.html?custom=%7B%22extra.isBest%22%3Atrue%7D&">Sale</a></li>
                   </ul>
                 </nav>
               </div>
@@ -306,7 +306,7 @@ class NikeHeader extends HTMLElement {
                 </a>
 
                 <!-- 장바구니 아이콘 -->
-                <a type="button" class="rounded-3xl hover:bg-[#E5E5E5]">
+                <a type="button" href="/src/pages/cart/cart.html" class="rounded-3xl hover:bg-[#E5E5E5]">
                   <svg
                     width="36"
                     height="36"

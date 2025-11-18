@@ -5,11 +5,16 @@ import { codes } from "../../utils/categories";
 
 async function showList() {
   const axios = getAxios();
+  const params = new URLSearchParams(window.location.search);
+  const custom = params.get("custom");
+  const sort = params.get("sort");
+  let query = `products/?custom=${custom}&page=1&limit=30`;
+  if (sort) {
+    query += `&sort=${sort}`;
+  }
 
   try {
-    const { data } = await axios.get<ProductListRes>(
-      "/products?page=1&limit=50"
-    );
+    const { data } = await axios.get<ProductListRes>(query);
     console.log(data);
 
     return data;
@@ -76,6 +81,34 @@ if (sortBtn && sortMenu) {
     }
   });
 }
+
+function setSort(value: string) {
+  const url = new URL(window.location.href);
+  const params = url.searchParams;
+
+  if (!value) {
+    params.delete("sort");
+  } else {
+    params.set("sort", value);
+  }
+
+  window.location.href = url.pathname + "?" + params.toString();
+}
+document.getElementById("recommend")?.addEventListener("click", () => {
+  setSort("");
+});
+
+document.getElementById("isNew")?.addEventListener("click", () => {
+  setSort('{"extra.isNew": -1}');
+});
+
+document.getElementById("highPrice")?.addEventListener("click", () => {
+  setSort('{"price": -1}');
+});
+
+document.getElementById("lowPrice")?.addEventListener("click", () => {
+  setSort('{"price": 1}');
+});
 
 // 필터 숨기기로 사이드바 숨기기!!! 하기싫다
 const hiddenFilterBtn = document.getElementById("hidden-filter");
