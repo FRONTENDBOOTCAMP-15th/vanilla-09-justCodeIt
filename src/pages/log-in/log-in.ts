@@ -22,6 +22,16 @@ async function loginRequest(
   return res.data;
 }
 
+const HOME_URL = "/"; // 홈 경로. 실제 홈 페이지 주소에 맞게 바꿔도 됨.
+
+// 로그인 성공 시 공통 처리: 토큰 저장 + 홈으로 이동
+function handleLoginSuccess(data: LoginRes) {
+  localStorage.setItem("accessToken", data.accessToken);
+  // 필요하면 유저 정보도 저장 가능
+  // localStorage.setItem("user", JSON.stringify(data.user));
+  window.location.href = HOME_URL;
+}
+
 // =========
 // 이메일 체크
 // =========
@@ -31,7 +41,7 @@ async function loginRequest(
 async function checkEmailExists(email: string): Promise<boolean> {
   const res = await api.get<{ ok: number; message?: string }>("/users/email", {
     params: { email },
-    // ✅ 200, 409 둘 다 "성공"으로 취급 (인터셉터 에러 X)
+    // 200, 409 둘 다 "성공"으로 취급 (인터셉터 에러 X)
     validateStatus(status) {
       return status === 200 || status === 409;
     },
@@ -81,7 +91,6 @@ async function submitSignup() {
     return;
   }
 
-  // 타입 정의( SignupBody )에 맞게 실제 필드 이름 맞춰줘야 함!
   const body: SignupBody = {
     email: currentEmail,
     password: newPasswordInput.value,
@@ -90,20 +99,50 @@ async function submitSignup() {
   };
 
   try {
-    const res = await api.post<SignupRes>("/users", body); // ← 실제 엔드포인트로 수정!
+    // 회원가입 요청
+    const res = await api.post<SignupRes>("/users", body);
 
-    // 성공 처리 (원하는 UX로 변경 가능)
-    alert("회원가입이 완료되었습니다");
+    // 서버 응답 로그 (디버깅용)
+    console.log("signup response:", res.status, res.data);
 
-    // window.location.href = "/";
-  } catch (error) {
-    const err = error as AxiosError<ApiError>;
-    if (err.response?.data?.message) {
-      alert(err.response.data.message);
-    } else {
-      alert("회원가입 중 오류가 발생했어요. 잠시 후 다시 시도해 주세요.");
+    // 혹시 ok:0 형태로 에러를 주는 경우
+    const data: any = res.data;
+    if (typeof data?.ok === "number" && data.ok === 0) {
+      alert(data.message || "회원가입 중 오류가 발생했습니다. (서버 응답)");
+      return;
     }
-    console.error(err);
+
+    // 여기까지 왔으면 "회원가입은 성공" 이라고 보고 자동 로그인 진행
+    alert("회원가입이 완료되었습니다.");
+
+    try {
+      const loginData = await loginRequest(
+        currentEmail,
+        newPasswordInput.value
+      );
+
+      // 자동 로그인 성공 → 토큰 저장 + 홈으로 이동
+      handleLoginSuccess(loginData);
+    } catch (error) {
+      // 회원가입은 되었지만 자동 로그인 실패한 경우
+      console.error("auto login error after signup:", error);
+      alert(
+        "회원가입은 완료되었지만 자동 로그인에 실패했어요.\n로그인 화면에서 다시 로그인해 주세요."
+      );
+
+      // 자동 로그인 실패 시, 로그인 스텝으로 돌려보내고 싶으면:
+      hide(stepSignup);
+      hide(stepConsent);
+      show(stepPassword);
+    }
+  } catch (error) {
+    // 진짜로 회원가입 요청 자체가 실패한 경우
+    console.error("signup request error:", error);
+    const err = error as AxiosError<ApiError>;
+    const msg =
+      err.response?.data?.message ||
+      "회원가입 중 오류가 발생했습니다. (요청 실패)";
+    alert(msg);
   }
 }
 
@@ -441,17 +480,12 @@ formPassword?.addEventListener("submit", async (e) => {
     // 1) 로그인 API 호출
     const data = await loginRequest(currentEmail, passwordInput.value);
 
-    // 2) 토큰 저장 (프로젝트 규칙에 맞게)
-    //   - 만약 axios 인터셉터가 localStorage의 accessToken을 참고한다면:
-    localStorage.setItem("accessToken", data.accessToken);
+    // 로그인 성공 알림
+    alert("로그인이 완료되었습니다.");
 
-    // 3) 로그인 성공 후 이동 (원하는 페이지로)
-    // 예: 메인 페이지로
-    // window.location.href = "/";
-
-    alert("로그인에 성공했어요!");
+    // 2) 공통 처리: 토큰 저장 + 홈으로 이동
+    handleLoginSuccess(data);
   } catch (error: any) {
-    // 여기선 진짜 에러 (네트워크, 400/401 등)만 잡히게 두면 됨
     console.error(error);
 
     const err = error as AxiosError<any>;
