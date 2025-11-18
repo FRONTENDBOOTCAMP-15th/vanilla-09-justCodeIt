@@ -5,14 +5,24 @@ import { codes } from "../../utils/categories";
 import imgOn from "/src/assets/img/checkOn.svg";
 import imgOff from "/src/assets/img/checkOff.png";
 
+const axios = getAxios();
+const params = new URLSearchParams(window.location.search);
+
 async function showList() {
-  const axios = getAxios();
-  const params = new URLSearchParams(window.location.search);
   const custom = params.get("custom");
   const sort = params.get("sort");
+  const minPrice = params.get("minPrice");
+  const maxPrice = params.get("maxPrice");
   let query = `products/?custom=${custom}&page=1&limit=30`;
   if (sort) {
     query += `&sort=${sort}`;
+  }
+
+  if (minPrice) {
+    query += `&minPrice=${minPrice}`;
+  }
+  if (maxPrice) {
+    query += `&maxPrice=${maxPrice}`;
   }
 
   try {
@@ -124,7 +134,7 @@ document.getElementById("lowPrice")?.addEventListener("click", () => {
   setSort('{"price": 1}');
 });
 
-// 필터 숨기기로 사이드바 숨기기!!! 하기싫다
+// 필터 숨기기로 사이드바 숨기기
 const hiddenFilterBtn = document.getElementById("hidden-filter");
 const desktopSidebar = document.getElementById("desktop-sidebar");
 
@@ -160,5 +170,30 @@ checkboxImgs.forEach((img) => {
     } else {
       img.setAttribute("src", imgOff);
     }
+
+    let minPrice = 0;
+    let maxPrice = 0;
+
+    if (checkbox.id === "under-5") {
+      minPrice = 0;
+      maxPrice = 50000;
+    } else if (checkbox.id === "under-10") {
+      minPrice = 50000;
+      maxPrice = 100000;
+    } else if (checkbox.id === "under-15") {
+      minPrice = 100000;
+      maxPrice = 150000;
+    } else if (checkbox.id === "under-20") {
+      minPrice = 150000;
+      maxPrice = 200000;
+    }
+
+    const url = new URL(window.location.href);
+    const params = url.searchParams;
+
+    params.set("minPrice", minPrice.toString());
+    params.set("maxPrice", maxPrice.toString());
+
+    window.location.href = url.pathname + "?" + params.toString();
   });
 });
