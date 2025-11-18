@@ -5,17 +5,18 @@ meta {
 }
 
 get {
-  url: {{url}}/products?minPrice=100000&maxPrice=150000
+  url: {{url}}/products?custom={ "$or": [{ "price": { "$gte":0, "$lte":50000 } },{ "price": { "$gte":50000, "$lte":100000 } } ] }
   body: none
   auth: none
 }
 
 params:query {
-  minPrice: 100000
-  maxPrice: 150000
+  custom: { "$or": [{ "price": { "$gte":0, "$lte":50000 } },{ "price": { "$gte":50000, "$lte":100000 } } ] }
+  ~minPrice: 100000
+  ~maxPrice: 150000
   ~custom: {  "$and": [ {"price": {"$gte": 100000}}, {"price": {"$lte": 150000}} ] }
   ~custom: {  "$and": [ {"price": {"$gte": 50000}}, {"price": {"$lte": 100000}} ] }
   ~custom: {"price": {"$lte": 50000}}
   ~custom: {  "$and": [ {"price": {"$gte": 150000}}, {"price": {"$lte": 200000}} ] }
-  ~custom: {"price": {"$gte": 200000}}
+  ~custom: { "$or": [{ "price": { "$gte":0, "$lte":50000 } },{ "price": { "$gte":50000, "$lte":100000 } } ] }
 }

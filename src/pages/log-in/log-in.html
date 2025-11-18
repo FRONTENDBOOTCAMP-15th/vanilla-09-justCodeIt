@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/src/pages/log-in/log-in.css" />
   </head>
   <body
-    class="min-h-screen flex items-start sm:items-center justify-center px-9 py-5 font-['Noto_Sans_KR']"
+    class="min-h-screen items-start sm:items-center justify-center px-9 py-5 font-['Noto_Sans_KR']"
   >
     <div class="wrap">
       <!-- STEP 1 : 이메일 입력 -->
@@ -81,7 +81,7 @@
 
       <!-- STEP 2 : 비밀번호 입력 -->
       <section
-        class="card hidden w-full"
+        class="card w-full hidden"
         data-step="password"
         id="step-password"
       >
@@ -174,7 +174,7 @@
       </section>
 
       <!-- STEP 3 : 회원가입 기본정보 -->
-      <section class="card" data-step="sigup" id="step-signup">
+      <section class="card hidden" data-step="sigup" id="step-signup">
         <!-- 로고 -->
         <header class="flex items-center justify-center h-[60px] w-20">
           <span class="block" aria-hidden="true">
@@ -324,7 +324,7 @@
             </div>
 
             <!-- 개인정보 동의 -->
-            <div class="agree col-span-2 mb-12 flex items-start">
+            <label class="agree col-span-2 mb-12 flex items-start">
               <input id="policy" type="checkbox" required class="hidden" />
 
               <!-- 체크박스 아이콘 표시용 -->
@@ -333,20 +333,20 @@
                 aria-hidden="true"
               ></span>
 
-              <label
-                for="policy"
+              <span
                 class="text-[#111111] text-[16px] font-normal leading-6 pl-3 cursor-pointer translate-y-0.5"
               >
                 나이키의
-                <a href="#" class="link underline underline-offset-4 font-bold"
-                  >개인정보 처리방침</a
-                >
+                <a href="#" class="link underline underline-offset-4 font-bold">
+                  개인정보 처리방침
+                </a>
                 및
-                <a href="#" class="link underline underline-offset-4 font-bold"
-                  >이용약관</a
-                >에 동의합니다.
-              </label>
-            </div>
+                <a href="#" class="link underline underline-offset-4 font-bold">
+                  이용약관
+                </a>
+                에 동의합니다.
+              </span>
+            </label>
 
             <!-- 버튼 -->
             <div class="btns col-span-2">
@@ -362,7 +362,7 @@
       </section>
 
       <!-- STEP 4 : 동의 항목 -->
-      <section class="card" data-step="consent" id="step-consent">
+      <section class="card hidden" data-step="consent" id="step-consent">
         <!-- 로고 -->
         <header class="flex items-center justify-center h-[60px] w-20">
           <span class="block" aria-hidden="true">

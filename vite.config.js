@@ -13,16 +13,17 @@ export default defineConfig({
           __dirname,
           `src/pages/product-list/product-list.html`
         ),
-        recommend: path.resolve(
-          __dirname,
-          `src/components/recommend.html`
-        ),
+        recommend: path.resolve(__dirname, `src/components/recommend.html`),
         "product-detail": path.resolve(
           __dirname,
           `src/pages/product-detail/product-detail.html`
         ),
         "log-in": path.resolve(__dirname, `src/pages/log-in/log-in.html`),
         cart: path.resolve(__dirname, `src/pages/cart/cart.html`),
+        "wish-list": path.resolve(
+          __dirname,
+          `src/pages/wish-list/wish-list.html`
+        ),
       },
     },
   },

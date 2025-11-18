@@ -14,7 +14,7 @@ class NikeHeader extends HTMLElement {
           <div class="mx-auto max-w-[1920px] px-4">
             <div class="h-[60px] flex items-center justify-between">
               <!-- 로고 (왼쪽) -->
-              <a href="#" class="flex items-center">
+              <a href="/src/pages/home/home.html" class="flex items-center">
                 <svg
                   width="76"
                   height="60"
@@ -34,78 +34,83 @@ class NikeHeader extends HTMLElement {
               <!-- 오른쪽 아이콘들 -->
               <div class="flex items-center gap-1">
                 <!-- 검색 아이콘 -->
-                <button
-                  type="button"
-                  class="w-9 h-9 rounded-full hover:bg-[#E5E5E5]"
-                >
-                  <svg
-                    width="36"
-                    height="36"
-                    viewBox="0 0 36 36"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+                <a href="/src/pages/home/home.html">
+                  <button
+                    type="button"
+                    class="w-9 h-9 rounded-full hover:bg-[#E5E5E5]"
                   >
-                    <path
-                      d="M19.962 22.296C18.916 22.9224 17.7192 23.2521 16.5 23.25C15.6134 23.2512 14.7353 23.0772 13.9162 22.7379C13.0971 22.3986 12.3531 21.9008 11.727 21.273C11.0992 20.6469 10.6014 19.9029 10.2621 19.0838C9.92284 18.2647 9.7488 17.3866 9.75001 16.5C9.75001 14.636 10.505 12.949 11.727 11.727C12.3531 11.0992 13.0971 10.6014 13.9162 10.2621C14.7353 9.92284 15.6134 9.7488 16.5 9.75001C18.364 9.75001 20.051 10.505 21.273 11.727C21.9008 12.3531 22.3986 13.0971 22.7379 13.9162C23.0772 14.7353 23.2512 15.6134 23.25 16.5C23.2517 17.6974 22.9338 18.8736 22.329 19.907C21.812 20.789 21.895 21.895 22.618 22.618L26.471 26.471"
-                      stroke="#111111"
-                      stroke-width="1.5"
-                    />
-                  </svg>
-                </button>
+                    <svg
+                      width="36"
+                      height="36"
+                      viewBox="0 0 36 36"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M19.962 22.296C18.916 22.9224 17.7192 23.2521 16.5 23.25C15.6134 23.2512 14.7353 23.0772 13.9162 22.7379C13.0971 22.3986 12.3531 21.9008 11.727 21.273C11.0992 20.6469 10.6014 19.9029 10.2621 19.0838C9.92284 18.2647 9.7488 17.3866 9.75001 16.5C9.75001 14.636 10.505 12.949 11.727 11.727C12.3531 11.0992 13.0971 10.6014 13.9162 10.2621C14.7353 9.92284 15.6134 9.7488 16.5 9.75001C18.364 9.75001 20.051 10.505 21.273 11.727C21.9008 12.3531 22.3986 13.0971 22.7379 13.9162C23.0772 14.7353 23.2512 15.6134 23.25 16.5C23.2517 17.6974 22.9338 18.8736 22.329 19.907C21.812 20.789 21.895 21.895 22.618 22.618L26.471 26.471"
+                        stroke="#111111"
+                        stroke-width="1.5"
+                      />
+                    </svg>
+                  </button>
+                </a>
 
                 <!-- 프로필 아이콘 -->
-                <button
-                  type="button"
-                  class="w-9 h-9 rounded-full hover:bg-[#E5E5E5]"
-                >
-                  <svg
-                    width="36"
-                    height="36"
-                    viewBox="0 0 36 36"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+                <a href="/src/pages/log-in/log-in.html">
+                  <button
+                    type="button"
+                    class="w-9 h-9 rounded-full hover:bg-[#E5E5E5]"
                   >
-                    <path
-                      d="M9.75 27V24C9.75 23.0054 10.1451 22.0516 10.8483 21.3483C11.5516 20.6451 12.5054 20.25 13.5 20.25H22.5C23.4946 20.25 24.4484 20.6451 25.1517 21.3483C25.8549 22.0516 26.25 23.0054 26.25 24V27M18 9.75C17.0054 9.75 16.0516 10.1451 15.3483 10.8483C14.6451 11.5516 14.25 12.5054 14.25 13.5C14.25 14.4946 14.6451 15.4484 15.3483 16.1517C16.0516 16.8549 17.0054 17.25 18 17.25C18.9946 17.25 19.9484 16.8549 20.6517 16.1517C21.3549 15.4484 21.75 14.4946 21.75 13.5C21.75 12.5054 21.3549 11.5516 20.6517 10.8483C19.9484 10.1451 18.9946 9.75 18 9.75Z"
-                      stroke="#111111"
-                      stroke-width="1.5"
-                    />
-                  </svg>
-                </button>
-
-                <!-- 장바구니 아이콘 -->
-                <button
-                  type="button"
-                  class="w-9 h-9 rounded-full hover:bg-[#E5E5E5]"
-                >
-                  <svg
-                    width="36"
-                    height="36"
-                    viewBox="0 0 36 36"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M14.25 14.25V12C14.25 11.4033 14.4871 10.831 14.909 10.409C15.331 9.98705 15.9033 9.75 16.5 9.75H19.5C20.0967 9.75 20.669 9.98705 21.091 10.409C21.5129 10.831 21.75 11.4033 21.75 12C21.75 12.5967 21.5129 13.169 21.091 13.591C20.669 14.0129 20.0967 14.25 19.5 14.25H9.75V22.5C9.75 23.4946 10.1451 24.4484 10.8483 25.1517C11.5516 25.8549 12.5054 26.25 13.5 26.25H22.5C23.4946 26.25 24.4484 25.8549 25.1517 25.1517C25.8549 24.4484 26.25 23.4946 26.25 22.5V14.25H23.5"
-                      stroke="#111111"
-                      stroke-width="1.5"
-                    />
-                    <path
-                      d="M16.1219 17.369C16.3379 17.369 16.5479 17.351 16.7519 17.315C16.9559 17.279 17.1389 17.219 17.3009 17.135C17.4689 17.051 17.6099 16.943 17.7239 16.811C17.8439 16.679 17.9219 16.517 17.9579 16.325H18.7949V22.625H17.6699V18.179H16.1219V17.369Z"
-                      fill="#111111"
-                    />
-                    <a href="#">
-                      <rect
-                        fill="black"
-                        fill-opacity="0"
-                        x="0.154637"
-                        y="2.3805"
-                        width="5.004"
-                        height="10.989"
+                    <svg
+                      width="36"
+                      height="36"
+                      viewBox="0 0 36 36"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M9.75 27V24C9.75 23.0054 10.1451 22.0516 10.8483 21.3483C11.5516 20.6451 12.5054 20.25 13.5 20.25H22.5C23.4946 20.25 24.4484 20.6451 25.1517 21.3483C25.8549 22.0516 26.25 23.0054 26.25 24V27M18 9.75C17.0054 9.75 16.0516 10.1451 15.3483 10.8483C14.6451 11.5516 14.25 12.5054 14.25 13.5C14.25 14.4946 14.6451 15.4484 15.3483 16.1517C16.0516 16.8549 17.0054 17.25 18 17.25C18.9946 17.25 19.9484 16.8549 20.6517 16.1517C21.3549 15.4484 21.75 14.4946 21.75 13.5C21.75 12.5054 21.3549 11.5516 20.6517 10.8483C19.9484 10.1451 18.9946 9.75 18 9.75Z"
+                        stroke="#111111"
+                        stroke-width="1.5"
                       />
-                    </a>
-                  </svg>
-                </button>
+                    </svg>
+                  </button>
+                </a>
+                <!-- 장바구니 아이콘 -->
+                <a href="/src/pages/cart/cart.html">
+                  <button
+                    type="button"
+                    class="w-9 h-9 rounded-full hover:bg-[#E5E5E5]"
+                  >
+                    <svg
+                      width="36"
+                      height="36"
+                      viewBox="0 0 36 36"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M14.25 14.25V12C14.25 11.4033 14.4871 10.831 14.909 10.409C15.331 9.98705 15.9033 9.75 16.5 9.75H19.5C20.0967 9.75 20.669 9.98705 21.091 10.409C21.5129 10.831 21.75 11.4033 21.75 12C21.75 12.5967 21.5129 13.169 21.091 13.591C20.669 14.0129 20.0967 14.25 19.5 14.25H9.75V22.5C9.75 23.4946 10.1451 24.4484 10.8483 25.1517C11.5516 25.8549 12.5054 26.25 13.5 26.25H22.5C23.4946 26.25 24.4484 25.8549 25.1517 25.1517C25.8549 24.4484 26.25 23.4946 26.25 22.5V14.25H23.5"
+                        stroke="#111111"
+                        stroke-width="1.5"
+                      />
+                      <path
+                        d="M16.1219 17.369C16.3379 17.369 16.5479 17.351 16.7519 17.315C16.9559 17.279 17.1389 17.219 17.3009 17.135C17.4689 17.051 17.6099 16.943 17.7239 16.811C17.8439 16.679 17.9219 16.517 17.9579 16.325H18.7949V22.625H17.6699V18.179H16.1219V17.369Z"
+                        fill="#111111"
+                      />
+                      <a href="/src/pages/cart/cart.html">
+                        <rect
+                          fill="black"
+                          fill-opacity="0"
+                          x="0.154637"
+                          y="2.3805"
+                          width="5.004"
+                          height="10.989"
+                        />
+                      </a>
+                    </svg>
+                  </button>
+                </a>
 
                 <!-- 햄버거 메뉴 아이콘 -->
                 <button
@@ -183,7 +188,7 @@ class NikeHeader extends HTMLElement {
                   </svg>
                 </li>
                 <li class="flex items-center">
-                  <a href="#" class="hover:underline underline-offset-4"
+                  <a href="/src/pages/log-in/log-in.html" class="hover:underline underline-offset-4"
                     >가입하기</a
                   >
                 </li>
@@ -206,7 +211,7 @@ class NikeHeader extends HTMLElement {
                   </svg>
                 </li>
                 <li class="flex items-center">
-                  <a href="#" class="hover:underline underline-offset-4"
+                  <a href="/src/pages/log-in/log-in.html" class="hover:underline underline-offset-4"
                     >로그인</a
                   >
                 </li>
@@ -221,7 +226,7 @@ class NikeHeader extends HTMLElement {
             <div class="h-[60px] flex items-center">
               <!-- 로고 (왼쪽) -->
               <div class="flex-1 flex items-center">
-                <a href="#" class="flex items-center">
+                <a href="/src/pages/home/home.html" class="flex items-center">
                   <svg
                     width="79"
                     height="79"
@@ -246,12 +251,12 @@ class NikeHeader extends HTMLElement {
                     class="flex justify-center gap-8 text-base text-[#111] font-normal whitespace-nowrap"
                   >
                     <li>
-                      <a href="#">New &amp; Featured</a>
+                      <a href="/src/pages/product-list/product-list.html?custom=%7B%22extra.isNew%22%3Atrue%7D&">New &amp; Featured</a>
                     </li>
-                    <li><a href="#">Men</a></li>
-                    <li><a href="#">Women</a></li>
-                    <li><a href="#">Kids</a></li>
-                    <li><a href="#">Sale</a></li>
+                    <li><a href="/src/pages/product-list/product-list.html?custom=%7B%22extra.gender%22%3A%22men%22%7D&">Men</a></li>
+                    <li><a href="/src/pages/product-list/product-list.html?custom=%7B%22extra.gender%22%3A%22women%22%7D&">Women</a></li>
+                    <li><a href="/src/pages/product-list/product-list.html?custom=%7B%22extra.gender%22%3A%22kids%22%7D&">Kids</a></li>
+                    <li><a href="/src/pages/product-list/product-list.html?custom=%7B%22extra.isBest%22%3Atrue%7D&">Sale</a></li>
                   </ul>
                 </nav>
               </div>
@@ -289,7 +294,7 @@ class NikeHeader extends HTMLElement {
                 </form>
 
                 <!-- 위시리스트 아이콘 -->
-                <a type="button" class="rounded-3xl hover:bg-[#E5E5E5]">
+                <a href="/src/pages/wish-list/wish-list.html" class="rounded-3xl hover:bg-[#E5E5E5]">
                   <svg
                     width="36"
                     height="36"
@@ -306,7 +311,7 @@ class NikeHeader extends HTMLElement {
                 </a>
 
                 <!-- 장바구니 아이콘 -->
-                <a type="button" class="rounded-3xl hover:bg-[#E5E5E5]">
+                <a type="button" href="/src/pages/cart/cart.html" class="rounded-3xl hover:bg-[#E5E5E5]">
                   <svg
                     width="36"
                     height="36"

@@ -2,14 +2,31 @@ import { AxiosError } from "axios";
 import { getAxios } from "../../utils/axios";
 import type { ProductList, ProductListRes } from "../../utils/types";
 import { codes } from "../../utils/categories";
+import imgOn from "/src/assets/img/checkOn.svg";
+import imgOff from "/src/assets/img/checkOff.png";
+
+const axios = getAxios();
+const params = new URLSearchParams(window.location.search);
 
 async function showList() {
-  const axios = getAxios();
+  const custom = params.get("custom");
+  const sort = params.get("sort");
+  const minPrice = params.get("minPrice");
+  const maxPrice = params.get("maxPrice");
+  let query = `products/?custom=${custom}&page=1&limit=30`;
+  if (sort) {
+    query += `&sort=${sort}`;
+  }
+
+  if (minPrice) {
+    query += `&minPrice=${minPrice}`;
+  }
+  if (maxPrice) {
+    query += `&maxPrice=${maxPrice}`;
+  }
 
   try {
-    const { data } = await axios.get<ProductListRes>(
-      "/products?page=1&limit=50"
-    );
+    const { data } = await axios.get<ProductListRes>(query);
     console.log(data);
 
     return data;
@@ -33,7 +50,7 @@ function render(products: ProductList[]) {
     )?.value;
 
     return `
-          <div class="flex flex-col items-start ">
+          <div class="flex flex-col items-start cursor-pointer" data-id="${product._id}">
             <img
               class="w-full aspect-square overflow-hidden"
               src="${product.mainImages?.[0]?.path || "/src/assets/img/default.png"}"
@@ -54,6 +71,16 @@ function render(products: ProductList[]) {
   const productBody = document.querySelector("#productBody");
   if (productBody) {
     productBody.innerHTML = result.join("");
+
+    productBody.querySelectorAll("div[data-id]").forEach((div) => {
+      div.addEventListener("click", () => {
+        const id = div.getAttribute("data-id");
+        console.log(id);
+        if (id) {
+          window.location.href = `/src/pages/product-detail/product-detail.html?id=${id}`;
+        }
+      });
+    });
   }
 }
 
@@ -77,7 +104,37 @@ if (sortBtn && sortMenu) {
   });
 }
 
-// 필터 숨기기로 사이드바 숨기기!!! 하기싫다
+function setSort(value: string) {
+  const url = new URL(window.location.href);
+  const params = url.searchParams;
+
+  if (!value) {
+    params.delete("sort");
+  } else {
+    params.set("sort", value);
+  }
+
+  // 브라우저 새로고침해서 정렬 ㄱㄱ
+  window.location.href = url.pathname + "?" + params.toString();
+}
+
+document.getElementById("recommend")?.addEventListener("click", () => {
+  setSort('{"extra.isNew": -1, "extra.isBest": -1}');
+});
+
+document.getElementById("isNew")?.addEventListener("click", () => {
+  setSort('{"extra.isNew": -1}');
+});
+
+document.getElementById("highPrice")?.addEventListener("click", () => {
+  setSort('{"price": -1}');
+});
+
+document.getElementById("lowPrice")?.addEventListener("click", () => {
+  setSort('{"price": 1}');
+});
+
+// 필터 숨기기로 사이드바 숨기기
 const hiddenFilterBtn = document.getElementById("hidden-filter");
 const desktopSidebar = document.getElementById("desktop-sidebar");
 
@@ -98,9 +155,6 @@ if (hiddenFilterBtn && desktopSidebar) {
 }
 
 // checkbox img로 on/off
-const imgOn = "/src/assets/img/Property 1=On.svg";
-const imgOff = "/src/assets/img/Property 1=Off.png";
-
 const checkboxImgs = document.querySelectorAll(".checkbox-img");
 
 checkboxImgs.forEach((img) => {
@@ -110,11 +164,36 @@ checkboxImgs.forEach((img) => {
   ) as HTMLInputElement;
 
   img.addEventListener("click", () => {
-    // FIXME 왜 체크가 안되는지..
+    checkbox.checked = !checkbox.checked;
     if (checkbox.checked) {
       img.setAttribute("src", imgOn);
     } else {
       img.setAttribute("src", imgOff);
     }
+
+    let minPrice = 0;
+    let maxPrice = 0;
+
+    if (checkbox.id === "under-5") {
+      minPrice = 0;
+      maxPrice = 50000;
+    } else if (checkbox.id === "under-10") {
+      minPrice = 50000;
+      maxPrice = 100000;
+    } else if (checkbox.id === "under-15") {
+      minPrice = 100000;
+      maxPrice = 150000;
+    } else if (checkbox.id === "under-20") {
+      minPrice = 150000;
+      maxPrice = 200000;
+    }
+
+    const url = new URL(window.location.href);
+    const params = url.searchParams;
+
+    params.set("minPrice", minPrice.toString());
+    params.set("maxPrice", maxPrice.toString());
+
+    window.location.href = url.pathname + "?" + params.toString();
   });
 });
