@@ -289,7 +289,7 @@ class NikeHeader extends HTMLElement {
                 </form>
 
                 <!-- 위시리스트 아이콘 -->
-                <a type="button" class="rounded-3xl hover:bg-[#E5E5E5]">
+                <a href="/src/pages/wish-list/wish-list.html" class="rounded-3xl hover:bg-[#E5E5E5]">
                   <svg
                     width="36"
                     height="36"
