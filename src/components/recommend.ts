@@ -1,5 +1,7 @@
 import type { ProductList, ProductListRes } from "../utils/types";
 import { getAxios } from "../utils/axios";
+import btnLeft from "/src/assets/icons/Button-left.svg";
+import btnRight from "/src/assets/icons/Button-right.svg";
 
 async function showRecommend() {
   const axios = getAxios();
@@ -57,8 +59,8 @@ class RecommendProducts extends HTMLElement {
           <span class="text-3xl">추천제품</span>
 
           <div class="flex gap-2">
-            <img class="w-12" src="/src/assets/icons/Button-left.svg" alt="왼쪽 버튼" />
-            <img class="w-12" src="/src/assets/icons/Button-right.svg" alt="오른쪽 버튼" />
+            <img class="w-12" src="${btnLeft}" alt="왼쪽 버튼" />
+            <img class="w-12" src="${btnRight}" alt="오른쪽 버튼" />
           </div>
         </div>
         <div id="recommendBody" class="grid grid-cols-2 md:grid-cols-3 gap-4 p-4">
