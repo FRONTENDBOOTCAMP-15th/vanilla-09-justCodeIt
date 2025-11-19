@@ -50,8 +50,4 @@ body {
   .size-btn {
     @apply h-12 border border-[#E5E5E5] rounded-sm text-base;
   }
-
-  .thumb {
-    @apply w-[125px] h-[125px] rounded overflow-hidden;
-  }
 }

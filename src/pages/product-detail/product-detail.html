@@ -5,12 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/src/style.css" />
     <title>Document</title>
+
     <script type="module" src="/src/components/header-footer.ts"></script>
     <script type="module" src="/src/components/recommend.ts"></script>
-    <script
-      type="module"
-      src="/src/pages/product-detail/product-detail.ts"
-    ></script>
   </head>
   <body>
     <nike-header></nike-header>
@@ -18,7 +15,9 @@
     <main class="max-w-sm mx-auto pb-24">
       <section class="px-4 pt-20">
         <h1 id="productName" class="text-xl font-normal text-[#111]"></h1>
-        <p class="text-sm text-[#111]">카테고리</p>
+        <p id="category" class="text-sm text-[#111]">
+          ${category0} > ${category1}
+        </p>
         <div class="mt-1 flex items-baseline gap-2">
           <strong
             id="productPrice"
@@ -42,8 +41,8 @@
 
         <!-- 색상 이미지 -->
         <div class="mt-2 overflow-x-auto scroll-none">
-          <div class="flex gap-3 w-max">
-            <button>
+          <div id="thumbs" class="flex gap-3 w-max">
+            <!-- <button>
               <img
                 class="thumb"
                 src="/src/assets/img/nike.png"
@@ -81,7 +80,7 @@
                 alt="썸네일4"
                 class="w-20 h-20 object-cover rounded"
               />
-            </button>
+            </button> -->
           </div>
         </div>
       </section>
@@ -218,7 +217,7 @@
           </details>
 
           <!-- 추가 정보 -->
-          <details class="group border-b border-[#E5E5E5]">
+          <details open class="group border-b border-[#E5E5E5]">
             <summary
               class="w-full flex items-center justify-between py-4 cursor-pointer list-none"
             >
@@ -293,4 +292,8 @@
 
     <footer-bar class="hidden lg:block"></footer-bar>
   </body>
+  <script
+    type="module"
+    src="/src/pages/product-detail/product-detail.ts"
+  ></script>
 </html>

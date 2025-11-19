@@ -55,7 +55,7 @@ export interface ApiError {
   message: string;
 }
 
-// product-detail.ts - test용
+// - product-detail.ts -
 export interface ProductItem {
   _id: number;
   seller_id: number;
@@ -96,43 +96,40 @@ export type ProductDetailRes =
   | ApiError;
 
 // ------회원가입/로그인 관련 타입------
+// 로그인
 export interface UserInfo {
   _id: number;
   email: string;
   name: string;
-  type: "user" | "seller";
-
-  password?: string;
+  type: "user" | "seller" | "admin";
+  loginType?: string;
   phone?: string;
   address?: string;
   image?: string;
+  createdAt: string;
+  updatedAt: string;
+  notifications?: number;
 }
 
-export interface SignupBody {
-  email: string;
-  password: string;
-  name: string;
-  type: "user" | "seller";
-
-  phone?: string;
-  address?: string;
-  image?: string;
-}
-
-export type SignupRes =
-  | {
-      ok: 1;
-      item: UserInfo;
-    }
-  | ApiError;
-
-export interface LoginBody {
-  email: string;
-  password: string;
-}
-
-export type LoginRes = {
+export interface TokenInfo {
   accessToken: string;
+  refreshToken: string;
+}
 
-  user: UserInfo;
-};
+export interface LoginUser extends UserInfo {
+  token: TokenInfo;
+}
+
+export interface ApiSuccess<T> {
+  ok: boolean;
+  item: T;
+}
+
+export interface ApiError1 {
+  ok: boolean;
+  message: string;
+}
+
+export type ApiResponse<T> = ApiSuccess<T> | ApiError1;
+export type RegisterRes = ApiResponse<UserInfo>;
+export type LoginRes = ApiResponse<LoginUser>;
