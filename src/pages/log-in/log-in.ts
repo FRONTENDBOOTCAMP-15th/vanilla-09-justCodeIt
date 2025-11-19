@@ -1,11 +1,11 @@
 import { AxiosError } from "axios";
 import { getAxios } from "../../utils/axios";
 import type {
-  SignupBody,
-  SignupRes,
   ApiError,
-  LoginBody,
+  ApiResponse,
+  ApiSuccess,
   LoginRes,
+  RegisterRes,
 } from "../../utils/types";
 
 const api = getAxios();
@@ -17,18 +17,35 @@ async function loginRequest(
   email: string,
   password: string
 ): Promise<LoginRes> {
-  const body: LoginBody = { email, password };
+  const body = { email, password };
   const res = await api.post<LoginRes>("/users/login", body);
+  console.log(res.data);
   return res.data;
 }
 
 const HOME_URL = "/"; // 홈 경로. 실제 홈 페이지 주소에 맞게 바꿔도 됨.
-
+function isApiSuccess<T>(res: ApiResponse<T>): res is ApiSuccess<T> {
+  return res.ok === true;
+}
 // 로그인 성공 시 공통 처리: 토큰 저장 + 홈으로 이동
 function handleLoginSuccess(data: LoginRes) {
-  // localStorage.setItem("accessToken", data.accessToken);
+  if (!isApiSuccess(data)) {
+    console.error("로그인 실패!", data);
+    return;
+  }
+
+  const user = data.item;
+
+  if (!user.token) {
+    console.error("토큰 정보 없음!", user);
+    return;
+  }
+
+  localStorage.setItem("accessToken", user.token.accessToken);
+  console.log(user.token.accessToken);
+  localStorage.setItem("refreshToken", user.token.refreshToken);
   // 필요하면 유저 정보도 저장 가능
-  // localStorage.setItem("user", JSON.stringify(data.user));
+  localStorage.setItem("user", JSON.stringify(user));
   window.location.href = HOME_URL;
 }
 
@@ -91,7 +108,7 @@ async function submitSignup() {
     return;
   }
 
-  const body: SignupBody = {
+  const body = {
     email: currentEmail,
     password: newPasswordInput.value,
     name: `${lastNameInput.value}${firstNameInput.value}`,
@@ -100,7 +117,7 @@ async function submitSignup() {
 
   try {
     // 회원가입 요청
-    const res = await api.post<SignupRes>("/users", body);
+    const res = await api.post<RegisterRes>("/users", body);
 
     // 서버 응답 로그 (디버깅용)
     console.log("signup response:", res.status, res.data);

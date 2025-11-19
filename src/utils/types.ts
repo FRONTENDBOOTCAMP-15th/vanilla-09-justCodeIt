@@ -96,39 +96,38 @@ export type ProductDetailRes =
   | ApiError;
 
 // ------회원가입/로그인 관련 타입------
+// 로그인
 export interface UserInfo {
   _id: number;
   email: string;
   name: string;
-  type: "user" | "seller";
-
-  password?: string;
+  type: "user" | "seller" | "admin";
+  loginType?: string;
   phone?: string;
   address?: string;
   image?: string;
+  createdAt: string;
+  updatedAt: string;
+  notifications?: number;
 }
 
-export interface SignupBody {
-  email: string;
-  password: string;
-  name: string;
-  type: "user" | "seller";
-
-  phone?: string;
-  address?: string;
-  image?: string;
+export interface TokenInfo {
+  accessToken: string;
+  refreshToken: string;
 }
 
-export type SignupRes =
-  | {
-      ok: 1;
-      item: UserInfo;
-    }
-  | ApiError;
+export interface LoginUser extends UserInfo {
+  token: TokenInfo;
+}
 
-export interface LoginBody {
-  email: string;
-  password: string;
+export interface ApiSuccess<T> {
+  ok: boolean;
+  item: T;
+}
+
+export interface ApiError1 {
+  ok: boolean;
+  message: string;
 }
 
 export type LoginRes = {
@@ -136,39 +135,3 @@ export type LoginRes = {
 
   user: UserInfo;
 };
-
-// ------ 장바구니 관련 타입 ------
-
-export interface CartItem {
-  _id: number;
-  quantity: number;
-  product: ProductInfo;
-}
-
-// 장바구니 목록 조회 응답
-export type CartListRes =
-  | {
-      ok: 1;
-      item: CartItem[];
-    }
-  | ApiError;
-
-// 장바구니 수량 수정 요청 body
-export interface UpdateCartQtyBody {
-  quantity: number;
-}
-
-// 장바구니에 상품 추가 요청 body
-export interface AddToCartBody {
-  product_id: number;
-  quantity: number;
-  size: number[];
-  color: string;
-}
-
-export type AddToCartRes =
-  | {
-      ok: 1;
-      item: CartItem;
-    }
-  | ApiError;
