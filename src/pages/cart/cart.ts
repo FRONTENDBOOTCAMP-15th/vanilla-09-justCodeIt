@@ -33,7 +33,7 @@ async function initCartPage() {
 
     console.log(data);
 
-    if ("ok" in data && data.ok === true) {
+    if (data.ok === true) {
       renderCart(data.item);
     } else {
       alert(
@@ -74,7 +74,7 @@ function renderCart(items: CartItem[]) {
       const linePrice = product.price * quantity;
 
       return `
-        <article class="cart-item border-t border-b border-gray-300 pb-10" data-cart-id="${_id}">
+        <article class="cart-item " data-cart-id="${_id}">
           <div class="flex gap-3 items-start pt-10">
             
             <!-- 상품 이미지 -->
@@ -200,11 +200,40 @@ function setupQtyButtons() {
   const cart = document.querySelector<HTMLElement>(".cart");
   if (!cart) return;
 
-  // 1) + / - / 삭제 등 모든 클릭을 cart 한 곳에서 이벤트 위임
+  // + / - / 삭제 등 모든 클릭을 cart 한 곳에서 이벤트 위임
   cart.addEventListener("click", async (event) => {
     const target = event.target as HTMLElement;
 
-    // svg 내부를 눌러도 버튼으로 타겟 고정
+    // 1) 삭제 버튼인지 확인
+    const removeBtn = target.closest<HTMLButtonElement>(".btn-remove");
+    if (removeBtn) {
+      const cartItemEl = removeBtn.closest<HTMLElement>(".cart-item");
+      if (!cartItemEl) return;
+
+      const cartId = cartItemEl.dataset.cartId;
+      if (!cartId) return;
+
+      // 사용자 확인
+      const ok = confirm("이 상품을 장바구니에서 삭제할까요?");
+      if (!ok) return;
+
+      try {
+        await deleteCartItem(cartId); // DELETE /carts/{id} 호출
+        await initCartPage(); // 최신 상태로 다시 렌더
+      } catch (error) {
+        console.error("delete cart error:", error);
+
+        const err = error as AxiosError<ApiError>;
+        const msg =
+          err.response?.data?.message ||
+          "장바구니 상품 삭제 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.";
+        alert(msg);
+      }
+
+      return; // 삭제 처리 끝났으면 여기서 종료
+    }
+
+    // 2) 삭제 버튼이 아니면 수량 버튼인지 확인
     const button = target.closest<HTMLButtonElement>(".qty__btn");
     if (!button) return;
 
@@ -231,15 +260,17 @@ function setupQtyButtons() {
     if (isIncrease) current += 1;
     if (isDecrease) current = Math.max(1, current - 1);
 
-    // 2) 먼저 화면에 수량/색상 반영
+    // 먼저 화면에 수량/색상 반영
     output.textContent = String(current);
     updateMinusButtonColor(qtyWrapper, current);
 
-    // 3) 서버에 PATCH /carts/{id} 로 수량 반영
+    // 서버에 PATCH /carts/{id} 로 수량 반영
     try {
       await updateCartQuantity(cartId, current);
-      // 필요하면 여기서 총합/금액 다시 계산하려면 initCartPage() 한 번 더 호출
-      // await initCartPage();
+
+      // 수량 변경이 성공하면, 장바구니 데이터를 다시 불러와서
+      // 합계/총금액/수량 등을 즉시 다시 계산해서 화면에 반영
+      await initCartPage();
     } catch (error) {
       console.error("update qty error:", error);
 
@@ -288,10 +319,33 @@ async function updateCartQuantity(cartId: string, quantity: number) {
 
   const res = await api.patch<{ ok: number; message?: string }>(
     `/carts/${cartId}`,
-    body
+
+    body,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    }
   );
 
   if (res.data && "ok" in res.data && res.data.ok === 0) {
     throw new Error(res.data.message || "수량 수정에 실패했습니다.");
+  }
+}
+
+/** DELETE /carts/{id} : 장바구니 상품 한 건 삭제 */
+async function deleteCartItem(cartId: string) {
+  const res = await api.delete<{ ok: number; message?: string }>(
+    `/carts/${cartId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    }
+  );
+
+  // 서버에서 ok: 0 으로 내려보내면 에러로 처리
+  if (res.data && "ok" in res.data && res.data.ok === 0) {
+    throw new Error(res.data.message || "상품 삭제에 실패했습니다.");
   }
 }
