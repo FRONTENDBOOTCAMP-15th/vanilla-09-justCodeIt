@@ -55,6 +55,46 @@ export interface ApiError {
   message: string;
 }
 
+// product-detail.ts - test용
+export interface ProductItem {
+  _id: number;
+  seller_id: number;
+  price: number;
+  content: string;
+  shippingFees: number;
+  show: boolean;
+  active: boolean;
+  name: string;
+  quantity: number;
+  buyQuantity: number;
+
+  mainImages: {
+    path: string;
+    name: string;
+  }[];
+
+  createdAt: string;
+  updatedAt: string;
+
+  extra: {
+    color: string;
+    gender: string;
+    isNew: boolean;
+    isBest: boolean;
+    category: string[];
+    sort: number;
+    styleNo: string;
+    size: number[];
+  };
+}
+
+export type ProductDetailRes =
+  | {
+      ok: 1;
+      item: ProductItem;
+    }
+  | ApiError;
+
 // ------회원가입/로그인 관련 타입------
 export interface UserInfo {
   _id: number;
