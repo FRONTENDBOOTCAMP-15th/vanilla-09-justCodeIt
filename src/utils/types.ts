@@ -135,3 +135,64 @@ export type LoginRes = {
 
   user: UserInfo;
 };
+
+// ------ 장바구니 관련 타입 ------
+export interface CartInfo {
+  _id: number;
+  product_id: number;
+  quantity: number;
+  createdAt: string;
+  updatedAt: string;
+  product: {
+    _id: number;
+    name: string;
+    price: number;
+    seller_id: number;
+    quantity: number;
+    buyQuantity: number;
+    image: {
+      url: string;
+      name: string;
+    };
+    extra: {
+      isNew: boolean;
+      isBest: boolean;
+      category: string[];
+      sort: number;
+    };
+  };
+}
+
+export interface CartItem {
+  _id: number;
+  quantity: number;
+  item: CartInfo;
+}
+
+// 장바구니 목록 조회 응답
+export type CartListRes =
+  | {
+      ok: boolean;
+      item: CartItem[];
+    }
+  | ApiError;
+
+// 장바구니 수량 수정 요청 body
+export interface UpdateCartQtyBody {
+  quantity: number;
+}
+
+// 장바구니에 상품 추가 요청 body
+export interface AddToCartBody {
+  product_id: number;
+  quantity: number;
+  size: number[];
+  color: string;
+}
+
+export type AddToCartRes =
+  | {
+      ok: boolean;
+      item: CartItem;
+    }
+  | ApiError;

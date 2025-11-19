@@ -5,6 +5,7 @@ import type {
   UpdateCartQtyBody,
   ApiError,
   CartItem,
+  CartInfo,
 } from "../../utils/types";
 
 const api = getAxios();
@@ -22,10 +23,17 @@ async function initCartPage() {
   if (!cartSection) return;
 
   try {
-    const res = await api.get<CartListRes>("/carts");
+    const res = await api.get<CartListRes>("/carts/", {
+      headers: {
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjYsInR5cGUiOiJ1c2VyIiwibmFtZSI6IuuwleyngOydgCIsImVtYWlsIjoidGVzdDFAbmF2ZXIuY29tIiwibG9naW5UeXBlIjoiZW1haWwiLCJpYXQiOjE3NjM1MTg4MjgsImV4cCI6MTc2MzYwNTIyOCwiaXNzIjoiRkVCQyJ9.fsu0ucwueSxpFjsxyJ8jB-p5djJfl4zJ6pNWrnTXgX4",
+      },
+    });
     const data = res.data;
 
-    if ("ok" in data && data.ok === 1) {
+    console.log(data);
+
+    if ("ok" in data && data.ok === true) {
       renderCart(data.item);
     } else {
       alert(
@@ -71,7 +79,7 @@ function renderCart(items: CartItem[]) {
             
             <!-- 상품 이미지 -->
             <div class="cart-item__media w-[154px] h-[154px] shrink-0 bg-gray-100 overflow-hidden">
-              <img src="${product.mainImages?.[0]?.path || ""}" alt="${product.name}" />
+              <img src="${product.image?.[0]?.path || ""}" alt="${product.name}" />
             </div>
 
             <!-- 상품 정보 -->
@@ -189,7 +197,7 @@ function setupQtyButtons() {
     if (isIncrease) current += 1;
     if (isDecrease) current = Math.max(1, current - 1);
 
-    // 2) 먼저 화면에 수량/색상 반영 (낙관적 업데이트)
+    // 2) 먼저 화면에 수량/색상 반영
     output.textContent = String(current);
     updateMinusButtonColor(qtyWrapper, current);
 
@@ -206,9 +214,6 @@ function setupQtyButtons() {
         err.response?.data?.message ||
         "수량을 변경하는 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.";
       alert(msg);
-
-      // 서버 반영 실패 시 화면을 서버 상태와 다시 맞추고 싶으면:
-      // initCartPage();
     }
   });
 
@@ -252,7 +257,6 @@ async function updateCartQuantity(cartId: string, quantity: number) {
     body
   );
 
-  // 백엔드가 ok:0으로 에러를 줄 수 있으면 체크
   if (res.data && "ok" in res.data && res.data.ok === 0) {
     throw new Error(res.data.message || "수량 수정에 실패했습니다.");
   }
