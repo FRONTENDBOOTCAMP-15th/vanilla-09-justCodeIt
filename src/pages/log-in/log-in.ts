@@ -26,7 +26,7 @@ const HOME_URL = "/"; // 홈 경로. 실제 홈 페이지 주소에 맞게 바�
 
 // 로그인 성공 시 공통 처리: 토큰 저장 + 홈으로 이동
 function handleLoginSuccess(data: LoginRes) {
-  localStorage.setItem("accessToken", data.accessToken);
+  // localStorage.setItem("accessToken", data.accessToken);
   // 필요하면 유저 정보도 저장 가능
   // localStorage.setItem("user", JSON.stringify(data.user));
   window.location.href = HOME_URL;
