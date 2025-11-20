@@ -30,8 +30,7 @@ interface Extra {
 }
 
 let editMode = false;
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjQsInR5cGUiOiJ1c2VyIiwibmFtZSI6IuygnOydtOyngCIsImVtYWlsIjoidTFAZ21haWwuY29tIiwiaW1hZ2UiOiJodHRwczovL3Jlcy5jbG91ZGluYXJ5LmNvbS9kZGVkc2xxdnYvaW1hZ2UvdXBsb2FkL3YxNzYyOTI0OTg3L2ZlYmMxNS12YW5pbGxhMDktZWNhZC9pMklRZ2FRNm4ud2VicCIsImxvZ2luVHlwZSI6ImVtYWlsIiwiaWF0IjoxNzYzNTE2MDY1LCJleHAiOjE3NjM2MDI0NjUsImlzcyI6IkZFQkMifQ.HokcJQ8oW-iIueilAh9-6J9Lksucd3FumY_4Vzib8wY";
+const token = localStorage.getItem("accessToken");
 
 document.querySelector("#edit-btn")?.addEventListener("click", () => {
   editMode = !editMode;
@@ -47,6 +46,7 @@ document.querySelector("#edit-btn")?.addEventListener("click", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
+  const emptyBox = document.querySelector("#wishlist-empty");
   const container = document.querySelector("#wishlist-container");
   const axiosInstance = getAxios();
 
@@ -65,11 +65,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (!container) return;
 
+      if (items.length === 0) {
+        emptyBox?.classList.remove("hidden");
+        container.classList.add("hidden");
+        return;
+      } else {
+        emptyBox?.classList.add("hidden");
+        container.classList.remove("hidden");
+      }
+
       items.forEach((wish) => {
         const product = wish.product;
 
-        const imgUrl =
-          product.mainImages?.[0]?.path ?? "/src/assets/img/no-image.png";
+        const imgUrl = product.mainImages?.[0]?.path;
 
         const card = document.createElement("div");
         card.className = "flex flex-col";
