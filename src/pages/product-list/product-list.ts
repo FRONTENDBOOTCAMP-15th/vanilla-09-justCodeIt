@@ -12,9 +12,14 @@ async function showList() {
   const sort = params.get("sort");
   const minPrice = params.get("minPrice");
   const maxPrice = params.get("maxPrice");
-  let query = `products/?custom=${custom}&page=1&limit=30`;
+  const keyword = params.get("keyword");
+  let query = `products/?page=1&limit=30`;
+  if (custom) query += `&custom=${custom}`;
   if (sort) {
     query += `&sort=${sort}`;
+  }
+  if (keyword) {
+    query += `&keyword=${keyword}`;
   }
 
   if (minPrice) {
