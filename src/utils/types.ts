@@ -84,7 +84,7 @@ export interface ProductItem {
     category: string[];
     sort: number;
     styleNo: string;
-    size: number[];
+    size?: number[];
   };
 }
 
