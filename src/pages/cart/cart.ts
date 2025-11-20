@@ -8,12 +8,72 @@ import type {
   CartInfo,
 } from "../../utils/types";
 
+// ---- 위시리스트 공용 타입/상태 ----
+interface WishlistItem {
+  _id: number; // 북마크 id
+  size?: number;
+  product: {
+    _id: number;
+    name: string;
+    price: number;
+    image?: { url?: string; path?: string };
+    mainImages?: { path: string; name: string }[];
+    extra?: {
+      category?: string[];
+      size?: number[];
+    };
+  };
+}
+
+// 장바구니 페이지에서 공유할 위시리스트 데이터
+let wishlistOnCart: WishlistItem[] = [];
+
+// 하트 아이콘(외곽선 / 채워진 하트)
+const HEART_OUTLINE_SVG = `
+<svg width="24" height="33" viewBox="0 0 24 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path
+    d="M16.794 7.75002C18.118 7.75002 19.362 8.26602 20.298 9.20102C21.2262 10.1309 21.7475 11.3911 21.7475 12.705C21.7475 14.0189 21.2262 15.2791 20.298 16.209L12 24.508L3.70096 16.209C2.77307 15.2791 2.25195 14.0192 2.25195 12.7055C2.25195 11.3919 2.77307 10.1319 3.70096 9.20202C4.15999 8.74032 4.70604 8.37425 5.30751 8.12501C5.90897 7.87578 6.5539 7.74832 7.20496 7.75002C8.52896 7.75002 9.77296 8.26602 10.709 9.20102L11.469 9.96102L12 10.492L12.53 9.96102L13.29 9.20102C13.7492 8.73963 14.2953 8.37384 14.8967 8.12478C15.4982 7.87573 16.143 7.74835 16.794 7.75002Z"
+    stroke="#111111"
+    stroke-width="1.5"
+  />
+</svg>
+`;
+
+const HEART_FILLED_SVG = `
+<svg width="24" height="33" viewBox="0 0 24 33" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16.794 7.75002C18.118 7.75002 19.362 8.26602 20.298 9.20102C21.2262 10.1309 21.7475 11.3911 21.7475 12.705C21.7475 14.0189 21.2262 15.2791 20.298 16.209L12 24.508L3.70096 16.209C2.77307 15.2791 2.25195 14.0192 2.25195 12.7055C2.25195 11.3919 2.77307 10.1319 3.70096 9.20202C4.15999 8.74032 4.70604 8.37425 5.30751 8.12501C5.90897 7.87578 6.5539 7.74832 7.20496 7.75002C8.52896 7.75002 9.77296 8.26602 10.709 9.20102L11.469 9.96102L12 10.492L12.53 9.96102L13.29 9.20102C13.7492 8.73963 14.2953 8.37384 14.8967 8.12478C15.4982 7.87573 16.143 7.74835 16.794 7.75002Z" fill="#111111" stroke="#111111" stroke-width="1.5"/>
+</svg>
+
+
+`;
+
+type WishlistListRes =
+  | {
+      ok: boolean;
+      item: WishlistItem[];
+    }
+  | ApiError;
+
 const api = getAxios();
+
+type WishItem = {
+  _id: number;
+  product: {
+    _id: number;
+    name: string;
+    price: number;
+    mainImages: { path: string; name: string }[];
+  };
+};
+
+type WishRes = { ok: 1; item: WishItem[] } | ApiError;
 
 // 페이지 진입 시: 장바구니 불러오기 + 수량 버튼 세팅
 document.addEventListener("DOMContentLoaded", () => {
   initCartPage();
   setupQtyButtons();
+  initWishlistOnCart();
+  setupWishlistAddToCart();
 });
 
 // -------------------- 장바구니 목록 조회 --------------------
@@ -98,7 +158,7 @@ function renderCart(items: CartItem[]) {
                     
                     <button
                       type="button"
-                      class="qty__btn"
+                      class="qty__btn cursor-pointer"
                       aria-label="수량 감소"
                     >
                       <svg width="10" height="2" viewBox="0 0 10 2" fill="none">
@@ -110,7 +170,7 @@ function renderCart(items: CartItem[]) {
 
                     <button
                       type="button"
-                      class="qty__btn"
+                      class="qty__btn cursor-pointer"
                       aria-label="수량 증가"
                     >
                       <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
@@ -123,25 +183,15 @@ function renderCart(items: CartItem[]) {
 
               <div class="cart-item__actions flex-col space-x-1">
                 <button
-                  type="button"
-                  class="btn-like"
-                  aria-label="관심상품에 추가"
-                >
-                  <svg
-                    width="24"
-                    height="33"
-                    viewBox="0 0 24 33"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M16.794 7.75002C18.118 7.75002 19.362 8.26602 20.298 9.20102C21.2262 10.1309 21.7475 11.3911 21.7475 12.705C21.7475 14.0189 21.2262 15.2791 20.298 16.209L12 24.508L3.70096 16.209C2.77307 15.2791 2.25195 14.0192 2.25195 12.7055C2.25195 11.3919 2.77307 10.1319 3.70096 9.20202C4.15999 8.74032 4.70604 8.37425 5.30751 8.12501C5.90897 7.87578 6.5539 7.74832 7.20496 7.75002C8.52896 7.75002 9.77296 8.26602 10.709 9.20102L11.469 9.96102L12 10.492L12.53 9.96102L13.29 9.20102C13.7492 8.73963 14.2953 8.37384 14.8967 8.12478C15.4982 7.87573 16.143 7.74835 16.794 7.75002Z"
-                      stroke="#111111"
-                      stroke-width="1.5"
-                    />
-                  </svg>
-                </button>
-                <button type="button" class="btn-remove" aria-label="상품 삭제">
+      type="button"
+      class="btn-like cursor-pointer"
+      aria-label="관심상품에 추가"
+      data-product-id="${product._id}"
+      data-bookmark-id="""}"
+    >
+      ${HEART_OUTLINE_SVG}
+    </button>
+                <button type="button" class="btn-remove cursor-pointer" aria-label="상품 삭제">
                   <svg
                     width="24"
                     height="33"
@@ -192,6 +242,8 @@ function renderCart(items: CartItem[]) {
     const value = parseInt(output.textContent || "1", 10);
     updateMinusButtonColor(qtyWrapperEl as HTMLElement, value);
   });
+
+  syncCartLikeButtons();
 }
 
 // -------------------- 수량 버튼 + PATCH 연동 --------------------
@@ -203,6 +255,42 @@ function setupQtyButtons() {
   // + / - / 삭제 등 모든 클릭을 cart 한 곳에서 이벤트 위임
   cart.addEventListener("click", async (event) => {
     const target = event.target as HTMLElement;
+
+    // 0) 위시리스트 하트 버튼인지 확인
+    const likeBtn = target.closest<HTMLButtonElement>(".btn-like");
+    if (likeBtn) {
+      const productId = Number(likeBtn.dataset.productId);
+      const bookmarkId = likeBtn.dataset.bookmarkId;
+
+      if (!productId) return;
+
+      try {
+        if (bookmarkId) {
+          // 이미 위시에 있음 → 삭제
+          await deleteWishlistFromCart(Number(bookmarkId));
+          likeBtn.dataset.bookmarkId = "";
+          likeBtn.innerHTML = HEART_OUTLINE_SVG;
+
+          // 위시리스트 영역 다시 불러오기
+          await initWishlistOnCart();
+        } else {
+          // 위시에 없음 → 추가
+          const bookmark = await addToWishlistFromCart(productId);
+          likeBtn.dataset.bookmarkId = String(bookmark._id);
+          likeBtn.innerHTML = HEART_FILLED_SVG;
+
+          // 위시리스트 영역 다시 불러오기
+          await initWishlistOnCart();
+        }
+      } catch (error) {
+        console.error("wishlist toggle error:", error);
+        alert(
+          "위시리스트 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요."
+        );
+      }
+
+      return;
+    }
 
     // 1) 삭제 버튼인지 확인
     const removeBtn = target.closest<HTMLButtonElement>(".btn-remove");
@@ -218,8 +306,8 @@ function setupQtyButtons() {
       if (!ok) return;
 
       try {
-        await deleteCartItem(cartId); // DELETE /carts/{id} 호출
-        await initCartPage(); // 최신 상태로 다시 렌더
+        await deleteCartItem(cartId);
+        await initCartPage();
       } catch (error) {
         console.error("delete cart error:", error);
 
@@ -268,8 +356,6 @@ function setupQtyButtons() {
     try {
       await updateCartQuantity(cartId, current);
 
-      // 수량 변경이 성공하면, 장바구니 데이터를 다시 불러와서
-      // 합계/총금액/수량 등을 즉시 다시 계산해서 화면에 반영
       await initCartPage();
     } catch (error) {
       console.error("update qty error:", error);
@@ -348,4 +434,237 @@ async function deleteCartItem(cartId: string) {
   if (res.data && "ok" in res.data && res.data.ok === 0) {
     throw new Error(res.data.message || "상품 삭제에 실패했습니다.");
   }
+}
+
+// -------------------- 위시리스트 영역 --------------------
+
+// 위시리스트 클릭 핸들러가 중복 등록되는 것 방지용
+let wishlistHandlerRegistered = false;
+
+type BookmarkItem = {
+  _id: number;
+  target_id: number;
+};
+
+type BookmarkRes = { ok: true; item: BookmarkItem } | ApiError;
+
+async function addToWishlistFromCart(productId: number): Promise<BookmarkItem> {
+  const token = localStorage.getItem("accessToken");
+  if (!token) {
+    throw new Error("로그인 후 위시리스트를 사용할 수 있습니다.");
+  }
+
+  const body = {
+    target_id: productId,
+  };
+
+  console.log("wishlist body", body); // 디버깅용
+
+  const { data } = await api.post<BookmarkRes>("/bookmarks/product", body, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (!("ok" in data) || data.ok !== true) {
+    throw new Error((data as any).message || "위시리스트 추가에 실패했습니다.");
+  }
+
+  return (data as any).item;
+}
+
+async function deleteWishlistFromCart(bookmarkId: number) {
+  const token = localStorage.getItem("accessToken");
+  if (!token) {
+    throw new Error("로그인 후 위시리스트를 사용할 수 있습니다.");
+  }
+
+  const { data } = await api.delete<{ ok: boolean; message?: string }>(
+    `/bookmarks/${bookmarkId}`,
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+
+  if (!data.ok) {
+    throw new Error(data.message || "위시리스트 삭제에 실패했습니다.");
+  }
+}
+
+// 장바구니 페이지에서 위시리스트 섹션 초기화
+async function initWishlistOnCart() {
+  const wishlistContainer =
+    document.querySelector<HTMLElement>(".wishlist-items");
+  if (!wishlistContainer) return;
+
+  try {
+    const res = await api.get<WishRes>("/bookmarks/product", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    });
+
+    const data = res.data as any;
+    console.log("wishlist on cart:", data);
+
+    if (data && "ok" in data && !!data.ok && Array.isArray(data.item)) {
+      wishlistOnCart = data.item;
+      renderWishlistOnCart(data.item);
+      setupWishlistAddToCart();
+      syncCartLikeButtons();
+    } else {
+      console.warn(data?.message ?? "위시리스트가 비어 있습니다.");
+    }
+  } catch (error) {
+    console.error("load wishlist error:", error);
+  }
+}
+
+/** 위시리스트 HTML 렌더링 */
+function renderWishlistOnCart(items: WishlistItem[]) {
+  const container = document.querySelector<HTMLElement>(".wishlist-items");
+  if (!container) return;
+
+  if (!items.length) {
+    container.innerHTML =
+      '<p class="py-10 text-gray-500">위시리스트에 담긴 상품이 없습니다.</p>';
+    return;
+  }
+
+  const html = items
+    .map((wish) => {
+      const p = wish.product || {};
+      const imageUrl =
+        p.image?.url ?? p.image?.path ?? p.mainImages?.[0]?.path ?? "";
+      const name = p.name ?? "";
+      const price = typeof p.price === "number" ? p.price : 0;
+      const category = (p.extra?.category && p.extra.category[0]) || "상품";
+      const sizeText =
+        wish.size ??
+        (Array.isArray(p.extra?.size) ? p.extra.size[0] : "") ??
+        "";
+
+      return `
+        <div class="flex gap-3 items-start pt-10" data-wish-id="${wish._id}">
+          <!-- 상품 이미지 -->
+          <div class="cart-item__media w-[154px] h-[154px] shrink-0 bg-gray-100 overflow-hidden">
+            <a href="#" class="cart-item__thumb">
+              <img src="${imageUrl}" alt="${name}" />
+            </a>
+          </div>
+
+          <!-- 상품 정보 -->
+          <div class="cart-item__body flex-col text-[16px] font-normal space-y-1">
+            <h2 class="cart-item__title">${name}</h2>
+            <div class="cart-item__price">${price.toLocaleString(
+              "ko-KR"
+            )} 원</div>
+
+            <dl class="cart-item__meta text-gray-500 font-light space-y-1">
+              <div class="cart-item__meta-row">
+                <dt>${category}</dt>
+              </div>
+              <div>
+                <div class="cart-item__meta-row flex space-x-2.5">
+                  <dt>사이즈</dt>
+                  <dd class="cart-item__size underline">${sizeText || "-"}</dd>
+                </div>
+              </div>
+            </dl>
+
+            <button
+              class="border py-2 px-6 rounded-full border-gray-300 btn-add-cart"
+              data-product-id="${p._id}"
+              data-size="${sizeText || ""}"
+            >
+              <p class="translate-y-px">장바구니에 추가</p>
+            </button>
+          </div>
+        </div>
+      `;
+    })
+    .join("");
+
+  container.innerHTML = html;
+}
+
+/** 위시리스트의 "장바구니에 추가" 버튼 클릭 처리 */
+function setupWishlistAddToCart() {
+  const container = document.querySelector<HTMLElement>(".wishlist-items");
+  if (!container) return;
+
+  if (wishlistHandlerRegistered) return;
+  wishlistHandlerRegistered = true;
+
+  // 이벤트 위임
+  container.addEventListener("click", async (event) => {
+    const target = event.target as HTMLElement;
+    const btn = target.closest<HTMLButtonElement>(".btn-add-cart");
+    if (!btn) return;
+
+    const productId = Number(btn.dataset.productId);
+    const size = btn.dataset.size ? Number(btn.dataset.size) : undefined;
+
+    if (!productId) return;
+
+    try {
+      await addToCartFromWishlist(productId, size);
+      alert("장바구니에 추가되었습니다.");
+      await initCartPage(); // 장바구니 합계 갱신
+    } catch (error) {
+      console.error("add to cart from wishlist error:", error);
+      const err = error as AxiosError<ApiError>;
+      const msg =
+        err.response?.data?.message ||
+        "장바구니에 추가하는 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.";
+      alert(msg);
+    }
+  });
+}
+
+/** POST /carts : 위시리스트에서 장바구니로 추가 */
+async function addToCartFromWishlist(productId: number, size?: number) {
+  const token = localStorage.getItem("accessToken");
+  if (!token) {
+    alert("로그인 후 장바구니에 담을 수 있습니다.");
+    return;
+  }
+
+  const body: any = {
+    product_id: productId,
+    quantity: 1,
+  };
+
+  if (typeof size === "number" && !Number.isNaN(size)) {
+    body.size = [size];
+  }
+
+  await api.post("/carts", body, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+function syncCartLikeButtons() {
+  const buttons = document.querySelectorAll<HTMLButtonElement>(
+    ".cart-item .btn-like"
+  );
+
+  buttons.forEach((btn) => {
+    const productId = Number(btn.dataset.productId);
+    if (!productId) return;
+
+    const wish = wishlistOnCart.find(
+      (w) => w.product && w.product._id === productId
+    );
+
+    if (wish) {
+      btn.classList.add("is-liked");
+      btn.dataset.bookmarkId = String(wish._id);
+      btn.innerHTML = HEART_FILLED_SVG;
+    } else {
+      btn.classList.remove("is-liked");
+      btn.dataset.bookmarkId = "";
+      btn.innerHTML = HEART_OUTLINE_SVG;
+    }
+  });
 }
