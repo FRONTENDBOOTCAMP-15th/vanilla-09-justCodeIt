@@ -70,7 +70,7 @@ function renderCart(items: CartItem[]) {
   // 아이템 렌더링
   const html = items
     .map((item) => {
-      const { _id, product, quantity } = item;
+      const { _id, product, quantity, size } = item;
       const linePrice = product.price * quantity;
 
       return `
@@ -90,7 +90,7 @@ function renderCart(items: CartItem[]) {
               <dl class="cart-item__meta text-gray-500 font-light space-y-1">
                 <div class="cart-item__meta-row">
                   <dt>사이즈</dt>
-                  <dd class="cart-item__size underline">${product.extra?.sort ?? " "}</dd>
+                  <dd class="cart-item__size underline">${size}</dd>
                 </div>
                 <div class="cart-item__meta-row">
                   <dt>수량</dt>

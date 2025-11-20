@@ -169,6 +169,7 @@ export interface CartItem {
   quantity: number;
   createdAt: string;
   updatedAt: string;
+  size: string;
   product: {
     _id: number;
     name: string;
@@ -176,6 +177,7 @@ export interface CartItem {
     seller_id: number;
     quantity: number;
     buyQuantity: number;
+    size: number;
     image: {
       path: string;
       name: string;
@@ -206,7 +208,7 @@ export interface UpdateCartQtyBody {
 export interface AddToCartBody {
   product_id: number;
   quantity: number;
-  size: number[];
+  size: string;
   color: string;
 }
 
