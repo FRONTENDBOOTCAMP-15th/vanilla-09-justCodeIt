@@ -36,6 +36,18 @@ async function showList() {
 }
 
 function render(products: ProductList[]) {
+  const productBody = document.querySelector("#productBody");
+  if (!productBody) return;
+
+  if (products.length === 0) {
+    productBody.innerHTML = `
+      <div class="col-span-3 align-center text-center whitespace-nowrap py-10 text-gray-500 text-base md:text-2xl">
+        죄송합니다. 조건에 맞는 상품을 찾을 수 없습니다.
+      </div>
+    `;
+    return;
+  }
+
   const result = products.map((product) => {
     const color = product.extra?.color
       ? product.extra.color.split(" ").length
@@ -68,7 +80,7 @@ function render(products: ProductList[]) {
           </div>
         `;
   });
-  const productBody = document.querySelector("#productBody");
+
   if (productBody) {
     productBody.innerHTML = result.join("");
 

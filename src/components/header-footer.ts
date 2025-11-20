@@ -1,8 +1,8 @@
-// import style from "../style.css?inline";
 // 웹 컴포넌트(Web Components)”로 헤더를 만들기 위한 커스텀 엘리먼트 클래스
 class NikeHeader extends HTMLElement {
   connectedCallback() {
     this.render();
+    setTimeout(() => this.updateLoginStatus(), 0);
   }
 
   // UI를 렌더링
@@ -14,7 +14,7 @@ class NikeHeader extends HTMLElement {
           <div class="mx-auto max-w-[1920px] px-4">
             <div class="h-[60px] flex items-center justify-between">
               <!-- 로고 (왼쪽) -->
-              <a href="/src/pages/home/home.html" class="flex items-center">
+              <a href="./index.html" class="flex items-center">
                 <svg
                   width="76"
                   height="60"
@@ -109,6 +109,11 @@ class NikeHeader extends HTMLElement {
                         />
                       </a>
                     </svg>
+                    <span
+                      id="cartCount"
+                      class="absolute -top-1 -right-1 min-w-5 h-5 px-1 rounded-full bg-red-600 text-white text-xs flex items-center justify-center">
+                      0
+                    </span>
                   </button>
                 </a>
 
@@ -169,13 +174,14 @@ class NikeHeader extends HTMLElement {
                     >고객센터</a
                   >
                 </li>
-                <li class="px-3">
+                <li class="px-3" id="section-bar">
                   <svg
                     width="1"
                     height="12"
                     viewBox="0 0 1 12"
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
+                    
                   >
                     <mask id="path-1-inside-1_3180_44" fill="white">
                       <path d="M0 0H1V12H0V0Z" />
@@ -187,33 +193,24 @@ class NikeHeader extends HTMLElement {
                     />
                   </svg>
                 </li>
-                <li class="flex items-center">
-                  <a href="/src/pages/log-in/log-in.html" class="hover:underline underline-offset-4"
-                    >가입하기</a
-                  >
+                <!-- 가입하기 링크 -->
+                <li id="signup-link" class="flex items-center">
+                  <a href="/src/pages/log-in/log-in.html" class="hover:underline underline-offset-4">가입하기</a>
                 </li>
-                <li class="px-3">
-                  <svg
-                    width="1"
-                    height="12"
-                    viewBox="0 0 1 12"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <mask id="path-1-inside-1_3180_44" fill="white">
-                      <path d="M0 0H1V12H0V0Z" />
-                    </mask>
-                    <path
-                      d="M0 0V12H2V0H0Z"
-                      fill="#111111"
-                      mask="url(#path-1-inside-1_3180_44)"
-                    />
+                
+
+                <li id="section-bar" class="px-3">
+                  <svg width="1" height="12" viewBox="0 0 1 12" fill="none">
+                    <path d="M0 0V12H2V0H0Z" fill="#111111"/>
                   </svg>
                 </li>
-                <li class="flex items-center">
-                  <a href="/src/pages/log-in/log-in.html" class="hover:underline underline-offset-4"
-                    >로그인</a
-                  >
+
+                <!-- 로그인 / 로그아웃 -->
+                <li id="login-link" class="flex items-center">
+                  <a href="/src/pages/log-in/log-in.html" class="hover:underline underline-offset-4">로그인</a>
+                </li>
+                <li id="logout-link" class="flex items-center hidden">
+                  <button class="hover:underline underline-offset-4 text-xs bg-transparent border-none cursor-pointer">로그아웃</button>
                 </li>
               </ul>
             </div>
@@ -332,6 +329,39 @@ class NikeHeader extends HTMLElement {
         </div>
       </header>
     `;
+  }
+
+  updateLoginStatus() {
+    const signupLink = this.querySelector<HTMLLIElement>("#signup-link")!;
+    const loginLink = this.querySelector<HTMLLIElement>("#login-link")!;
+    const logoutLink = this.querySelector<HTMLLIElement>("#logout-link")!;
+    const logoutButton = logoutLink.querySelector<HTMLButtonElement>("button")!;
+    const sectionBar = this.querySelector<HTMLLIElement>("#section-bar")!;
+
+    const accessToken = localStorage.getItem("accessToken");
+
+    if (accessToken) {
+      // 로그인 상태면
+      signupLink.style.display = "none";
+      sectionBar.style.display = "none"; // 막대도 숨김
+      loginLink.style.display = "none";
+      logoutLink.classList.remove("hidden");
+    } else {
+      // 로그아웃 상태면
+      signupLink.style.display = "flex";
+      sectionBar.style.display = "flex"; // 막대 다시 보이게
+      loginLink.style.display = "flex";
+      logoutLink.classList.add("hidden");
+    }
+
+    // 로그아웃 클릭 시 localStorage 초기화
+    logoutButton.addEventListener("click", () => {
+      localStorage.clear();
+      signupLink.style.display = "flex";
+      sectionBar.style.display = "flex";
+      loginLink.style.display = "flex";
+      logoutLink.classList.add("hidden");
+    });
   }
 }
 
