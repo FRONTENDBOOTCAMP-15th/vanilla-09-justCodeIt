@@ -18,76 +18,85 @@
       class="cart max-w-4xl mx-auto flex-col w-full px-4"
       aria-labelledby="cart-title"
     >
-      <header
-        class="cart__header flex-col text-center sm:items-center justify-center pt-16"
-      >
-        <h1 id="cart-title" class="text-2xl font-medium">장바구니</h1>
-        <p class="cart__summary pb-[30px]">
-          <span class="cart__count text-[16px] text-gray-500 font-normal"
-            >0 개의 제품</span
+      <div class="lg:flex lg:w-full lg:space-x-5">
+        <!-- 장바구니 아이템 -->
+        <article
+          class="cart-item border-b border-gray-300 pb-10 lg:w-full bg"
+          data-cart-id="123"
+          data-sku="zoom_vomero_5"
+          aria-label="상품명"
+        >
+          <header
+            class="cart__header flex-col text-center sm:items-center justify-center pt-16 lg:pt-10 lg:text-start border-b border-gray-300 lg:border-0"
           >
-          <span
-            class="cart__divider text-[16px] text-gray-500 font-normal"
-            aria-hidden="true"
-            >|</span
-          >
-          <span class="cart__total text-[16px] text-black font-normal"
-            >0 원</span
-          >
-        </p>
-      </header>
+            <h1 id="cart-title" class="text-2xl font-medium">장바구니</h1>
+            <p class="cart__summary pb-[30px] lg:hidden">
+              <span class="cart__count text-[16px] text-gray-500 font-normal"
+                >0 개의 제품</span
+              >
+              <span
+                class="cart__divider text-[16px] text-gray-500 font-normal"
+                aria-hidden="true"
+                >|</span
+              >
+              <span class="cart__total text-[16px] text-black font-normal"
+                >0 원</span
+              >
+            </p>
+          </header>
+          <!-- 장바구니 상품 목록 -->
+          <div class="cart-items lg:pr-4">
+            <!-- 상품 -->
+            <div class="flex gap-3 items-start pt-10 lg:pt-6"></div>
+          </div>
+        </article>
 
-      <!-- 장바구니 아이템 -->
-      <article
-        class="cart-item border-t border-b border-gray-300 pb-10"
-        data-cart-id="123"
-        data-sku="zoom_vomero_5"
-        aria-label="상품명"
-      >
-        <!-- 장바구니 상품 목록 -->
-        <div class="cart-items">
-          <!-- 상품 -->
-          <div class="flex gap-3 items-start pt-10"></div>
-        </div>
-      </article>
-
-      <!-- 주문 내역 -->
-      <section
-        class="order py-10 space-y-6 border-b border-gray-300"
-        aria-labelledby="order-title"
-      >
-        <h2 id="order-title" class="text-2xl font-medium">주문 내역</h2>
-        <dl class="order__list font-light">
-          <div class="order__row flex justify-between">
-            <dt>
-              상품 금액
-              <button class="order__help" aria-label="상품 금액 안내">
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 12 12"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M6 0C4.90667 0 3.9 0.266667 2.98 0.8C2.06 1.33333 1.33333 2.06 0.8 2.98C0.266667 3.9 0 4.90667 0 6C0 7.09333 0.266667 8.1 0.8 9.02C1.33333 9.94 2.06 10.6667 2.98 11.2C3.9 11.7333 4.90667 12 6 12C7.09333 12 8.1 11.7333 9.02 11.2C9.94 10.6667 10.6667 9.94 11.2 9.02C11.7333 8.1 12 7.09333 12 6C12 4.90667 11.7333 3.9 11.2 2.98C10.6667 2.06 9.94 1.33333 9.02 0.8C8.1 0.266667 7.09333 0 6 0ZM6.12 9.44C5.88 9.44 5.67333 9.36 5.5 9.2C5.32667 9.04 5.24 8.84 5.24 8.6C5.24 8.36 5.32667 8.16 5.5 8C5.67333 7.84 5.87333 7.76 6.1 7.76C6.32667 7.76 6.52667 7.84 6.7 8C6.87333 8.16 6.96 8.36 6.96 8.6C6.96 8.84 6.87333 9.04 6.7 9.2C6.52667 9.36 6.33333 9.44 6.12 9.44ZM4.56 2.68C4.93333 2.44 5.38667 2.32 5.92 2.32C6.61333 2.32 7.19333 2.48667 7.66 2.82C8.12667 3.15333 8.36 3.65333 8.36 4.32C8.36 4.72 8.25333 5.05333 8.04 5.32C7.93333 5.48 7.70667 5.69333 7.36 5.96L7.04 6.24C6.88 6.37333 6.76 6.53333 6.68 6.72C6.65333 6.82667 6.64 7.01333 6.64 7.28H5.36C5.38667 6.74667 5.44 6.38 5.52 6.18C5.6 5.98 5.81333 5.74667 6.16 5.48L6.48 5.2C6.58667 5.12 6.68 5.04 6.76 4.96C6.86667 4.77333 6.92 4.57333 6.92 4.36C6.92 4.14667 6.85333 3.94 6.72 3.74C6.58667 3.54 6.34 3.44 5.98 3.44C5.62 3.44 5.36667 3.56 5.22 3.8C5.07333 4.04 5 4.29333 5 4.56H3.64C3.69333 3.68 4 3.05333 4.56 2.68Z"
-                    fill="black"
-                  />
-                </svg>
-              </button>
-            </dt>
-            <dd class="order__value">0 원</dd>
-          </div>
-          <div class="order__row flex justify-between">
-            <dt>배송비</dt>
-            <dd class="order__value">무료</dd>
-          </div>
-          <div class="order__row order__row--total flex justify-between pt-3">
-            <dt>총 결제 금액</dt>
-            <dd class="order__total font-normal">0 원</dd>
-          </div>
-        </dl>
-      </section>
+        <!-- 주문 내역 -->
+        <section
+          class="order py-10 space-y-6 border-b border-gray-300 lg:w-[350px] lg:border-0"
+          aria-labelledby="order-title"
+        >
+          <h2 id="order-title" class="text-2xl font-medium">주문 내역</h2>
+          <dl class="order__list font-light">
+            <div class="order__row flex justify-between">
+              <dt>
+                상품 금액
+                <button class="order__help" aria-label="상품 금액 안내">
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M6 0C4.90667 0 3.9 0.266667 2.98 0.8C2.06 1.33333 1.33333 2.06 0.8 2.98C0.266667 3.9 0 4.90667 0 6C0 7.09333 0.266667 8.1 0.8 9.02C1.33333 9.94 2.06 10.6667 2.98 11.2C3.9 11.7333 4.90667 12 6 12C7.09333 12 8.1 11.7333 9.02 11.2C9.94 10.6667 10.6667 9.94 11.2 9.02C11.7333 8.1 12 7.09333 12 6C12 4.90667 11.7333 3.9 11.2 2.98C10.6667 2.06 9.94 1.33333 9.02 0.8C8.1 0.266667 7.09333 0 6 0ZM6.12 9.44C5.88 9.44 5.67333 9.36 5.5 9.2C5.32667 9.04 5.24 8.84 5.24 8.6C5.24 8.36 5.32667 8.16 5.5 8C5.67333 7.84 5.87333 7.76 6.1 7.76C6.32667 7.76 6.52667 7.84 6.7 8C6.87333 8.16 6.96 8.36 6.96 8.6C6.96 8.84 6.87333 9.04 6.7 9.2C6.52667 9.36 6.33333 9.44 6.12 9.44ZM4.56 2.68C4.93333 2.44 5.38667 2.32 5.92 2.32C6.61333 2.32 7.19333 2.48667 7.66 2.82C8.12667 3.15333 8.36 3.65333 8.36 4.32C8.36 4.72 8.25333 5.05333 8.04 5.32C7.93333 5.48 7.70667 5.69333 7.36 5.96L7.04 6.24C6.88 6.37333 6.76 6.53333 6.68 6.72C6.65333 6.82667 6.64 7.01333 6.64 7.28H5.36C5.38667 6.74667 5.44 6.38 5.52 6.18C5.6 5.98 5.81333 5.74667 6.16 5.48L6.48 5.2C6.58667 5.12 6.68 5.04 6.76 4.96C6.86667 4.77333 6.92 4.57333 6.92 4.36C6.92 4.14667 6.85333 3.94 6.72 3.74C6.58667 3.54 6.34 3.44 5.98 3.44C5.62 3.44 5.36667 3.56 5.22 3.8C5.07333 4.04 5 4.29333 5 4.56H3.64C3.69333 3.68 4 3.05333 4.56 2.68Z"
+                      fill="black"
+                    />
+                  </svg>
+                </button>
+              </dt>
+              <dd class="order__value">0 원</dd>
+            </div>
+            <div class="order__row flex justify-between lg:pb-4">
+              <dt>배송비</dt>
+              <dd class="order__value">무료</dd>
+            </div>
+            <div
+              class="order__row order__row--total flex justify-between pt-3 lg:py-4 lg:border-y lg:border-gray-300"
+            >
+              <dt>총 결제 금액</dt>
+              <dd class="order__total font-normal">0 원</dd>
+            </div>
+          </dl>
+          <!-- 주문하기 버튼 -->
+          <button
+            class="fixed h-[67px] left-0 bottom-0 bg-black text-white w-full text-[16px] font-normal text-center cursor-pointer lg:static lg:rounded-full lg:h-[54px]"
+          >
+            주문하기
+          </button>
+        </section>
+      </div>
 
       <!-- 위시리스트 -->
       <section class="pb-10">
@@ -98,12 +107,7 @@
         <div class="wishlist-items"></div>
       </section>
     </section>
-    <!-- 주문하기 버튼 -->
-    <button
-      class="fixed h-[67px] left-0 bottom-0 bg-black text-white w-full text-[16px] font-normal text-center cursor-pointer"
-    >
-      주문하기
-    </button>
+
     <footer-bar></footer-bar>
   </body>
 </html>

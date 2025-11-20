@@ -7,7 +7,7 @@ interface WishItemResponse {
   item: WishItem[];
 }
 
-interface WishItem {
+export interface WishItem {
   _id: number;
   memo: string;
   createdAt: string;

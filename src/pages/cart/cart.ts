@@ -98,12 +98,12 @@ async function initCartPage() {
     } else {
       alert(
         (data as any).message ||
-          "장바구니 정보를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요."
+          "장바구니 정보를 불러오지 못했습니다. 잠시 후 다시 시도해주세요."
       );
     }
   } catch (error) {
     console.error("load cart error:", error);
-    alert("장바구니 정보를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.");
+    alert("로그인 후 시도해주세요.");
   }
 }
 
@@ -135,51 +135,56 @@ function renderCart(items: CartItem[]) {
 
       return `
         <article class="cart-item " data-cart-id="${_id}">
-          <div class="flex gap-3 items-start pt-10">
+          <div class="flex gap-3 items-start pt-10 lg:pt-6">
             
             <!-- 상품 이미지 -->
-            <div class="cart-item__media w-[154px] h-[154px] shrink-0 bg-gray-100 overflow-hidden">
+            <div class="cart-item__media w-[154px] h-[154px] shrink-0  overflow-hidden">
               <img src="${product.image?.path || ""}" alt="${product.name}" />
             </div>
 
             <!-- 상품 정보 -->
-            <div class="cart-item__body flex flex-col text-[16px] font-normal space-y-1">
-              <div class="cart-item__price">${product.price.toLocaleString("ko-KR")} 원</div>
-              <h2 class="cart-item__title">${product.name}</h2>
-
-              <dl class="cart-item__meta text-gray-500 font-light space-y-1">
-                <div class="cart-item__meta-row">
-                  <dt>사이즈</dt>
-                  <dd class="cart-item__size underline">${size}</dd>
+            <div class="cart-item__body flex flex-col text-[16px] font-normal space-y-1  lg:w-full lg:h-[154px] lg:justify-between">
+              <div >
+                <div class="lg:flex lg:w-full lg:justify-between ">
+                  <div class="cart-item__price lg:order-2">${product.price.toLocaleString("ko-KR")} 원</div>
+                  <h2 class="cart-item__title lg:order-1">${product.name}</h2>
                 </div>
-                <div class="cart-item__meta-row">
-                  <dt>수량</dt>
-                  <dd class="cart-item__qty flex items-center gap-2">
-                    
-                    <button
-                      type="button"
-                      class="qty__btn cursor-pointer"
-                      aria-label="수량 감소"
-                    >
-                      <svg width="10" height="2" viewBox="0 0 10 2" fill="none">
-                        <path d="M10 0V2H0V0H10Z" fill="#A6A6A6" />
-                      </svg>
-                    </button>
-
-                    <output class="qty__value" aria-live="polite">${quantity}</output>
-
-                    <button
-                      type="button"
-                      class="qty__btn cursor-pointer"
-                      aria-label="수량 증가"
-                    >
-                      <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                        <path d="M6 0V4H10V6H6V10H4V6H0V4H4V0H6Z" fill="#333333" />
-                      </svg>
-                    </button>
-                  </dd>
-                </div>
-              </dl>
+               
+  
+                <dl class="cart-item__meta text-gray-500 flex font-light space-y-1 space-x-10 ">
+                  <div class="cart-item__meta-row lg:flex lg:space-x-2.5">
+                    <dt>사이즈</dt>
+                    <dd class="cart-item__size underline">${size}</dd>
+                  </div>
+                  <div class="cart-item__meta-row lg:flex lg:space-x-2.5">
+                    <dt>수량</dt>
+                    <dd class="cart-item__qty flex items-center gap-2">
+                      
+                      <button
+                        type="button"
+                        class="qty__btn cursor-pointer"
+                        aria-label="수량 감소"
+                      >
+                        <svg width="10" height="2" viewBox="0 0 10 2" fill="none">
+                          <path d="M10 0V2H0V0H10Z" fill="#A6A6A6" />
+                        </svg>
+                      </button>
+  
+                      <output class="qty__value" aria-live="polite">${quantity}</output>
+  
+                      <button
+                        type="button"
+                        class="qty__btn cursor-pointer"
+                        aria-label="수량 증가"
+                      >
+                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                          <path d="M6 0V4H10V6H6V10H4V6H0V4H4V0H6Z" fill="#333333" />
+                        </svg>
+                      </button>
+                    </dd>
+                  </div>
+                </dl>
+              </div>
 
               <div class="cart-item__actions flex-col space-x-1">
                 <button
@@ -212,7 +217,7 @@ function renderCart(items: CartItem[]) {
             </div>
           </div>
 
-          <div class="cart-item__shipping">
+          <div class="cart-item__shipping pt-5">
             <p class="ship__badge font-normal">무료 배송</p>
           </div>
         </article>
