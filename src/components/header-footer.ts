@@ -1,4 +1,3 @@
-// import style from "../style.css?inline";
 // 웹 컴포넌트(Web Components)”로 헤더를 만들기 위한 커스텀 엘리먼트 클래스
 class NikeHeader extends HTMLElement {
   connectedCallback() {
@@ -110,6 +109,11 @@ class NikeHeader extends HTMLElement {
                         />
                       </a>
                     </svg>
+                    <span
+                      id="cartCount"
+                      class="absolute -top-1 -right-1 min-w-5 h-5 px-1 rounded-full bg-red-600 text-white text-xs flex items-center justify-center">
+                      0
+                    </span>
                   </button>
                 </a>
 
