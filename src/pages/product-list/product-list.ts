@@ -165,6 +165,37 @@ if (hiddenFilterBtn && desktopSidebar) {
     }
   });
 }
+function initPriceCheckbox() {
+  const url = new URL(window.location.href);
+  const minPrice = Number(url.searchParams.get("minPrice") ?? 0);
+  const maxPrice = Number(url.searchParams.get("maxPrice") ?? 0);
+
+  const checkboxMap: Record<string, [number, number]> = {
+    "under-5": [0, 50000],
+    "under-10": [50000, 100000],
+    "under-15": [100000, 150000],
+    "under-20": [150000, 200000],
+  };
+
+  Object.entries(checkboxMap).forEach(([id, [min, max]]) => {
+    const checkbox = document.getElementById(id) as HTMLInputElement | null;
+    const img = document.querySelector(
+      `.checkbox-img[data-target="${id}"]`
+    ) as HTMLImageElement | null;
+    if (!checkbox || !img) return;
+
+    if (minPrice === min && maxPrice === max) {
+      checkbox.checked = true;
+      img.setAttribute("src", imgOn);
+    } else {
+      checkbox.checked = false;
+      img.setAttribute("src", imgOff);
+    }
+  });
+}
+
+// 페이지 로드 시 실행
+initPriceCheckbox();
 
 // checkbox img로 on/off
 const checkboxImgs = document.querySelectorAll(".checkbox-img");

@@ -65,7 +65,7 @@ class RecommendProducts extends HTMLElement {
           ? product.extra.color.split(" ").length
           : 1;
         return `
-          <div class="flex flex-col min-w-0 flex-1">
+          <div class="flex flex-col min-w-0 flex-1 cursor-pointer" data-id="${product._id}">
             <img
               class="object-cover aspect-square w-full h-auto"
               src="${product.mainImages?.[0]?.path ?? ""}"
@@ -100,6 +100,16 @@ class RecommendProducts extends HTMLElement {
         </div>
       </div>
     `;
+
+    const cards = this.querySelectorAll("div[data-id]");
+    cards.forEach((card) => {
+      card.addEventListener("click", () => {
+        const id = card.getAttribute("data-id");
+        if (id) {
+          window.location.href = `/src/pages/product-detail/product-detail.html?id=${id}`;
+        }
+      });
+    });
   }
 
   private onClick(e: MouseEvent) {
