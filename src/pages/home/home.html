@@ -56,7 +56,8 @@
           <h3 class="mb-6 text-2xl font-medium leading-8">Win On Air</h3>
 
           <div
-            class="flex gap-3 mb-[45px] overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory"
+            id="winonair-slider"
+            class="select-none flex gap-3 mb-[45px] overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory"
           >
             <!-- 카드 1 -->
             <div class="flex flex-col shrink-0 min-w-[300px] snap-start">
@@ -68,7 +69,8 @@
                 <img
                   src="/src/assets/img/home/winonair1-mobile.png"
                   alt="Win On Air 의류"
-                  class="object-cover w-full h-auto min-w-[300px] min-h-[375px] mb-4"
+                  draggable="false"
+                  class="pointer-events-none object-cover w-full h-auto min-w-[300px] min-h-[375px] mb-4"
                 />
               </picture>
               <p class="text-xl font-medium">의류</p>
@@ -84,7 +86,8 @@
                 <img
                   src="/src/assets/img/home/winonair2-mobile.png"
                   alt="Win On Air 신발"
-                  class="object-cover w-full h-auto min-w-[300px] min-h-[375px] mb-4"
+                  draggable="false"
+                  class="pointer-events-none object-cover w-full h-auto min-w-[300px] min-h-[375px] mb-4"
                 />
               </picture>
               <p class="text-xl font-medium">신발</p>
@@ -100,7 +103,8 @@
                 <img
                   src="/src/assets/img/home/winonair3-mobile.png"
                   alt="Win On Air 악세사리 & 용품"
-                  class="object-cover w-full h-auto min-w-[300px] min-h-[375px] mb-4"
+                  draggable="false"
+                  class="pointer-events-none object-cover w-full h-auto min-w-[300px] min-h-[375px] mb-4"
                 />
               </picture>
               <p class="text-xl font-medium">악세사리 & 용품</p>
@@ -203,7 +207,8 @@
           <h3 class="mb-6 text-2xl font-medium">Trending Now</h3>
 
           <div
-            class="flex gap-3 overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory"
+            id="trending-slider"
+            class="select-none flex gap-3 overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory"
           >
             <!-- 카드 1 -->
             <div class="flex flex-col shrink-0 min-w-[300px] snap-start">
@@ -215,6 +220,7 @@
                 <img
                   src="/src/assets/img/home/trending1-mobile.png"
                   alt="매드 앰비션 팩"
+                  draggable="false"
                   class="object-cover w-full h-auto mb-4 min-[300px]"
                 />
               </picture>
@@ -236,6 +242,7 @@
                 <img
                   src="/src/assets/img/home/trending2-mobile.png"
                   alt="가장 나다움을 담은 수트"
+                  draggable="false"
                   class="object-cover w-full h-auto mb-4 min-[300px]"
                 />
               </picture>
@@ -257,6 +264,7 @@
                 <img
                   src="/src/assets/img/home/trending3-mobile.png"
                   alt="샌들 & 슬라이드"
+                  draggable="false"
                   class="object-cover w-full h-auto mb-4 min-[300px]"
                 />
               </picture>
@@ -272,7 +280,7 @@
       </section>
 
       <section
-        class="mb-21 md:mx-auto md:mb-24 md:max-w-[1824px] md:grid md:grid-cols-2 gap-3 md:px-6"
+        class="mb-21 md:mx-auto md:mb-24 md:max-w-[1824px] md:grid md:grid-cols-2 gap-3"
       >
         <h3 class="text-2xl font-medium md:col-span-2 mb-6 md:mx-0">
           Featured
@@ -337,14 +345,26 @@
         </div>
       </section>
 
-      <section class="mb-21 md:mb-24 md:max-w-[1824px] mx-auto">
-        <!-- 제목 박스: 항상 px-6 유지 -->
+      <section class="relative mb-21 md:mb-24 md:max-w-[1824px] mx-auto">
         <div class="mb-6">
           <h3 class="text-2xl font-medium">Always Iconic</h3>
         </div>
+        <button
+          id="always-prev"
+          class="hidden md:flex items-center justify-center absolute left-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white shadow cursor-pointer"
+        >
+          <img src="/src/assets/icons/Button-left.svg" draggable="false" />
+        </button>
 
-        <!-- 슬라이드 영역: 좌우로 확장됨 -->
+        <button
+          id="always-next"
+          class="hidden md:flex items-center justify-center absolute right-2 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-white shadow cursor-pointer"
+        >
+          <img src="/src/assets/icons/Button-right.svg" draggable="false" />
+        </button>
+
         <div
+          id="always-slider"
           class="flex gap-3 overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory md:gap-6 w-full"
         >
           <!-- 카드 1 -->
@@ -400,8 +420,20 @@
           <div class="flex items-center justify-between">
             <h3 class="text-2xl font-medium">Shop by Sport</h3>
             <div class="hidden md:flex gap-2">
-              <button id="sport-prev" class="px-3 py-1 border">←</button>
-              <button id="sport-next" class="px-3 py-1 border">→</button>
+              <button id="sport-prev">
+                <img
+                  src="/src/assets/icons/Button-left.svg"
+                  alt="왼쪽 화살표"
+                  class="w-12 h-12"
+                />
+              </button>
+              <button id="sport-next">
+                <img
+                  src="/src/assets/icons/Button-right.svg"
+                  alt="오른쪽 화살표"
+                  class="w-12 h-12"
+                />
+              </button>
             </div>
           </div>
 
@@ -506,7 +538,7 @@
             <div class="overflow-hidden">
               <div
                 id="sport-track"
-                class="flex gap-4 transition-transform duration-300"
+                class="flex gap-3 overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory md:gap-6 w-full"
               >
                 <!-- 카드 1 -->
                 <article class="sport-card shrink-0 w-[600px]">
@@ -778,36 +810,101 @@
     <footer-bar></footer-bar>
   </body>
   <script>
+    const sliderIds = ["winonair-slider", "trending-slider"];
+
+    sliderIds.forEach((id) => {
+      const slider = document.getElementById(id);
+      if (!slider) return;
+
+      let isDown = false;
+      let startX = 0;
+      let scrollLeft = 0;
+
+      slider.addEventListener("mousedown", (e) => {
+        isDown = true;
+        slider.classList.add("cursor-grabbing");
+        slider.classList.remove("cursor-grab");
+        startX = e.pageX - slider.offsetLeft;
+        scrollLeft = slider.scrollLeft;
+      });
+
+      slider.addEventListener("mouseleave", () => {
+        isDown = false;
+        slider.classList.add("cursor-grab");
+        slider.classList.remove("cursor-grabbing");
+      });
+
+      slider.addEventListener("mouseup", () => {
+        isDown = false;
+        slider.classList.add("cursor-grab");
+        slider.classList.remove("cursor-grabbing");
+      });
+
+      slider.addEventListener("mousemove", (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 1;
+        slider.scrollLeft = scrollLeft - walk;
+      });
+    });
+
+    const slider = document.getElementById("always-slider");
+    const alwaysPrevBtn = document.getElementById("always-prev");
+    const alwaysNextBtn = document.getElementById("always-next");
+
+    if (slider && alwaysPrevBtn && alwaysNextBtn) {
+      const cardWidth = 300; // 모바일 기준
+      const cardWidthDesktop = 500; // 데스크톱 기준
+
+      function getMoveDistance() {
+        return window.innerWidth >= 768
+          ? cardWidthDesktop + 24
+          : cardWidth + 12;
+        // 이미지 width + gap 생각해서 보정
+      }
+
+      alwaysPrevBtn.addEventListener("click", () => {
+        slider.scrollBy({
+          left: -getMoveDistance(),
+          behavior: "smooth",
+        });
+      });
+
+      alwaysNextBtn.addEventListener("click", () => {
+        slider.scrollBy({
+          left: getMoveDistance(),
+          behavior: "smooth",
+        });
+      });
+    }
+
     const track = document.getElementById("sport-track");
     const prevBtn = document.getElementById("sport-prev");
     const nextBtn = document.getElementById("sport-next");
 
     if (track && prevBtn && nextBtn) {
-      let index = 0;
+      const getSlideWidth = () => {
+        const card = track.children[0];
+        if (!card) return 0;
 
-      // 데스크톱 카드 1개(600px) + gap 24px = 624px 이동
-      const slideWidth = 600 + 24;
-
-      const total = track.children.length; // 5개 카드
-      const visible = 3; // 한 화면에 3개 보임
-      const maxIndex = total - visible; // = 2
-
-      const update = () => {
-        track.style.transform = `translateX(-${index * slideWidth}px)`;
+        const cardWidth = card.offsetWidth;
+        const gap = parseInt(getComputedStyle(track).gap) || 0;
+        return cardWidth + gap;
       };
 
       nextBtn.addEventListener("click", () => {
-        if (index < maxIndex) {
-          index++;
-          update();
-        }
+        track.scrollBy({
+          left: getSlideWidth(),
+          behavior: "smooth",
+        });
       });
 
       prevBtn.addEventListener("click", () => {
-        if (index > 0) {
-          index--;
-          update();
-        }
+        track.scrollBy({
+          left: -getSlideWidth(),
+          behavior: "smooth",
+        });
       });
     }
   </script>
