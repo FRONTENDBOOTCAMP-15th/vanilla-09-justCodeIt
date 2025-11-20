@@ -109,11 +109,6 @@ class NikeHeader extends HTMLElement {
                         />
                       </a>
                     </svg>
-                    <span
-                      id="cartCount"
-                      class="absolute -top-1 -right-1 min-w-5 h-5 px-1 rounded-full bg-red-600 text-white text-xs flex items-center justify-center">
-                      0
-                    </span>
                   </button>
                 </a>
 
