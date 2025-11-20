@@ -1,7 +1,6 @@
 import { AxiosError } from "axios";
 import { getAxios } from "../../utils/axios";
-import type { ProductList, ProductListRes } from "../../utils/types";
-import { codes } from "../../utils/categories";
+import type { ProductList, ProductListRes, ApiCodes } from "../../utils/types";
 import imgOn from "/src/assets/img/checkOn.svg";
 import imgOff from "/src/assets/img/checkOff.png";
 
@@ -28,10 +27,20 @@ async function showList() {
   try {
     const { data } = await axios.get<ProductListRes>(query);
     console.log(data);
-
     return data;
   } catch (err) {
     console.log(err);
+  }
+}
+
+async function fetchCodes(): Promise<ApiCodes | null> {
+  try {
+    const { data } = await axios.get<ApiCodes>("/codes/");
+    if (data.ok) console.log("!!!!!!카테고리확인~!!!!!!:", data);
+    return data;
+  } catch (err) {
+    console.error("카테고리 못불러옴", err);
+    return null;
   }
 }
 
@@ -53,13 +62,8 @@ function render(products: ProductList[]) {
       ? product.extra.color.split(" ").length
       : 1;
 
-    // category[0] desc 반환, [1]은 value 반환
-    const category0 = codes.find(
-      (c) => c.code === product.extra.category[0]
-    )?.desc;
-    const category1 = codes.find(
-      (c) => c.code === product.extra.category[1]
-    )?.value;
+    const category0 = findCategory(product.extra.category[0])?.value ?? "";
+    const category1 = findCategory(product.extra.category[1])?.value ?? "";
 
     return `
           <div class="flex flex-col items-start cursor-pointer" data-id="${product._id}">
@@ -96,9 +100,26 @@ function render(products: ProductList[]) {
   }
 }
 
+const codesData = await fetchCodes();
 const data = await showList();
+
 if (data?.ok) {
   render(data?.item);
+}
+
+function findCategory(code?: string) {
+  if (!code || !codesData) return null;
+
+  const groups = Object.values(codesData.item);
+
+  for (const group of groups) {
+    if (!group || !group.codes) continue;
+
+    const found = group.codes.find((c) => c.code === code);
+    if (found) return found;
+  }
+
+  return null;
 }
 
 // 정렬 버튼
