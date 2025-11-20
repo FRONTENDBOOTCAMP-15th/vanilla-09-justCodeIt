@@ -1,4 +1,4 @@
-import { getAxios } from "./axios";
+import { getAxios } from "./axios.ts";
 
 export async function deleteAxios(url: string, token?: string) {
   const axios = getAxios();

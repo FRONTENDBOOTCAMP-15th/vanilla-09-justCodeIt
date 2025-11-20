@@ -1,5 +1,5 @@
-import { AxiosError } from "axios";
-import { getAxios } from "../../utils/axios";
+import { AxiosError, toFormData } from "axios";
+import { getAxios } from "../../utils/axios.ts";
 import { deleteAxios } from "../../utils/delete";
 
 interface WishItemResponse {
@@ -30,7 +30,11 @@ interface Extra {
 }
 
 let editMode = false;
-const token = localStorage.getItem("accessToken");
+const token = localStorage.getItem("accessToken") ?? undefined;
+
+if (!token) {
+  window.location.href = "/src/pages/log-in/log-in.html";
+}
 
 document.querySelector("#edit-btn")?.addEventListener("click", () => {
   editMode = !editMode;
