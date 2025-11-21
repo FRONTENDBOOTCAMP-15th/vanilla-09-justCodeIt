@@ -220,3 +220,26 @@ export type AddToCartRes =
       item: CartItem;
     }
   | ApiError;
+
+export interface ApiCodes {
+  ok: number;
+  item: {
+    productCategory: CodeCategory;
+    orderState: CodeCategory;
+    membershipClass: CodeCategory;
+  };
+}
+
+interface CodeCategory {
+  _id: string;
+  title: string;
+  codes: CodeItem[];
+}
+
+interface CodeItem {
+  sort: number;
+  code: string;
+  value: string;
+  depth?: number;
+  discountRate?: number;
+}
