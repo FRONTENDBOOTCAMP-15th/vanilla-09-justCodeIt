@@ -13,7 +13,7 @@ class NikeHeader extends HTMLElement {
           <div class="mx-auto max-w-[1920px] px-4">
             <div class="h-[60px] flex items-center justify-between">
               <!-- 로고 (왼쪽) -->
-              <a href="./index.html" class="flex items-center">
+              <a href="/src/pages/home/home.html" class="flex items-center">
                 <svg
                   width="76"
                   height="60"
