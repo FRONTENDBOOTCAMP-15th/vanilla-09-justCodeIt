@@ -154,7 +154,7 @@ function renderCart(items: CartItem[]) {
                 <dl class="cart-item__meta text-gray-500 flex font-light space-y-1 space-x-10 ">
                   <div class="cart-item__meta-row lg:flex lg:space-x-2.5">
                     <dt>사이즈</dt>
-                    <dd class="cart-item__size underline">${size}</dd>
+                    <dd class="cart-item__size underline">${size || "ONE SIZE"}</dd>
                   </div>
                   <div class="cart-item__meta-row lg:flex lg:space-x-2.5">
                     <dt>수량</dt>
@@ -548,7 +548,7 @@ function renderWishlistOnCart(items: WishlistItem[]) {
         "";
 
       return `
-        <div class="flex gap-3 items-start pt-10" data-wish-id="${wish._id}">
+        <div class="flex gap-3 items-start pt-10 " data-wish-id="${wish._id}">
           <!-- 상품 이미지 -->
           <div class="cart-item__media w-[154px] h-[154px] shrink-0 bg-gray-100 overflow-hidden">
             <a href="#" class="cart-item__thumb">
@@ -557,26 +557,28 @@ function renderWishlistOnCart(items: WishlistItem[]) {
           </div>
 
           <!-- 상품 정보 -->
-          <div class="cart-item__body flex-col text-[16px] font-normal space-y-1">
-            <h2 class="cart-item__title">${name}</h2>
-            <div class="cart-item__price">${price.toLocaleString(
-              "ko-KR"
-            )} 원</div>
+          <div class="cart-item__body flex flex-col text-[16px] font-normal space-y-1 lg:w-full ">
+            <div class="lg:flex lg:w-full lg:justify-between lg:gap-3 ">
+              <h2 class="cart-item__title">${name}</h2>
+              <div class="cart-item__price lg:whitespace-nowrap">${price.toLocaleString(
+                "ko-KR"
+              )} 원</div>
+            </div>
 
             <dl class="cart-item__meta text-gray-500 font-light space-y-1">
-              <div class="cart-item__meta-row">
+              <!-- <div class="cart-item__meta-row">
                 <dt>${category}</dt>
-              </div>
+              </div> -->
               <div>
                 <div class="cart-item__meta-row flex space-x-2.5">
                   <dt>사이즈</dt>
-                  <dd class="cart-item__size underline">${sizeText || "-"}</dd>
+                  <dd class="cart-item__size underline">${sizeText || "선택"}</dd>
                 </div>
               </div>
             </dl>
 
             <button
-              class="border py-2 px-6 rounded-full border-gray-300 btn-add-cart"
+              class="border py-2 px-6 rounded-full w-[155px] border-gray-300 btn-add-cart"
               data-product-id="${p._id}"
               data-size="${sizeText || ""}"
             >

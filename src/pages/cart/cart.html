@@ -7,6 +7,7 @@
     <link rel="icon" href="/nike.svg" />
     <link rel="stylesheet" href="/src/assets/css/style.css" />
     <script type="module" src="/src/components/header-footer.ts"></script>
+    <script type="module" src="/src/components/recommend.ts"></script>
     <script type="module" src="./cart.ts"></script>
   </head>
   <body
@@ -16,13 +17,13 @@
     <nike-header></nike-header>
     <!-- 장바구니 -->
     <section
-      class="cart max-w-4xl mx-auto flex-col w-full px-4"
+      class="cart max-w-5xl mx-auto flex-col w-full px-4"
       aria-labelledby="cart-title"
     >
       <div class="lg:flex lg:w-full lg:space-x-5">
         <!-- 장바구니 아이템 -->
         <article
-          class="cart-item border-b border-gray-300 pb-10 lg:w-full bg"
+          class="cart-item border-b border-gray-300 pb-10 lg:w-[800px]"
           data-cart-id="123"
           data-sku="zoom_vomero_5"
           aria-label="상품명"
@@ -105,9 +106,12 @@
           위시리스트
         </h2>
         <!-- 위시리스트-상품목록 -->
-        <div class="wishlist-items"></div>
+        <div
+          class="wishlist-items lg:grid lg:grid-cols-2 lg:gap-4 lg:pb-10 lg:border-b lg:border-gray-300"
+        ></div>
       </section>
     </section>
+    <recommend-products></recommend-products>
 
     <footer-bar></footer-bar>
   </body>
