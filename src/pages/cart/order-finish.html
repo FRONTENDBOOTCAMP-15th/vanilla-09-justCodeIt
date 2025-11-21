@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ko-KR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>장바구니</title>
+    <link rel="icon" href="/nike.svg" />
+    <link rel="stylesheet" href="/src/assets/css/style.css" />
+    <script type="module" src="/src/components/header-footer.ts"></script>
+    <script type="module" src="/src/components/recommend.ts"></script>
+    <script type="module" src="./cart.ts"></script>
+  </head>
+  <body
+    class="min-h-screen items-start sm:items-center justify-center pb-[67px] font-['Noto_Sans_KR']"
+  >
+    <!-- 헤더 -->
+    <nike-header></nike-header>
+    <div class="flex flex-col w-full h-[82vh] justify-center">
+      <p class="font-normal text-3xl self-center lg:pb-10">
+        주문이 완료되었습니다!
+      </p>
+      <a href="/src/pages/home/home.html" class="self-center">
+        <button
+          class="fixed h-[67px] lg:w-[350px] left-0 bottom-0 bg-black text-white w-full text-[16px] font-normal text-center cursor-pointer lg:static lg:rounded-full lg:h-[54px]"
+        >
+          홈으로 가기
+        </button>
+      </a>
+    </div>
+  </body>
+</html>
