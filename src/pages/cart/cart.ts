@@ -74,6 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupQtyButtons();
   initWishlistOnCart();
   setupWishlistAddToCart();
+  setupOrderButton();
 });
 
 // -------------------- 장바구니 목록 조회 --------------------
@@ -107,6 +108,17 @@ async function initCartPage() {
   }
 }
 
+function setOrderButtonVisible(hasItems: boolean) {
+  const orderBtn = document.querySelector<HTMLButtonElement>("#orderButton");
+  if (!orderBtn) return;
+
+  if (hasItems) {
+    orderBtn.style.display = ""; // 보이기
+  } else {
+    orderBtn.style.display = "none"; // 숨기기
+  }
+}
+
 function renderCart(items: CartItem[]) {
   const cartCount = document.querySelector<HTMLElement>(".cart__count");
   const cartTotal = document.querySelector<HTMLElement>(".cart__total");
@@ -119,11 +131,13 @@ function renderCart(items: CartItem[]) {
   // 장바구니 비어있을 때
   if (items.length === 0) {
     cartItemsContainer.innerHTML =
-      '<p class="py-10 text-center text-gray-500">장바구니에 담긴 상품이 없습니다.</p>';
+      '<p class="pt-10 lg:pt-25 text-center text-gray-500">장바구니에 담긴 상품이 없습니다.</p>';
     if (cartCount) cartCount.textContent = "0 개의 제품";
     if (cartTotal) cartTotal.textContent = "0 원";
     if (orderValue) orderValue.textContent = "0 원";
     if (orderTotal) orderTotal.textContent = "0 원";
+
+    setOrderButtonVisible(false);
     return;
   }
 
@@ -249,6 +263,7 @@ function renderCart(items: CartItem[]) {
   });
 
   syncCartLikeButtons();
+  setOrderButtonVisible(true);
 }
 
 // -------------------- 수량 버튼 + PATCH 연동 --------------------
@@ -672,6 +687,50 @@ function syncCartLikeButtons() {
       btn.classList.remove("is-liked");
       btn.dataset.bookmarkId = "";
       btn.innerHTML = HEART_OUTLINE_SVG;
+    }
+  });
+}
+
+// 주문하기 버튼
+/** DELETE /carts/cleanup : 장바구니 전체 비우기 */
+async function cleanupCart() {
+  const res = await api.delete<{ ok: number; message?: string }>(
+    "/carts/cleanup",
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    }
+  );
+
+  if (res.data && "ok" in res.data && res.data.ok === 0) {
+    throw new Error(res.data.message || "장바구니 비우기에 실패했습니다.");
+  }
+}
+
+/** 주문하기 버튼 세팅 */
+function setupOrderButton() {
+  const orderSection = document.querySelector<HTMLElement>(".order");
+  if (!orderSection) return;
+
+  const orderButton =
+    orderSection.querySelector<HTMLButtonElement>("#orderButton");
+  if (!orderButton) return;
+
+  orderButton.addEventListener("click", async () => {
+    const ok = confirm("주문을 진행하시겠습니까?");
+    if (!ok) return;
+
+    try {
+      await cleanupCart();
+      window.location.href = "/src/pages/cart/order-finish.html";
+    } catch (error) {
+      console.error("cleanup cart error:", error);
+      const err = error as AxiosError<ApiError>;
+      const msg =
+        err.response?.data?.message ||
+        "장바구니를 비우는 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.";
+      alert(msg);
     }
   });
 }
