@@ -77,7 +77,7 @@ function render(products: ProductList[]) {
     return `
           <div class="flex flex-col items-start cursor-pointer" data-id="${product._id}">
             <img
-              class="w-full aspect-square overflow-hidden"
+              class="w-full object-cover aspect-square overflow-hidden"
               src="${product.mainImages?.[0]?.path || "/src/assets/img/default.png"}"
               alt="${product.name}"
             />
