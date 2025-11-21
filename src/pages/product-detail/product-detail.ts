@@ -202,13 +202,18 @@ async function productDetail() {
             <img
               src="${image.path}"
               alt="${image.name || item.name}"
-              class="w-20 h-20 object-cover rounded"
+              class="w-20 h-20 object-cover rounded lg:w-[60px] lg:h-[60px]"
             />
           `;
 
           // 처음 썸네일은 선택 표시
           if (index === 0) {
-            btn.classList.add("border-2", "border-[#111]");
+            btn.classList.add(
+              "border-2",
+              "border-[#111]",
+              "lg:border-0",
+              "lg:brightness-80"
+            );
           }
 
           // 썸네일 클릭하면 대표이미지 변경 + 선택 표시 변경
@@ -219,10 +224,22 @@ async function productDetail() {
             // 모든 썸네일에서 선택 스타일 제거
             thumbsEl
               .querySelectorAll<HTMLButtonElement>(".thumb")
-              .forEach((b) => b.classList.remove("border-2", "border-[#111]"));
+              .forEach((b) =>
+                b.classList.remove(
+                  "border-2",
+                  "border-[#111]",
+                  "lg:border-0",
+                  "lg:brightness-80"
+                )
+              );
 
             // 현재 클릭한 썸네일에만 선택 스타일 추가
-            btn.classList.add("border-2", "border-[#111]");
+            btn.classList.add(
+              "border-2",
+              "border-[#111]",
+              "lg:border-0",
+              "lg:brightness-80"
+            );
           });
 
           thumbsEl.appendChild(btn);

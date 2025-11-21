@@ -13,283 +13,296 @@
   <body>
     <nike-header></nike-header>
 
-    <main class="max-w-sm mx-auto pb-24">
-      <section class="px-4 pt-20">
-        <h1 id="productName" class="text-xl font-normal text-[#111]"></h1>
-        <p id="category" class="text-sm text-[#111]">
-          ${category0} > ${category1}
-        </p>
-        <div class="mt-1 flex items-baseline gap-2">
-          <strong
-            id="productPrice"
-            class="text-base font-normal text-[#111]"
-          ></strong>
-          <span class="text-[#707072] line-through text-base">249,000원</span>
-          <span class="text-[#007D48] text-base font-normal">10% 할인</span>
-        </div>
-      </section>
-
-      <!-- 상품 이미지 -->
-      <section class="mt-3 mb-5">
-        <div class="overflow-hidden flex gap-2 w-full aspect-square">
-          <img
-            id="productImg"
-            src="/src/assets/img/nike.png"
-            class="w-full select-none object-cover"
-            alt=""
-          />
-        </div>
-
-        <!-- 썸네일 -->
-        <div class="mt-2 overflow-x-auto scroll-none">
-          <div id="thumbs" class="flex gap-3 w-max">
-            <!-- 썸네일 자리 -->
+    <main class="mx-auto pb-24 lg:pt-[130px] lg:max-w-[1920px]">
+      <div class="lg:grid lg:grid-cols-2 lg:grid-rows-[auto_auto] lg:gap-10">
+        <section class="px-4 pt-20 lg:pt-0 order-1 lg:order-2">
+          <h1 id="productName" class="text-xl font-normal text-[#111]"></h1>
+          <p id="category" class="text-sm text-[#111]">
+            ${category0} > ${category1}
+          </p>
+          <div class="mt-1 flex items-baseline gap-2">
+            <strong
+              id="productPrice"
+              class="text-base font-normal text-[#111]"
+            ></strong>
+            <span class="text-[#707072] line-through text-base">249,000원</span>
+            <span class="text-[#007D48] text-base font-normal">10% 할인</span>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <div class="flex items-end justify-between px-6">
-        <h2 class="text-[#111]">사이즈 선택</h2>
-        <button type="button" class="text-[#707072]">사이즈 가이드</button>
-      </div>
-
-      <div
-        id="sizeBtn"
-        class="w-full mt-3 mb-6 px-6 grid grid-cols-5 gap-2 bg-[#FFFFFF] text-[#111] text-base"
-      >
-        <!-- 사이즈 버튼 자리 -->
-      </div>
-
-      <!-- 장바구니 & 위시리스트 -->
-      <div class="px-6 space-y-3">
-        <button
-          id="btnCart"
-          class="w-full h-16 rounded-4xl bg-[#111] text-[#ffffff] text-base font-normal"
+        <!-- 상품 이미지 -->
+        <section
+          class="mt-3 mb-5 order-2 lg:order-1 lg:row-span-full lg:flex lg:gap-4 lg:items-start lg:pl-6 lg:mt-0"
         >
-          장바구니
-        </button>
-        <button
-          id="btnWish"
-          class="w-full h-16 rounded-4xl bg-[#ffffff] text-[#111] text-base font-normal ring-1 ring-neutral-300 flex items-center justify-center gap-2"
-        >
-          <span>위시리스트</span>
-          <!-- 위시리스트 SVG 자리 -->
-          <span id="wishIcon"></span>
-        </button>
-      </div>
-      <!-- 상세 설명 -->
-      <section class="px-6 mt-8 text-base leading-7 text-[#111]">
-        <p id="productContent"></p>
+          <div
+            class="overflow-hidden flex gap-2 w-full aspect-square lg:order-2 lg:aspect-auto lg:max-aspect-[4/5]"
+          >
+            <img
+              id="productImg"
+              src=""
+              class="w-full select-none object-cover lg:rounded-lg lg:object-contain"
+              alt=""
+            />
+          </div>
 
-        <ul class="mt-6 space-y-3 list-disc pl-5">
-          <li id="currentColor"></li>
-          <li id="styleNo" class="font-normal"></li>
-        </ul>
-      </section>
-
-      <!-- 상품 상세 정보 / 무료 배송 / 리뷰 / 추가 정보 -->
-      <section class="px-6 mt-10 mb-8 text-[#111]">
-        <!-- 상단 제목 + 밑줄 -->
-        <button class="text-base font-normal border-b border-[#111] pb-1">
-          <h3>상품 상세 정보 보기</h3>
-        </button>
-
-        <!-- 아코디언 목록 -->
-        <div class="mt-6 space-y-0 text-base">
-          <!-- 무료 배송 및 반품 (닫힘) -->
-          <details class="group border-b border-[#E5E5E5]">
-            <summary
-              class="w-full flex items-center justify-between py-4 cursor-pointer list-none"
-            >
-              <span class="font-normal text-xl text-[#111]"
-                >무료 배송 및 반품</span
-              >
-
-              <svg
-                class="w-4 h-4 transition-transform group-open:rotate-180"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M18.9662 8.47595L12.0002 15.443L5.0332 8.47595"
-                  stroke="#111111"
-                  stroke-width="1.5"
-                />
-              </svg>
-            </summary>
-
-            <!-- 내용 -->
-            <div class="pb-4 text-sm text-[#111] space-y-4 leading-6">
-              <div>
-                <p class="font-normal">일반 배송</p>
-                <ul class="list-disc pl-5 space-y-1">
-                  <li>배송지역: 전국 (일부 지역 제외)</li>
-                  <li>배송비: 무료배송</li>
-                  <li>
-                    제품 수령일로부터 14일 이내 제품에 대해서만 무료 반품
-                    서비스가 가능합니다.
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <p class="font-normal">오늘도착 서비스</p>
-                <ul class="list-disc pl-5 space-y-1">
-                  <li>
-                    이용시간: 오전 10시 30분까지 결제 시, 당일 도착 (일요일,
-                    공휴일 제외)
-                  </li>
-                  <li>
-                    서비스지역: 서울·과천·의왕·군포·수원·성남·안양시 전역,
-                    용인시 수지구·기흥구, 부산시 중동·성동·쇠덕동
-                  </li>
-                  <li>서비스비용: 5,000원</li>
-                </ul>
-              </div>
-
-              <div>
-                <p class="font-normal">A/S 안내</p>
-                <ul class="list-disc pl-5 space-y-1">
-                  <li>
-                    나이키 온라인에서 구매하신 제품에 대한 A/S는 나이키코리아
-                    고객센터(080-022-0182)에서 유선으로만 접수 가능합니다.
-                  </li>
-                </ul>
-              </div>
+          <!-- 썸네일 -->
+          <div
+            class="mt-2 overflow-x-auto scroll-none lg:order-1 lg:overflow-x-visible lg:mt-0"
+          >
+            <div id="thumbs" class="flex lg:flex-col gap-3 w-max">
+              <!-- 썸네일 자리 -->
             </div>
-          </details>
+          </div>
+        </section>
 
-          <!-- 리뷰 (닫힘) -->
-          <details class="group border-b border-[#E5E5E5]">
-            <summary
-              class="w-full flex items-center justify-between py-4 cursor-pointer list-none"
+        <div class="order-3">
+          <div class="flex items-end justify-between px-6">
+            <h2 class="text-[#111]">사이즈 선택</h2>
+            <button type="button" class="text-[#707072]">사이즈 가이드</button>
+          </div>
+
+          <div
+            id="sizeBtn"
+            class="w-full mt-3 mb-6 px-6 grid grid-cols-5 gap-2 bg-[#FFFFFF] text-[#111] text-base"
+          >
+            <!-- 사이즈 버튼 자리 -->
+          </div>
+
+          <!-- 장바구니 & 위시리스트 -->
+          <div class="px-6 space-y-3">
+            <button
+              id="btnCart"
+              class="w-full h-16 rounded-4xl bg-[#111] text-[#ffffff] text-base font-normal"
             >
-              <span class="font-normal text-xl">리뷰 (2)</span>
+              장바구니
+            </button>
+            <button
+              id="btnWish"
+              class="w-full h-16 rounded-4xl bg-[#ffffff] text-[#111] text-base font-normal ring-1 ring-neutral-300 flex items-center justify-center gap-2"
+            >
+              <span>위시리스트</span>
+              <!-- 위시리스트 SVG 자리 -->
+              <span id="wishIcon"></span>
+            </button>
+          </div>
+          <!-- 상세 설명 -->
+          <section class="px-6 mt-8 text-base leading-7 text-[#111]">
+            <p id="productContent"></p>
 
-              <span class="flex items-center gap-2">
-                <span class="text-sm">★★★★★</span>
+            <ul class="mt-6 space-y-3 list-disc pl-5">
+              <li id="currentColor"></li>
+              <li id="styleNo" class="font-normal"></li>
+            </ul>
+          </section>
 
-                <svg
-                  class="w-4 h-4 transition-transform group-open:rotate-180"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+          <!-- 상품 상세 정보 / 무료 배송 / 리뷰 / 추가 정보 -->
+          <section class="px-6 mt-10 mb-8 text-[#111]">
+            <!-- 상단 제목 + 밑줄 -->
+            <button class="text-base font-normal border-b border-[#111] pb-1">
+              <h3>상품 상세 정보 보기</h3>
+            </button>
+
+            <!-- 아코디언 목록 -->
+            <div class="mt-6 space-y-0 text-base">
+              <!-- 무료 배송 및 반품 (닫힘) -->
+              <details class="group border-b border-[#E5E5E5]">
+                <summary
+                  class="w-full flex items-center justify-between py-4 cursor-pointer list-none"
                 >
-                  <path
-                    d="M18.9662 8.47595L12.0002 15.443L5.0332 8.47595"
-                    stroke="#111111"
-                    stroke-width="1.5"
-                  />
-                </svg>
-              </span>
-            </summary>
+                  <span class="font-normal text-xl text-[#111]"
+                    >무료 배송 및 반품</span
+                  >
 
-            <!-- 리뷰 내용 영역 -->
-            <div class="pb-6 pt-2 text-sm text-[#111] space-y-6">
-              <!-- 상단 평균 별점 + 버튼 -->
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <span class="text-base">★★★★★</span>
-                  <span class="text-sm text-[#707072]">4.7점</span>
+                  <svg
+                    class="w-4 h-4 transition-transform group-open:rotate-180"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M18.9662 8.47595L12.0002 15.443L5.0332 8.47595"
+                      stroke="#111111"
+                      stroke-width="1.5"
+                    />
+                  </svg>
+                </summary>
+
+                <!-- 내용 -->
+                <div class="pb-4 text-sm text-[#111] space-y-4 leading-6">
+                  <div>
+                    <p class="font-normal">일반 배송</p>
+                    <ul class="list-disc pl-5 space-y-1">
+                      <li>배송지역: 전국 (일부 지역 제외)</li>
+                      <li>배송비: 무료배송</li>
+                      <li>
+                        제품 수령일로부터 14일 이내 제품에 대해서만 무료 반품
+                        서비스가 가능합니다.
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <p class="font-normal">오늘도착 서비스</p>
+                    <ul class="list-disc pl-5 space-y-1">
+                      <li>
+                        이용시간: 오전 10시 30분까지 결제 시, 당일 도착 (일요일,
+                        공휴일 제외)
+                      </li>
+                      <li>
+                        서비스지역: 서울·과천·의왕·군포·수원·성남·안양시 전역,
+                        용인시 수지구·기흥구, 부산시 중동·성동·쇠덕동
+                      </li>
+                      <li>서비스비용: 5,000원</li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <p class="font-normal">A/S 안내</p>
+                    <ul class="list-disc pl-5 space-y-1">
+                      <li>
+                        나이키 온라인에서 구매하신 제품에 대한 A/S는
+                        나이키코리아 고객센터(080-022-0182)에서 유선으로만 접수
+                        가능합니다.
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-              </div>
-              <button
-                type="button"
-                class="py-1 font-medium border-b border-[#111] text-base text-[#111]"
-              >
-                리뷰 작성하기
-              </button>
+              </details>
 
-              <!-- 첫 번째 리뷰 -->
-              <article class="space-y-1">
-                <h4 class="text-sm font-normal">Nike Jam Shoe Review</h4>
-                <p class="text-sm">★★★★★</p>
-                <p class="text-sm leading-6">
-                  The Nike Jam shoes are a dream to wear, with a snug yet
-                  comfortable fit that supports your feet during any activity.
-                  The sleek, modern design with bold color combinations makes a
-                  stylish statement, perfect for any outfit.
-                </p>
-              </article>
+              <!-- 리뷰 (닫힘) -->
+              <details class="group border-b border-[#E5E5E5]">
+                <summary
+                  class="w-full flex items-center justify-between py-4 cursor-pointer list-none"
+                >
+                  <span class="font-normal text-xl">리뷰 (2)</span>
 
-              <!-- 두 번째 리뷰 -->
-              <article class="space-y-1">
-                <h4 class="text-sm font-normal">
-                  스티커가 왜 쉽게 떼지는 걸까요?
-                </h4>
-                <p class="text-sm">★★★★★</p>
-                <p class="text-sm leading-6">
-                  안에 이 스티커가 원래 이렇게 쉽게 떼지나요? 한 번밖에 안
-                  신었는데 벌써 벗겨졌네요. 디자인은 마음에 드는데 내구성이 조금
-                  아쉬워요.
-                </p>
-              </article>
+                  <span class="flex items-center gap-2">
+                    <span class="text-sm">★★★★★</span>
+
+                    <svg
+                      class="w-4 h-4 transition-transform group-open:rotate-180"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M18.9662 8.47595L12.0002 15.443L5.0332 8.47595"
+                        stroke="#111111"
+                        stroke-width="1.5"
+                      />
+                    </svg>
+                  </span>
+                </summary>
+
+                <!-- 리뷰 내용 영역 -->
+                <div class="pb-6 pt-2 text-sm text-[#111] space-y-6">
+                  <!-- 상단 평균 별점 + 버튼 -->
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                      <span class="text-base">★★★★★</span>
+                      <span class="text-sm text-[#707072]">4.7점</span>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    class="py-1 font-medium border-b border-[#111] text-base text-[#111]"
+                  >
+                    리뷰 작성하기
+                  </button>
+
+                  <!-- 첫 번째 리뷰 -->
+                  <article class="space-y-1">
+                    <h4 class="text-sm font-normal">Nike Jam Shoe Review</h4>
+                    <p class="text-sm">★★★★★</p>
+                    <p class="text-sm leading-6">
+                      The Nike Jam shoes are a dream to wear, with a snug yet
+                      comfortable fit that supports your feet during any
+                      activity. The sleek, modern design with bold color
+                      combinations makes a stylish statement, perfect for any
+                      outfit.
+                    </p>
+                  </article>
+
+                  <!-- 두 번째 리뷰 -->
+                  <article class="space-y-1">
+                    <h4 class="text-sm font-normal">
+                      스티커가 왜 쉽게 떼지는 걸까요?
+                    </h4>
+                    <p class="text-sm">★★★★★</p>
+                    <p class="text-sm leading-6">
+                      안에 이 스티커가 원래 이렇게 쉽게 떼지나요? 한 번밖에 안
+                      신었는데 벌써 벗겨졌네요. 디자인은 마음에 드는데 내구성이
+                      조금 아쉬워요.
+                    </p>
+                  </article>
+                </div>
+              </details>
+
+              <!-- 추가 정보 -->
+              <details open class="group border-b border-[#E5E5E5]">
+                <summary
+                  class="w-full flex items-center justify-between py-4 cursor-pointer list-none"
+                >
+                  <span class="font-normal text-xl text-[#111]">추가 정보</span>
+
+                  <svg
+                    class="w-4 h-4 transition-transform group-open:rotate-180"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M18.9662 8.47595L12.0002 15.443L5.0332 8.47595"
+                      stroke="#111111"
+                      stroke-width="1.5"
+                    />
+                  </svg>
+                </summary>
+
+                <!-- 상품정보제공고시 -->
+                <div class="pt-4 pb-2 text-[#111]">
+                  <h4 class="text-base font-normal mb-4">상품정보제공고시</h4>
+                  <ul class="space-y-3 list-disc pl-5 text-sm leading-6">
+                    <li>
+                      제조연월: 수입제품으로 각 제품별 입고 시기에 따라 상이하여
+                      정확한 제조연월 제공이 어렵습니다. 제조연월을 확인하시려면
+                      고객센터에 문의하시기 바라며, 정확한 제조연월은 배송받으신
+                      제품의 라벨을 참고하시기 바랍니다.
+                    </li>
+                    <li>
+                      A/S 책임자와 전화번호: (유)나이키코리아 온라인 스토어
+                      고객센터 / 080-022-0182
+                    </li>
+                    <li>
+                      세탁방법 및 취급시 주의사항: 자세한 내용은 '자세히 보기'를
+                      클릭하여 확인 부탁드립니다.
+                    </li>
+                    <li>
+                      품질보증기준: 품질보증기간-섬유 및 일반 소재(구입 후
+                      6개월), 가죽소재(구입 후 1년). 유통 중 손상되었거나 품질에
+                      이상이 있는 제품에 한하여 소비자 피해 보상 규정에 의거
+                      보상하여 드립니다. 단, 제품에 부착되어 있는 사용방법 및
+                      취급시 주의사항에 따라 제품을 관리해 주시고, 소비자
+                      부주의로 인한 품질 이상 및 변형에 대해서는 책임을 지지
+                      않습니다.
+                    </li>
+                    <li>
+                      제조자/수입품의 경우 수입자를 함께 표기: Nike. Inc /
+                      (유)나이키코리아
+                    </li>
+                  </ul>
+                </div>
+              </details>
             </div>
-          </details>
-
-          <!-- 추가 정보 -->
-          <details open class="group border-b border-[#E5E5E5]">
-            <summary
-              class="w-full flex items-center justify-between py-4 cursor-pointer list-none"
-            >
-              <span class="font-normal text-xl text-[#111]">추가 정보</span>
-
-              <svg
-                class="w-4 h-4 transition-transform group-open:rotate-180"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M18.9662 8.47595L12.0002 15.443L5.0332 8.47595"
-                  stroke="#111111"
-                  stroke-width="1.5"
-                />
-              </svg>
-            </summary>
-
-            <!-- 상품정보제공고시 -->
-            <div class="pt-4 pb-2 text-[#111]">
-              <h4 class="text-base font-normal mb-4">상품정보제공고시</h4>
-              <ul class="space-y-3 list-disc pl-5 text-sm leading-6">
-                <li>
-                  제조연월: 수입제품으로 각 제품별 입고 시기에 따라 상이하여
-                  정확한 제조연월 제공이 어렵습니다. 제조연월을 확인하시려면
-                  고객센터에 문의하시기 바라며, 정확한 제조연월은 배송받으신
-                  제품의 라벨을 참고하시기 바랍니다.
-                </li>
-                <li>
-                  A/S 책임자와 전화번호: (유)나이키코리아 온라인 스토어 고객센터
-                  / 080-022-0182
-                </li>
-                <li>
-                  세탁방법 및 취급시 주의사항: 자세한 내용은 '자세히 보기'를
-                  클릭하여 확인 부탁드립니다.
-                </li>
-                <li>
-                  품질보증기준: 품질보증기간-섬유 및 일반 소재(구입 후 6개월),
-                  가죽소재(구입 후 1년). 유통 중 손상되었거나 품질에 이상이 있는
-                  제품에 한하여 소비자 피해 보상 규정에 의거 보상하여 드립니다.
-                  단, 제품에 부착되어 있는 사용방법 및 취급시 주의사항에 따라
-                  제품을 관리해 주시고, 소비자 부주의로 인한 품질 이상 및 변형에
-                  대해서는 책임을 지지 않습니다.
-                </li>
-                <li>
-                  제조자/수입품의 경우 수입자를 함께 표기: Nike. Inc /
-                  (유)나이키코리아
-                </li>
-              </ul>
-            </div>
-          </details>
+          </section>
         </div>
-      </section>
+      </div>
     </main>
 
     <recommend-products></recommend-products>
