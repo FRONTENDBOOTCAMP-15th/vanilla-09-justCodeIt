@@ -59,7 +59,7 @@ function render(products: ProductList[]) {
 
   if (products.length === 0) {
     productBody.innerHTML = `
-      <div class="col-span-3 align-center text-center whitespace-nowrap py-10 text-gray-500 text-base md:text-2xl">
+      <div class="col-span-3 align-center text-center justify-center whitespace-nowrap py-10 text-base md:text-2xl">
         죄송합니다. 조건에 맞는 상품을 찾을 수 없습니다.
       </div>
     `;
