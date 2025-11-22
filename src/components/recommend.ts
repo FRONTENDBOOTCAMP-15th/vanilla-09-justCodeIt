@@ -87,7 +87,7 @@ class RecommendProducts extends HTMLElement {
     this.innerHTML = `
       <div class="mx-auto max-w-[1920px] px-6">
         <div class="p-4 flex justify-between items-center">
-          <span class="text-3xl">추천제품</span>
+          <span class="text-2xl lg:text-[30px]">추천제품</span>
           <div class="flex gap-2">
             <button id="btnLeft" aria-label="이전"><img class="w-12" src="${btnLeft}" alt="왼쪽 버튼"/></button>
             <button id="btnRight" aria-label="다음"><img class="w-12" src="${btnRight}" alt="오른쪽 버튼"/></button>

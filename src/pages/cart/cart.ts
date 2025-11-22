@@ -74,6 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupQtyButtons();
   initWishlistOnCart();
   setupWishlistAddToCart();
+  setupOrderButton();
 });
 
 // -------------------- 장바구니 목록 조회 --------------------
@@ -107,6 +108,17 @@ async function initCartPage() {
   }
 }
 
+function setOrderButtonVisible(hasItems: boolean) {
+  const orderBtn = document.querySelector<HTMLButtonElement>("#orderButton");
+  if (!orderBtn) return;
+
+  if (hasItems) {
+    orderBtn.style.display = ""; // 보이기
+  } else {
+    orderBtn.style.display = "none"; // 숨기기
+  }
+}
+
 function renderCart(items: CartItem[]) {
   const cartCount = document.querySelector<HTMLElement>(".cart__count");
   const cartTotal = document.querySelector<HTMLElement>(".cart__total");
@@ -119,11 +131,13 @@ function renderCart(items: CartItem[]) {
   // 장바구니 비어있을 때
   if (items.length === 0) {
     cartItemsContainer.innerHTML =
-      '<p class="py-10 text-center text-gray-500">장바구니에 담긴 상품이 없습니다.</p>';
+      '<p class="pt-10 lg:pt-25 text-center text-gray-500">장바구니에 담긴 상품이 없습니다.</p>';
     if (cartCount) cartCount.textContent = "0 개의 제품";
     if (cartTotal) cartTotal.textContent = "0 원";
     if (orderValue) orderValue.textContent = "0 원";
     if (orderTotal) orderTotal.textContent = "0 원";
+
+    setOrderButtonVisible(false);
     return;
   }
 
@@ -154,7 +168,7 @@ function renderCart(items: CartItem[]) {
                 <dl class="cart-item__meta text-gray-500 flex font-light space-y-1 space-x-10 ">
                   <div class="cart-item__meta-row lg:flex lg:space-x-2.5">
                     <dt>사이즈</dt>
-                    <dd class="cart-item__size underline">${size}</dd>
+                    <dd class="cart-item__size underline">${size || "ONE SIZE"}</dd>
                   </div>
                   <div class="cart-item__meta-row lg:flex lg:space-x-2.5">
                     <dt>수량</dt>
@@ -249,6 +263,7 @@ function renderCart(items: CartItem[]) {
   });
 
   syncCartLikeButtons();
+  setOrderButtonVisible(true);
 }
 
 // -------------------- 수량 버튼 + PATCH 연동 --------------------
@@ -548,7 +563,7 @@ function renderWishlistOnCart(items: WishlistItem[]) {
         "";
 
       return `
-        <div class="flex gap-3 items-start pt-10" data-wish-id="${wish._id}">
+        <div class="flex gap-3 items-start pt-10 " data-wish-id="${wish._id}">
           <!-- 상품 이미지 -->
           <div class="cart-item__media w-[154px] h-[154px] shrink-0 bg-gray-100 overflow-hidden">
             <a href="#" class="cart-item__thumb">
@@ -557,26 +572,28 @@ function renderWishlistOnCart(items: WishlistItem[]) {
           </div>
 
           <!-- 상품 정보 -->
-          <div class="cart-item__body flex-col text-[16px] font-normal space-y-1">
-            <h2 class="cart-item__title">${name}</h2>
-            <div class="cart-item__price">${price.toLocaleString(
-              "ko-KR"
-            )} 원</div>
+          <div class="cart-item__body flex flex-col text-[16px] font-normal space-y-1 lg:w-full ">
+            <div class="lg:flex lg:w-full lg:justify-between lg:gap-3 ">
+              <h2 class="cart-item__title">${name}</h2>
+              <div class="cart-item__price lg:whitespace-nowrap">${price.toLocaleString(
+                "ko-KR"
+              )} 원</div>
+            </div>
 
             <dl class="cart-item__meta text-gray-500 font-light space-y-1">
-              <div class="cart-item__meta-row">
+              <!-- <div class="cart-item__meta-row">
                 <dt>${category}</dt>
-              </div>
+              </div> -->
               <div>
                 <div class="cart-item__meta-row flex space-x-2.5">
                   <dt>사이즈</dt>
-                  <dd class="cart-item__size underline">${sizeText || "-"}</dd>
+                  <dd class="cart-item__size underline">${sizeText || "선택"}</dd>
                 </div>
               </div>
             </dl>
 
             <button
-              class="border py-2 px-6 rounded-full border-gray-300 btn-add-cart"
+              class="border py-2 px-6 rounded-full w-[155px] border-gray-300 btn-add-cart"
               data-product-id="${p._id}"
               data-size="${sizeText || ""}"
             >
@@ -670,6 +687,50 @@ function syncCartLikeButtons() {
       btn.classList.remove("is-liked");
       btn.dataset.bookmarkId = "";
       btn.innerHTML = HEART_OUTLINE_SVG;
+    }
+  });
+}
+
+// 주문하기 버튼
+/** DELETE /carts/cleanup : 장바구니 전체 비우기 */
+async function cleanupCart() {
+  const res = await api.delete<{ ok: number; message?: string }>(
+    "/carts/cleanup",
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    }
+  );
+
+  if (res.data && "ok" in res.data && res.data.ok === 0) {
+    throw new Error(res.data.message || "장바구니 비우기에 실패했습니다.");
+  }
+}
+
+/** 주문하기 버튼 세팅 */
+function setupOrderButton() {
+  const orderSection = document.querySelector<HTMLElement>(".order");
+  if (!orderSection) return;
+
+  const orderButton =
+    orderSection.querySelector<HTMLButtonElement>("#orderButton");
+  if (!orderButton) return;
+
+  orderButton.addEventListener("click", async () => {
+    const ok = confirm("주문을 진행하시겠습니까?");
+    if (!ok) return;
+
+    try {
+      await cleanupCart();
+      window.location.href = "/src/pages/cart/order-finish.html";
+    } catch (error) {
+      console.error("cleanup cart error:", error);
+      const err = error as AxiosError<ApiError>;
+      const msg =
+        err.response?.data?.message ||
+        "장바구니를 비우는 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.";
+      alert(msg);
     }
   });
 }

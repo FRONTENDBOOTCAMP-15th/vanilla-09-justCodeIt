@@ -24,6 +24,10 @@ export default defineConfig({
           __dirname,
           `src/pages/wish-list/wish-list.html`
         ),
+        "order-finish": path.resolve(
+          __dirname,
+          `src/pages/cart/order-finish.html`
+        ),
       },
     },
   },
