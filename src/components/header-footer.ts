@@ -1,8 +1,8 @@
-// 웹 컴포넌트(Web Components)”로 헤더를 만들기 위한 커스텀 엘리먼트 클래스
 class NikeHeader extends HTMLElement {
   connectedCallback() {
     this.render();
     setTimeout(() => this.updateLoginStatus(), 0);
+    this.addSearchEvent();
     this.addSearchEvent();
   }
 
@@ -494,20 +494,16 @@ class NikeHeader extends HTMLElement {
     const accessToken = localStorage.getItem("accessToken");
 
     if (accessToken) {
-      // 로그인 상태면
       signupLink.style.display = "none";
-      sectionBar.style.display = "none"; // 막대도 숨김
+      sectionBar.style.display = "none";
       loginLink.style.display = "none";
       logoutLink.classList.remove("hidden");
     } else {
-      // 로그아웃 상태면
       signupLink.style.display = "flex";
-      sectionBar.style.display = "flex"; // 막대 다시 보이게
+      sectionBar.style.display = "flex";
       loginLink.style.display = "flex";
       logoutLink.classList.add("hidden");
     }
-
-    // 로그아웃 클릭 시 localStorage 초기화
     logoutButton.addEventListener("click", () => {
       localStorage.clear();
       signupLink.style.display = "flex";
