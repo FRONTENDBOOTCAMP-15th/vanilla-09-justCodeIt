@@ -85,6 +85,7 @@ export interface ProductItem {
     sort: number;
     styleNo: string;
     size?: number[];
+    primeCost: number;
   };
 }
 
