@@ -3,6 +3,7 @@ class NikeHeader extends HTMLElement {
     this.render();
     setTimeout(() => this.updateLoginStatus(), 0);
     this.addSearchEvent();
+    this.addMenuCloseEvent();
 
     const searchToggle = this.querySelector(
       "#search-toggle"
@@ -57,6 +58,8 @@ class NikeHeader extends HTMLElement {
       <header class="w-full">
         <!-- 모바일 헤더 (로고 + 검색/프로필/장바구니/햄버거) -->
         <div class="w-full bg-[#ffffff] lg:hidden">
+          <!-- 햄버거 토글용 체크박스 -->
+          <input id="mobile-menu-toggle" type="checkbox" class="peer hidden" />
           <div class="mx-auto max-w-[1920px] px-4">
             <div class="h-[60px] flex items-center justify-between">
               <!-- 로고 (왼쪽) -->
@@ -140,41 +143,79 @@ class NikeHeader extends HTMLElement {
                     type="button"
                     class="w-9 h-9 rounded-full hover:bg-[#E5E5E5]"
                   >
-                    <svg
-                      width="36"
-                      height="36"
-                      viewBox="0 0 36 36"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M14.25 14.25V12C14.25 11.4033 14.4871 10.831 14.909 10.409C15.331 9.98705 15.9033 9.75 16.5 9.75H19.5C20.0967 9.75 20.669 9.98705 21.091 10.409C21.5129 10.831 21.75 11.4033 21.75 12C21.75 12.5967 21.5129 13.169 21.091 13.591C20.669 14.0129 20.0967 14.25 19.5 14.25H9.75V22.5C9.75 23.4946 10.1451 24.4484 10.8483 25.1517C11.5516 25.8549 12.5054 26.25 13.5 26.25H22.5C23.4946 26.25 24.4484 25.8549 25.1517 25.1517C25.8549 24.4484 26.25 23.4946 26.25 22.5V14.25H23.5"
-                        stroke="#111111"
-                        stroke-width="1.5"
-                      />
-                      <path
-                        d="M16.1219 17.369C16.3379 17.369 16.5479 17.351 16.7519 17.315C16.9559 17.279 17.1389 17.219 17.3009 17.135C17.4689 17.051 17.6099 16.943 17.7239 16.811C17.8439 16.679 17.9219 16.517 17.9579 16.325H18.7949V22.625H17.6699V18.179H16.1219V17.369Z"
-                        fill="#111111"
-                      />
-                      <a href="/src/pages/cart/cart.html">
-                        <rect
-                          fill="black"
-                          fill-opacity="0"
-                          x="0.154637"
-                          y="2.3805"
-                          width="5.004"
-                          height="10.989"
-                        />
-                      </a>
+                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M14.25 14.25V12C14.25 11.4033 14.4871 10.831 14.909 10.409C15.331 9.98705 15.9033 9.75 16.5 9.75H19.5C20.0967 9.75 20.669 9.98705 21.091 10.409C21.5129 10.831 21.75 11.4033 21.75 12C21.75 12.5967 21.5129 13.169 21.091 13.591C20.669 14.0129 20.0967 14.25 19.5 14.25H9.75V22.5C9.75 23.4946 10.1451 24.4484 10.8483 25.1517C11.5516 25.8549 12.5054 26.25 13.5 26.25H22.5C23.4946 26.25 24.4484 25.8549 25.1517 25.1517C25.8549 24.4484 26.25 23.4946 26.25 22.5V14.25H23.5" stroke="#111111" stroke-width="1.5"/>
                     </svg>
+
                   </button>
                 </a>
 
-                <!-- 햄버거 메뉴 아이콘 -->
-                <button
-                  type="button"
-                  class="w-9 h-9 rounded-full hover:bg-[#E5E5E5]"
+                <!-- 햄버거 메뉴 아이콘 (체크박스 토글) -->
+                <label
+                  for="mobile-menu-toggle"
+                  class="w-9 h-9 rounded-full hover:bg-[#E5E5E5] flex items-center justify-center cursor-pointer"
                 >
+                  <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M27 11.25H9M27 18H9M27 24.75H9" stroke="#111111" stroke-width="1.5"/>
+                  </svg>
+
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- 오버레이: 부드럽게 페이드 인/아웃 -->
+          <div
+            id="menuOverlay"
+            class="fixed inset-0 bg-black/40 opacity-0 pointer-events-none peer-checked:opacity-100 peer-checked:pointer-events-auto transition-opacity duration-300 z-50"
+          ></div>
+
+          <!-- 오른쪽에서 나오는 사이드 메뉴 -->
+          <nav
+            class="fixed top-0 right-0 h-full w-80 bg-[#FFFFFF] pl-10 translate-x-full peer-checked:translate-x-0 transition-transform duration-300 ease-out z-50"
+          >
+            <div class="flex items-start justify-end mb-9 p-4">
+              <!-- 닫기 버튼 -->
+              <label
+                for="mobile-menu-toggle"
+                class="w-9 h-9 rounded-full hover:bg-[#E5E5E5] flex items-center justify-center cursor-pointer ml-4"
+              >
+                <svg
+                  width="36"
+                  height="36"
+                  viewBox="0 0 36 36"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <circle cx="18" cy="18" r="14.5" fill="#E5E5E5" />
+                  <path d="M11 11L25 25" stroke="#111111" stroke-width="2" />
+                  <path d="M25 11L11 25" stroke="#111111" stroke-width="2" />
+                </svg>
+              </label>
+            </div>
+            <!-- 상단: 가입하기 / 로그인 버튼 -->
+            <div class="flex gap-6 mb-11">
+              <a
+                href="/src/pages/log-in/log-in.html"
+                class="inline-flex items-center justify-center h-11 px-6 rounded-4xl hover:bg-[#9E9EA0] bg-[#111111] text-white text-base font-normal"
+              >
+                가입하기
+              </a>
+              <a
+                href="/src/pages/log-in/log-in.html"
+                class="inline-flex items-center justify-center h-11 px-6 rounded-4xl hover:bg-[#707072] border border-[#D4D4D4] bg-[#FFFFFF] text-base font-medium text-[#111111]"
+              >
+                로그인
+              </a>
+            </div>
+
+            <ul class=" space-y-5 text-2xl font-medium text-[#111]">
+            <li>
+                <a
+                  class="mobileBtn"
+                  <a href="/src/pages/product-list/product-list.html?custom=%7B%22extra.isNew%22%3Atrue%7D&"
+                >
+                  <p>New &amp; Featured</p>
                   <svg
                     width="36"
                     height="36"
@@ -183,15 +224,129 @@ class NikeHeader extends HTMLElement {
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M27 11.25H9M27 18H9M27 24.75H9"
+                      d="M14.4854 10L22.9706 18.4853L14.4854 26.9706"
                       stroke="#111111"
-                      stroke-width="1.5"
+                      stroke-width="2"
                     />
                   </svg>
-                </button>
-              </div>
+                </a>
+              </li>
+              <li>
+                <a
+                  class="mobileBtn"
+                  href="/src/pages/product-list/product-list.html?custom=%7B%22extra.gender%22%3A%22men%22%7D&"
+                >
+                  <p>Men</p>
+                  <svg
+                    width="36"
+                    height="36"
+                    viewBox="0 0 36 36"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M14.4854 10L22.9706 18.4853L14.4854 26.9706"
+                      stroke="#111111"
+                      stroke-width="2"
+                    />
+                  </svg>
+                </a>
+              </li>
+              <li>
+                <a
+                  class="mobileBtn"
+                  href="/src/pages/product-list/product-list.html?custom=%7B%22extra.gender%22%3A%22women%22%7D&"
+                >
+                  <p>Women</p>
+                  <svg
+                    width="36"
+                    height="36"
+                    viewBox="0 0 36 36"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M14.4854 10L22.9706 18.4853L14.4854 26.9706"
+                      stroke="#111111"
+                      stroke-width="2"
+                    />
+                  </svg>
+                </a>
+              </li>
+              <li>
+                <a
+                  class="mobileBtn"
+                  href="/src/pages/product-list/product-list.html?custom=%7B%22extra.gender%22%3A%22kids%22%7D&"
+                >
+                  <p>Kids</p>
+                  <svg
+                    width="36"
+                    height="36"
+                    viewBox="0 0 36 36"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M14.4854 10L22.9706 18.4853L14.4854 26.9706"
+                      stroke="#111111"
+                      stroke-width="2"
+                    />
+                  </svg>
+                </a>
+              </li>
+              <li>
+                <a
+                  class="mobileBtn"
+                  href="/src/pages/product-list/product-list.html?custom=%7B%22extra.isBest%22%3Atrue%7D&"
+                >
+                  <p>Sale</p>
+                  <svg
+                    width="36"
+                    height="36"
+                    viewBox="0 0 36 36"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M14.4854 10L22.9706 18.4853L14.4854 26.9706"
+                      stroke="#111111"
+                      stroke-width="2"
+                    />
+                  </svg>
+                </a>
+              </li>
+            </ul>
+            
+            <div class="mt-12 space-y-6 text-base text-[#111111]">
+              <a href="#" class="flex items-center gap-3">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M11.99 18V16.5M9 9.75C9.00027 9.21339 9.14447 8.68668 9.41756 8.22476C9.69065 7.76284 10.0826 7.38262 10.5527 7.12373C11.0227 6.86485 11.5536 6.73678 12.0899 6.75286C12.6263 6.76895 13.1485 6.9286 13.6022 7.21519C14.0559 7.50177 14.4244 7.9048 14.6693 8.38225C14.9142 8.85971 15.0266 9.39411 14.9947 9.92978C14.9628 10.4654 14.7878 10.9827 14.488 11.4278C14.1882 11.8728 13.7745 12.2293 13.29 12.46C12.51 12.83 12 13.62 12 14.49V15M21.75 12C21.75 17.385 17.385 21.75 12 21.75C6.615 21.75 2.25 17.385 2.25 12C2.25 6.615 6.615 2.25 12 2.25C17.385 2.25 21.75 6.615 21.75 12Z" stroke="#111111" stroke-width="1.5" stroke-miterlimit="10"/>
+                </svg>
+                <span>고객센터</span>
+              </a>
+
+              <a href="/src/pages/cart/cart.html" class="flex items-center gap-3">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8.25 8.25V6C8.25 5.40326 8.48705 4.83097 8.90901 4.40901C9.33097 3.98705 9.90326 3.75 10.5 3.75H13.5C14.0967 3.75 14.669 3.98705 15.091 4.40901C15.5129 4.83097 15.75 5.40326 15.75 6C15.75 6.59674 15.5129 7.16903 15.091 7.59099C14.669 8.01295 14.0967 8.25 13.5 8.25H3.75V16.5C3.75 17.4946 4.14509 18.4484 4.84835 19.1517C5.55161 19.8549 6.50544 20.25 7.5 20.25H16.5C17.4946 20.25 18.4484 19.8549 19.1517 19.1517C19.8549 18.4484 20.25 17.4946 20.25 16.5V8.25H17.5" stroke="#111111" stroke-width="1.5"/>
+                </svg>
+                <span>장바구니</span>
+              </a>
+
+              <a href="#" class="flex items-center gap-3">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 13.5V6.5C12 4.76 13.01 3.75 14.25 3.75H18.64L20.25 9.75M20.25 9.75H3.75M20.25 9.75V20.25H3.75V9.75M3.75 9.75L5.36 3.75H10.5" stroke="#111111" stroke-width="1.5" stroke-miterlimit="10"/>
+                </svg>
+                <span>주문</span>
+              </a>
+
+              <a href="#" class="flex items-center gap-3">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20.25 5.25V16.5C20.25 17.74 19.24 18.75 18 18.75H6C4.76 18.75 3.75 17.74 3.75 16.5V5.25M8.25 18.5V11.25H15.75V18.5M12 11.25V18.5M1.5 5.25H22.5" stroke="#111111" stroke-width="1.5" stroke-miterlimit="10"/>
+                </svg>
+                <span>매장 찾기</span>
+              </a>
             </div>
-          </div>
+          </nav>
         </div>
 
         <!-- 유틸바 -->
@@ -300,13 +455,11 @@ class NikeHeader extends HTMLElement {
                   <ul
                     class="flex justify-center gap-8 text-base text-[#111] font-normal whitespace-nowrap"
                   >
-                    <li>
-                      <a href="/src/pages/product-list/product-list.html?custom=%7B%22extra.isNew%22%3Atrue%7D&">New &amp; Featured</a>
-                    </li>
-                    <li><a href="/src/pages/product-list/product-list.html?custom=%7B%22extra.gender%22%3A%22men%22%7D&">Men</a></li>
-                    <li><a href="/src/pages/product-list/product-list.html?custom=%7B%22extra.gender%22%3A%22women%22%7D&">Women</a></li>
-                    <li><a href="/src/pages/product-list/product-list.html?custom=%7B%22extra.gender%22%3A%22kids%22%7D&">Kids</a></li>
-                    <li><a href="/src/pages/product-list/product-list.html?custom=%7B%22extra.isBest%22%3Atrue%7D&">Sale</a></li>
+                    <li><a class="categoryBtn" href="/src/pages/product-list/product-list.html?custom=%7B%22extra.isNew%22%3Atrue%7D&">New & Featured</a></li>
+                    <li><a class="categoryBtn" href="/src/pages/product-list/product-list.html?custom=%7B%22extra.gender%22%3A%22men%22%7D&">Men</a></li>
+                    <li><a class="categoryBtn" href="/src/pages/product-list/product-list.html?custom=%7B%22extra.gender%22%3A%22women%22%7D&">Women</a></li>
+                    <li><a class="categoryBtn" href="/src/pages/product-list/product-list.html?custom=%7B%22extra.gender%22%3A%22kids%22%7D&">Kids</a></li>
+                    <li><a class="categoryBtn" href="/src/pages/product-list/product-list.html?custom=%7B%22extra.isBest%22%3Atrue%7D&">Sale</a></li>
                   </ul>
                 </nav>
               </div>
@@ -412,7 +565,6 @@ class NikeHeader extends HTMLElement {
       logoutLink.classList.add("hidden");
     });
   }
-
   addSearchEvent() {
     const searchInput = this.querySelector(
       "#search"
@@ -429,6 +581,24 @@ class NikeHeader extends HTMLElement {
         const url = `/src/pages/product-list/product-list.html?keyword=${encodeURIComponent(keyword)}`;
         window.location.href = url;
       }
+    });
+  }
+  addMenuCloseEvent() {
+    const menuToggle = this.querySelector(
+      "#mobile-menu-toggle"
+    ) as HTMLInputElement | null;
+    const overlay = this.querySelector("#menuOverlay") as HTMLElement | null;
+
+    if (!menuToggle || !overlay) return;
+
+    // 검은 배경(overlay) 클릭하면 메뉴 닫기
+    overlay.addEventListener("click", () => {
+      menuToggle.checked = false;
+    });
+
+    // 메뉴 열릴 때 스크롤 막기
+    menuToggle.addEventListener("change", () => {
+      document.body.style.overflow = menuToggle.checked ? "hidden" : "";
     });
   }
 }

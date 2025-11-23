@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/nike.svg" />
     <link rel="stylesheet" href="/src/style.css" />
-    <title>Document</title>
+    <title>상품 상세보기</title>
 
     <script type="module" src="/src/components/header-footer.ts"></script>
     <script type="module" src="/src/components/recommend.ts"></script>
@@ -13,7 +13,7 @@
   <body>
     <nike-header></nike-header>
 
-    <main class="mx-auto pb-24 lg:pt-[130px] lg:max-w-[1920px]">
+    <main class="mx-auto lg:pt-[130px] lg:max-w-[1920px]">
       <div class="lg:grid lg:grid-cols-2 lg:grid-rows-[auto_auto] lg:gap-10">
         <section class="px-4 pt-20 lg:pt-0 order-1 lg:order-2">
           <h1 id="productName" class="text-xl font-normal text-[#111]"></h1>
@@ -25,7 +25,10 @@
               id="productPrice"
               class="text-base font-normal text-[#111]"
             ></strong>
-            <span class="text-[#707072] line-through text-base">249,000원</span>
+            <span
+              id="primePrice"
+              class="text-[#707072] line-through text-base"
+            ></span>
             <span class="text-[#007D48] text-base font-normal">10% 할인</span>
           </div>
         </section>
@@ -72,13 +75,13 @@
           <div class="px-6 space-y-3">
             <button
               id="btnCart"
-              class="w-full h-16 rounded-4xl bg-[#111] text-[#ffffff] text-base font-normal"
+              class="w-full h-16 rounded-4xl hover:bg-[#9E9EA0] bg-[#111] text-[#ffffff] text-base font-normal"
             >
               장바구니
             </button>
             <button
               id="btnWish"
-              class="w-full h-16 rounded-4xl bg-[#ffffff] text-[#111] text-base font-normal ring-1 ring-neutral-300 flex items-center justify-center gap-2"
+              class="w-full h-16 rounded-4xl hover:ring-[#111] bg-[#ffffff] text-[#111] text-base font-normal ring-2 ring-neutral-300 flex items-center justify-center gap-2"
             >
               <span>위시리스트</span>
               <!-- 위시리스트 SVG 자리 -->
@@ -305,16 +308,18 @@
       </div>
     </main>
 
-    <recommend-products></recommend-products>
+    <div class="pb-24 lg:pb-0">
+      <recommend-products></recommend-products>
+    </div>
 
     <!-- 하단 고정 장바구니 -->
     <div
-      class="lg:hidden fixed bottom-0 left-0 w-full bg-white border-t border-neutral-200 z-50"
+      class="lg:hidden fixed bottom-0 left-0 w-full bg-[#FFFFFF] border-t border-neutral-200 z-40"
     >
       <button
         id="btnCartBottom"
         type="button"
-        class="w-full h-14 bg-[#111] text-[#ffffff] text-base font-normal"
+        class="w-full h-14 bg-[#111] hover:bg-[#9E9EA0] text-[#ffffff] text-base font-normal"
       >
         장바구니
       </button>
