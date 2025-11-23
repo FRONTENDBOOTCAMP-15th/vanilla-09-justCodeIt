@@ -61,6 +61,6 @@ body {
   }
 
   .mobileBtn {
-    @apply transition-colors duration-200 hover:text-[#9E9EA0] flex items-center justify-between px-1 -mx-1 py-1;
+    @apply text-2xl transition-colors duration-200 hover:text-[#9E9EA0] flex items-center justify-between px-1 -mx-1 py-1;
   }
 }
