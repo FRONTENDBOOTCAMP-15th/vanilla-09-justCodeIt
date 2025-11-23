@@ -97,7 +97,7 @@ class NikeHeader extends HTMLElement {
                       <path d="M19.962 22.296C18.916 22.9224 17.7192 23.2521 16.5 23.25C15.6134 23.2512 14.7353 23.0772 13.9162 22.7379C13.0971 22.3986 12.3531 21.9008 11.727 21.273C11.0992 20.6469 10.6014 19.9029 10.2621 19.0838C9.92284 18.2647 9.7488 17.3866 9.75001 16.5C9.75001 14.636 10.505 12.949 11.727 11.727C12.3531 11.0992 13.0971 10.6014 13.9162 10.2621C14.7353 9.92284 15.6134 9.7488 16.5 9.75001C18.364 9.75001 20.051 10.505 21.273 11.727C21.9008 12.3531 22.3986 13.0971 22.7379 13.9162C23.0772 14.7353 23.2512 15.6134 23.25 16.5C23.2517 17.6974 22.9338 18.8736 22.329 19.907C21.812 20.789 21.895 21.895 22.618 22.618L26.471 26.471" stroke="#111111" stroke-width="1.5"/>
                     </svg>
                     <input
-                      id="search"
+                      id="search-mobile"
                       type="search"
                       placeholder="검색"
                       class="w-full bg-[#F5F5F5] outline-none placeholder:text-[#707072]"
@@ -488,7 +488,7 @@ class NikeHeader extends HTMLElement {
                     </svg>
 
                     <input
-                      id="search"
+                      id="search-desktop"
                       type="search"
                       placeholder="검색"
                       class="w-full bg-[#F5F5F5] outline-none placeholder:text-[#707072]"
@@ -566,23 +566,28 @@ class NikeHeader extends HTMLElement {
     });
   }
   addSearchEvent() {
-    const searchInput = this.querySelector(
-      "#search"
-    ) as HTMLInputElement | null;
-    if (!searchInput) return;
+    const inputs = document.querySelectorAll(
+      "#search-mobile, #search-desktop"
+    ) as NodeListOf<HTMLInputElement>;
 
-    searchInput.addEventListener("keydown", (e: KeyboardEvent) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
+    if (inputs.length === 0) return;
 
-        const keyword = searchInput.value.trim();
-        if (!keyword) return;
+    inputs.forEach((input) => {
+      input.addEventListener("keydown", (e) => {
+        const event = e as KeyboardEvent;
+        if (event.key === "Enter") {
+          event.preventDefault();
 
-        const url = `/src/pages/product-list/product-list.html?keyword=${encodeURIComponent(keyword)}`;
-        window.location.href = url;
-      }
+          const keyword = input.value.trim();
+          if (!keyword) return;
+
+          const url = `/src/pages/product-list/product-list.html?keyword=${encodeURIComponent(keyword)}`;
+          window.location.href = url;
+        }
+      });
     });
   }
+
   addMenuCloseEvent() {
     const menuToggle = this.querySelector(
       "#mobile-menu-toggle"
