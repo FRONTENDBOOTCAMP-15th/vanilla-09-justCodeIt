@@ -13,8 +13,12 @@ async function showList() {
   const minPrice = params.get("minPrice");
   const maxPrice = params.get("maxPrice");
   const keyword = params.get("keyword");
+  const category = params.get("category");
   let query = `products/?page=1&limit=30`;
   if (custom) query += `&custom=${custom}`;
+  if (category) {
+    query += `&custom={"extra.category": "${category}"}`;
+  }
   if (sort) {
     query += `&sort=${sort}`;
   }
@@ -55,7 +59,7 @@ function render(products: ProductList[]) {
 
   if (products.length === 0) {
     productBody.innerHTML = `
-      <div class="col-span-3 align-center text-center whitespace-nowrap py-10 text-gray-500 text-base md:text-2xl">
+      <div class="col-span-3 align-center text-center justify-center whitespace-nowrap py-10 text-base md:text-2xl">
         죄송합니다. 조건에 맞는 상품을 찾을 수 없습니다.
       </div>
     `;
@@ -73,7 +77,7 @@ function render(products: ProductList[]) {
     return `
           <div class="flex flex-col items-start cursor-pointer" data-id="${product._id}">
             <img
-              class="w-full aspect-square overflow-hidden"
+              class="w-full object-cover aspect-square overflow-hidden"
               src="${product.mainImages?.[0]?.path || "/src/assets/img/default.png"}"
               alt="${product.name}"
             />
@@ -126,6 +130,19 @@ function findCategory(code?: string) {
 
   return null;
 }
+
+const categoryButtons = document.querySelectorAll("[data-category]");
+
+categoryButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const code = btn.getAttribute("data-category");
+    if (!code) return;
+
+    // 현재 페이지 이동
+    const url = `/src/pages/product-list/product-list.html?category=${code}`;
+    window.location.href = url;
+  });
+});
 
 // 정렬 버튼
 const sortBtn = document.getElementById("sort-btn");

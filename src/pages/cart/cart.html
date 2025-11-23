@@ -7,6 +7,7 @@
     <link rel="icon" href="/nike.svg" />
     <link rel="stylesheet" href="/src/assets/css/style.css" />
     <script type="module" src="/src/components/header-footer.ts"></script>
+    <script type="module" src="/src/components/recommend.ts"></script>
     <script type="module" src="./cart.ts"></script>
   </head>
   <body
@@ -16,13 +17,13 @@
     <nike-header></nike-header>
     <!-- 장바구니 -->
     <section
-      class="cart max-w-4xl mx-auto flex-col w-full px-4"
+      class="cart max-w-5xl mx-auto flex-col w-full px-4"
       aria-labelledby="cart-title"
     >
       <div class="lg:flex lg:w-full lg:space-x-5">
         <!-- 장바구니 아이템 -->
         <article
-          class="cart-item border-b border-gray-300 pb-10 lg:w-full bg"
+          class="cart-item border-b border-gray-300 pb-10 lg:w-[800px]"
           data-cart-id="123"
           data-sku="zoom_vomero_5"
           aria-label="상품명"
@@ -30,7 +31,9 @@
           <header
             class="cart__header flex-col text-center sm:items-center justify-center pt-16 lg:pt-10 lg:text-start border-b border-gray-300 lg:border-0"
           >
-            <h1 id="cart-title" class="text-2xl font-medium">장바구니</h1>
+            <h1 id="cart-title" class="text-2xl font-medium lg:text-[30px]">
+              장바구니
+            </h1>
             <p class="cart__summary pb-[30px] lg:hidden">
               <span class="cart__count text-[16px] text-gray-500 font-normal"
                 >0 개의 제품</span
@@ -57,7 +60,9 @@
           class="order py-10 space-y-6 border-b border-gray-300 lg:w-[350px] lg:border-0"
           aria-labelledby="order-title"
         >
-          <h2 id="order-title" class="text-2xl font-medium">주문 내역</h2>
+          <h2 id="order-title" class="text-2xl font-medium lg:text-[30px]">
+            주문 내역
+          </h2>
           <dl class="order__list font-light">
             <div class="order__row flex justify-between">
               <dt>
@@ -92,6 +97,7 @@
           </dl>
           <!-- 주문하기 버튼 -->
           <button
+            id="orderButton"
             class="fixed h-[67px] left-0 bottom-0 bg-black text-white w-full text-[16px] font-normal text-center cursor-pointer lg:static lg:rounded-full lg:h-[54px]"
           >
             주문하기
@@ -101,13 +107,19 @@
 
       <!-- 위시리스트 -->
       <section class="pb-10">
-        <h2 id="wishlist-title" class="text-2xl font-medium pt-10">
+        <h2
+          id="wishlist-title"
+          class="text-2xl font-medium pt-10 lg:text-[30px]"
+        >
           위시리스트
         </h2>
         <!-- 위시리스트-상품목록 -->
-        <div class="wishlist-items"></div>
+        <div
+          class="wishlist-items lg:grid lg:grid-cols-2 lg:gap-4 lg:pb-10 lg:border-b lg:border-gray-300"
+        ></div>
       </section>
     </section>
+    <recommend-products></recommend-products>
 
     <footer-bar></footer-bar>
   </body>
