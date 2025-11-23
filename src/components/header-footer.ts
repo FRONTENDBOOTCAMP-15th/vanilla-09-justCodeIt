@@ -4,6 +4,7 @@ class NikeHeader extends HTMLElement {
     setTimeout(() => this.updateLoginStatus(), 0);
     this.addSearchEvent();
     this.addMenuCloseEvent();
+    this.hideAuthButtons();
 
     const searchToggle = this.querySelector(
       "#search-toggle"
@@ -180,21 +181,15 @@ class NikeHeader extends HTMLElement {
                 for="mobile-menu-toggle"
                 class="w-9 h-9 rounded-full hover:bg-[#E5E5E5] flex items-center justify-center cursor-pointer ml-4"
               >
-                <svg
-                  width="36"
-                  height="36"
-                  viewBox="0 0 36 36"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle cx="18" cy="18" r="14.5" fill="#E5E5E5" />
-                  <path d="M11 11L25 25" stroke="#111111" stroke-width="2" />
-                  <path d="M25 11L11 25" stroke="#111111" stroke-width="2" />
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0.707031 0.707153L16.7065 16.7072" stroke="#111111" stroke-width="2"/>
+                  <path d="M16.707 0.707153L0.707534 16.7072" stroke="#111111" stroke-width="2"/>
                 </svg>
+
               </label>
             </div>
             <!-- 상단: 가입하기 / 로그인 버튼 -->
-            <div class="flex gap-6 mb-11">
+            <div id="authButtons" class="flex gap-6 mb-11">
               <a
                 href="/src/pages/log-in/log-in.html"
                 class="inline-flex items-center justify-center h-11 px-6 rounded-4xl hover:bg-[#9E9EA0] bg-[#111111] text-white text-base font-normal"
@@ -353,7 +348,7 @@ class NikeHeader extends HTMLElement {
         <div class="w-full bg-[#f5f5f5] hidden lg:block">
           <div class="mx-auto max-w-[1920px] px-6">
             <div class="h-[36px] flex items-center justify-end">
-              <ul class="flex items-center text-xs text-[#111]">
+              <ul class="flex items-center text-xs font-normal text-[#111]">
                 <li class="flex items-center">
                   <a href="#" class="hover:underline underline-offset-4"
                     >매장 찾기</a
@@ -605,6 +600,19 @@ class NikeHeader extends HTMLElement {
     menuToggle.addEventListener("change", () => {
       document.body.style.overflow = menuToggle.checked ? "hidden" : "";
     });
+  }
+
+  hideAuthButtons() {
+    const isLogin = !!localStorage.getItem("accessToken");
+    const authButtons = this.querySelector<HTMLElement>("#authButtons");
+
+    if (!authButtons) return;
+
+    if (isLogin) {
+      authButtons.classList.add("hidden");
+    } else {
+      authButtons.classList.remove("hidden");
+    }
   }
 }
 
