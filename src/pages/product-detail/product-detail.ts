@@ -288,9 +288,9 @@ async function productDetail() {
 
             sizeBtnEl
               .querySelectorAll<HTMLButtonElement>(".size-btn")
-              .forEach((b) => b.classList.remove("ring-1", "ring-[#111]"));
+              .forEach((b) => b.classList.remove("ring-2", "ring-[#111]"));
 
-            btn.classList.add("ring-1", "ring-[#111]");
+            btn.classList.add("ring-2", "ring-[#111]");
           });
 
           sizeBtnEl.appendChild(btn);
