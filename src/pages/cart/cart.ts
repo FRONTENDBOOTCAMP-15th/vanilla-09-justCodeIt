@@ -597,7 +597,7 @@ function renderWishlistOnCart(items: WishlistItem[]) {
               data-product-id="${p._id}"
               data-size="${sizeText || ""}"
             >
-              <p class="translate-y-px cursor-pointer">장바구니에 추가</p>
+              <p class="translate-y-px cursor-pointer whitespace-nowrap">장바구니에 추가</p>
             </button>
           </div>
         </div>
