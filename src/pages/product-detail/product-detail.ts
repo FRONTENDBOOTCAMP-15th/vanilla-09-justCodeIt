@@ -140,6 +140,7 @@ async function productDetail() {
       document.querySelector<HTMLButtonElement>("#btnCartBottom");
     const wishBtn = document.querySelector<HTMLButtonElement>("#btnWish");
     const priceEl = document.querySelector<HTMLElement>("#productPrice");
+    const primePriceEl = document.querySelector<HTMLElement>("#primePrice");
     const contentEl = document.querySelector<HTMLElement>("#productContent");
     const colorEl = document.querySelector<HTMLElement>("#currentColor");
     const styleNoEl = document.querySelector<HTMLElement>("#styleNo");
@@ -153,7 +154,8 @@ async function productDetail() {
       !contentEl ||
       !colorEl ||
       !styleNoEl ||
-      !categoryEl
+      !categoryEl ||
+      !primePriceEl
     ) {
       console.error("요소를 찾지 못했습니다.");
       return;
@@ -249,6 +251,7 @@ async function productDetail() {
     nameEl.textContent = item.name;
 
     priceEl.textContent = item.price.toLocaleString() + "원";
+    primePriceEl.textContent = item.extra.primeCost.toLocaleString() + "원";
     contentEl.textContent = item.content.toLocaleString();
     if (item.extra.color && item.extra.color.trim() !== "") {
       colorEl.textContent = `현재 컬러: ${item.extra.color}`;
@@ -285,9 +288,9 @@ async function productDetail() {
 
             sizeBtnEl
               .querySelectorAll<HTMLButtonElement>(".size-btn")
-              .forEach((b) => b.classList.remove("ring-1", "ring-[#111]"));
+              .forEach((b) => b.classList.remove("ring-2", "ring-[#111]"));
 
-            btn.classList.add("ring-1", "ring-[#111]");
+            btn.classList.add("ring-2", "ring-[#111]");
           });
 
           sizeBtnEl.appendChild(btn);
