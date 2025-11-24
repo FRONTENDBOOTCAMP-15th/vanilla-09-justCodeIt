@@ -129,6 +129,20 @@
 
 ## 화면 흐름 소개
 
+<p align="center">
+  <img src="./src/assets/img/IMG_0429.png" width="200">
+  <img src="./src/assets/img/IMG_0430.png" width="200">
+  <img src="./src/assets/img/IMG_0431.png" width="200">
+  <img src="./src/assets/img/IMG_0432.png" width="200">
+  <img src="./src/assets/img/IMG_0433.png" width="200">
+  <img src="./src/assets/img/IMG_0434.png" width="200">
+  <img src="./src/assets/img/IMG_0435.png" width="200">
+  <img src="./src/assets/img/IMG_0436.png" width="200">
+  <img src="./src/assets/img/IMG_0437.png" width="200">
+  <img src="./src/assets/img/IMG_0438.png" width="200">
+  <img src="./src/assets/img/IMG_0439.png" width="200">
+</p>
+
 <br/>
 
 ## 회고 및 느낀점
