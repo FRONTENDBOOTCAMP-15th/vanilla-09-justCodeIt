@@ -128,8 +128,61 @@
 ```
 
 ## 화면 흐름 소개
+<table style="width:100%; border-collapse:collapse; text-align:center;">
+  <tr>
+    <td style="padding:16px;">
+      <img height="400" src="https://github.com/user-attachments/assets/35190507-bf21-48ce-aebf-c7ddc7dcc854" alt="IMG_0429"/>
+      <div style="margin-top:6px; color:blue;">홈 화면</div>
+    </td>
+    <td style="padding:16px;">
+      <img height="400" src="https://github.com/user-attachments/assets/293e35d3-ae4a-4527-acc9-b54a6a72d324" alt="IMG_0430"/>
+      <div style="margin-top:6px; color:gray;">로그인 전 사이드바</div>
+    </td>
+    <td style="padding:16px;">
+      <img height="400" src="https://github.com/user-attachments/assets/ceadc1a3-1ab5-4681-9a50-792759bde773" alt="IMG_0431"/>
+      <div style="margin-top:6px; color:gray;">로그인</div>
+    </td>
+         <td style="padding:16px;">
+      <img height="400" src="https://github.com/user-attachments/assets/7f6dd001-61e2-4544-80ee-7defad76e717" alt="IMG_0432"/>
+      <div style="margin-top:6px; color:gray;">로그인 후 사이드바</div>
+    </td>
+    
+  </tr>
 
-<br/>
+  <tr>
+     <td style="padding:16px;">
+      <img height="400" src="https://github.com/user-attachments/assets/306f24dc-701c-4fd7-a07c-bd94d9e11724" alt="IMG_0433"/>
+      <div style="margin-top:6px; color:gray;">상품 목록</div>
+    </td>
+    <td style="padding:16px;">
+      <img height="400" src="https://github.com/user-attachments/assets/21dba9c5-cf79-442b-a6a5-fc5a43107bf6" alt="IMG_0434"/>
+      <div style="margin-top:6px; color:gray;">상품 상세</div>
+    </td>
+    <td style="padding:16px;">
+      <img height="400" src="https://github.com/user-attachments/assets/2dd1f569-c929-4601-a48f-4da4e3f2616b" alt="IMG_0435"/>
+      <div style="margin-top:6px; color:gray;">추천 제품</div>
+    </td>
+    <td style="padding:16px;">
+      <img height="400" src="https://github.com/user-attachments/assets/6f394ae6-0e5d-4a1c-bad0-7161e5bd9249" alt="IMG_0436"/>
+      <div style="margin-top:6px; color:gray;">위시리스트</div>
+    </td>
+    
+  </tr>
+  <tr>
+     <td style="padding:16px;">
+      <img height="400" src="https://github.com/user-attachments/assets/f6191c3b-03e5-49ce-a8e7-4b1e8fab8da3" alt="IMG_0437"/>
+      <div style="margin-top:6px; color:gray;">장바구니</div>
+    </td>
+      <td style="padding:16px;">
+      <img height="400" src="https://github.com/user-attachments/assets/fe113e86-ed7e-4baf-ab11-e6933ea86fae" alt="IMG_0438"/>
+      <div style="margin-top:6px; color:gray;">검색 기능</div>
+    </td>
+    <td style="padding:16px;">
+      <img height="400" src="https://github.com/user-attachments/assets/5205fa14-c2a7-4bb9-849e-329bbead3338" alt="IMG_0439"/>
+      <div style="margin-top:6px; color:gray;">검색 결과</div>
+    </td>
+  </tr>
+</table>
 
 ## 회고 및 느낀점
 
