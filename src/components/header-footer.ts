@@ -204,11 +204,11 @@ class NikeHeader extends HTMLElement {
               </a>
             </div>
 
-            <ul class=" space-y-5 text-2xl font-medium text-[#111]">
+            <ul class="space-y-5 text-2xl font-medium text-[#111]">
             <li>
                 <a
-                  class="mobileBtn"
-                  <a href="/src/pages/product-list/product-list.html?custom=%7B%22extra.isNew%22%3Atrue%7D&"
+                  class="mobileBtn flex items-center justify-between"
+                  href="/src/pages/product-list/product-list.html?custom=%7B%22extra.isNew%22%3Atrue%7D&"
                 >
                   <p>New &amp; Featured</p>
                   <svg
@@ -228,7 +228,7 @@ class NikeHeader extends HTMLElement {
               </li>
               <li>
                 <a
-                  class="mobileBtn"
+                  class="mobileBtn flex items-center justify-between"
                   href="/src/pages/product-list/product-list.html?custom=%7B%22extra.gender%22%3A%22men%22%7D&"
                 >
                   <p>Men</p>
@@ -249,7 +249,7 @@ class NikeHeader extends HTMLElement {
               </li>
               <li>
                 <a
-                  class="mobileBtn"
+                  class="mobileBtn flex items-center justify-between"
                   href="/src/pages/product-list/product-list.html?custom=%7B%22extra.gender%22%3A%22women%22%7D&"
                 >
                   <p>Women</p>
@@ -270,7 +270,7 @@ class NikeHeader extends HTMLElement {
               </li>
               <li>
                 <a
-                  class="mobileBtn"
+                  class="mobileBtn flex items-center justify-between"
                   href="/src/pages/product-list/product-list.html?custom=%7B%22extra.gender%22%3A%22kids%22%7D&"
                 >
                   <p>Kids</p>
@@ -291,7 +291,7 @@ class NikeHeader extends HTMLElement {
               </li>
               <li>
                 <a
-                  class="mobileBtn"
+                  class="mobileBtn flex items-center justify-between"
                   href="/src/pages/product-list/product-list.html?custom=%7B%22extra.isBest%22%3Atrue%7D&"
                 >
                   <p>Sale</p>
